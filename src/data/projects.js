@@ -3,6 +3,8 @@ import gallery02 from '../assets/images/gallery02.jpg'
 import gallery03 from '../assets/images/gallery03.jpg'
 import gallery04 from '../assets/images/gallery04.jpg'
 
+const base = import.meta.env.BASE_URL
+
 export const projects = [
   {
     slug: 'project-a',
@@ -24,28 +26,28 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
     sections: [
       {
         images: [
-          '/images/works/project-a-1-1.png',
-          '/images/works/project-a-1-2.png',
-          '/images/works/project-a-1-3.png',
-          '/images/works/project-a-1-4.png',
+          `${base}images/works/project-a-1-1.png`,
+          `${base}images/works/project-a-1-2.png`,
+          `${base}images/works/project-a-1-3.png`,
+          `${base}images/works/project-a-1-4.png`,
         ],
         caption: 'ポートフォリオ閲覧専用のワンクリックログイン機能を備えた認証画面では、通常ログインに加えて課金ユーザー向けの別ルートも用意しています。トップページではカテゴリー一覧の表示と同時にジェム購入プランの選択モーダル・クレジットカード入力フォームをオーバーレイ表示し、マイページではレベル・累計XP・ジェム数と過去1年の学習カレンダーで進捗を一望できます。',
       },
       {
         images: [
-          '/images/works/project-a-2-1.png',
-          '/images/works/project-a-2-2.png',
-          '/images/works/project-a-2-3.png',
-          '/images/works/project-a-2-4.png',
+          `${base}images/works/project-a-2-1.png`,
+          `${base}images/works/project-a-2-2.png`,
+          `${base}images/works/project-a-2-3.png`,
+          `${base}images/works/project-a-2-4.png`,
         ],
         caption: '問題選択画面では挑戦モード（新問・同一・間違い）や出題対象（未出題・ミス・ヒット・コンボ）、問題数、正答率による絞り込みを細かく設定できます。自動再生モードを有効にすると解答後に設定秒数で次の問題へ自動遷移し、解説を読みながらのながら学習をサポート。連続学習が完了すると自動再生完了画面に遷移し、今回の解答履歴や過去の履歴一覧へのナビゲーションが表示されます。',
       },
       {
         images: [
-          '/images/works/project-a-3-1.png',
-          '/images/works/project-a-3-2.png',
-          '/images/works/project-a-3-3.png',
-          '/images/works/project-a-3-4.png',
+          `${base}images/works/project-a-3-1.png`,
+          `${base}images/works/project-a-3-2.png`,
+          `${base}images/works/project-a-3-3.png`,
+          `${base}images/works/project-a-3-4.png`,
         ],
         caption: '解答履歴一覧ページでは、カテゴリーごとに全問題の習熟ステータス（未出題・ミス・ヒット・コンボ）をカラーバーで可視化しつつ、過去の各セッションを解答日時・問題数・正解数・正答率とともに一覧表示します。詳細ボタンからはセッション内の個別問題ごとの正誤確認もでき、学習の振り返りを詳細に行える設計です。',
       },
@@ -54,7 +56,7 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
   {
     slug: 'project-b',
     title: 'Coming Soon',
-    thumbnail: '/images/works/coming-soon.png',
+    thumbnail: `${base}images/works/coming-soon.png`,
     description: '',
     detail: '',
     tech: [],
@@ -65,7 +67,7 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
   {
     slug: 'project-c',
     title: 'Coming Soon',
-    thumbnail: '/images/works/coming-soon.png',
+    thumbnail: `${base}images/works/coming-soon.png`,
     description: '',
     detail: '',
     tech: [],
@@ -76,7 +78,7 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
   {
     slug: 'project-d',
     title: 'Coming Soon',
-    thumbnail: '/images/works/coming-soon.png',
+    thumbnail: `${base}images/works/coming-soon.png`,
     description: '',
     detail: '',
     tech: [],
