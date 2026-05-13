@@ -66,12 +66,18 @@ export default function WorkDetail() {
           </div>
         )}
         <div className="gallery-links" style={{ justifyContent: 'flex-start', width: 'auto', margin: '32px 0 48px' }}>
-          <a href={project.productUrl} target="_blank" rel="noopener noreferrer" className="btn btn-product">
-            プロダクトを見る
-          </a>
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-github">
-            GitHub
-          </a>
+          {project.inProgress ? (
+            <span className="btn btn-product btn-disabled">🚧 開発中</span>
+          ) : project.productUrl ? (
+            <a href={project.productUrl} target="_blank" rel="noopener noreferrer" className="btn btn-product">
+              プロダクトを見る
+            </a>
+          ) : null}
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-github">
+              GitHub
+            </a>
+          )}
         </div>
 
         {project.sections?.length > 0 && (

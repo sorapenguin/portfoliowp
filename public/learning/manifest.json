@@ -1,0 +1,34 @@
+[
+  {
+    "id": "aws-dva",
+    "provider": "AWS",
+    "exam": "Developer Associate",
+    "examCode": "DVA-C02",
+    "description": "サーバーレス・DynamoDB・コンテナ・CI/CD・非同期処理・セキュリティをハンズオンで実践。アプリ開発者の視点でAWSの設計判断と実装力を体系的に習得",
+    "status": "completed"
+  },
+  {
+    "id": "aws-saa",
+    "provider": "AWS",
+    "exam": "Solutions Architect Associate",
+    "examCode": "SAA-C03",
+    "description": "ネットワーク・セキュリティ・コンピュート・ストレージ・サーバーレス・IaCを幅広くハンズオンで実践。AWSの定番アーキテクチャパターンを設計する基礎力を習得",
+    "status": "completed"
+  },
+  {
+    "id": "aws-sap",
+    "provider": "AWS",
+    "exam": "Solutions Architect Professional",
+    "examCode": "SAP-C02",
+    "description": "エンタープライズネットワーク・多層セキュリティ・コンテナ基盤・DB設計・サーバーレスの5領域を体系的にハンズオンで実践。AWSプロフェッショナルレベルの設計力を習得",
+    "status": "completed"
+  },
+  {
+    "id": "aws-soa",
+    "provider": "AWS",
+    "exam": "SysOps Administrator Associate",
+    "examCode": "SOA-C02",
+    "description": "監視・可観測性・高可用性設計・デプロイ自動化・セキュリティコンプライアンス・ネットワーク管理をハンズオンで実践。AWSシステム管理者として本番環境を守る運用設計力を習得",
+    "status": "completed"
+  }
+]

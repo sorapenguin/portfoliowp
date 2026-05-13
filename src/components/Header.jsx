@@ -23,6 +23,7 @@ export default function Header() {
         <nav className="header-right">
           <ul>
             <li><a href="#about" onClick={(e) => scrollTo(e, 'about')}>自己紹介</a></li>
+            <li><a href="#skills" onClick={(e) => scrollTo(e, 'skills')}>スキル</a></li>
             <li><a href="#works" onClick={(e) => scrollTo(e, 'works')}>制作物</a></li>
           </ul>
         </nav>
