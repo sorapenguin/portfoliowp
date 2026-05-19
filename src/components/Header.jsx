@@ -25,6 +25,8 @@ export default function Header() {
             <li><a href="#about" onClick={(e) => scrollTo(e, 'about')}>自己紹介</a></li>
             <li><a href="#skills" onClick={(e) => scrollTo(e, 'skills')}>スキル</a></li>
             <li><a href="#works" onClick={(e) => scrollTo(e, 'works')}>制作物</a></li>
+            <li><a href="#learning" onClick={(e) => scrollTo(e, 'learning')}>学習履歴</a></li>
+            <li><a href="#certifications" onClick={(e) => scrollTo(e, 'certifications')}>資格</a></li>
           </ul>
         </nav>
       </div>

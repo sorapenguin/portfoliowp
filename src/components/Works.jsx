@@ -9,7 +9,7 @@ export default function Works() {
         <h3 className="gallery-title">ポートフォリオ一覧</h3>
 
         <div className="gallery">
-          {projects.map((project) => (
+          {projects.filter((project) => !project.hidden).map((project) => (
             <div className="gallery-item" key={project.slug}>
               <Link to={`/works/${project.slug}`} className="gallery-thumb-link">
                 {project.inProgress && (

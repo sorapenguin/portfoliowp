@@ -12,20 +12,7 @@ const skillCategories = [
   {
     label: 'AWS / クラウド',
     accent: '#E8750A',
-    skills: [
-      'EC2 / Auto Scaling',
-      'Lambda',
-      'ECS (Fargate)',
-      'EKS',
-      'S3 / CloudFront',
-      'RDS / Aurora',
-      'DynamoDB',
-      'API Gateway',
-      'SQS / SNS / Kinesis',
-      'CloudFormation',
-      'CloudWatch / X-Ray',
-      'IAM / KMS / WAF',
-    ],
+    skills: ['AWS'],
   },
   {
     label: 'フロントエンド',

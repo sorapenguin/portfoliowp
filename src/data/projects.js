@@ -1,7 +1,4 @@
 import gallery01 from '../assets/images/gallery01.jpg'
-import gallery02 from '../assets/images/gallery02.jpg'
-import gallery03 from '../assets/images/gallery03.jpg'
-import gallery04 from '../assets/images/gallery04.jpg'
 
 const base = import.meta.env.BASE_URL
 
@@ -21,8 +18,8 @@ PythonやAWS・Dockerなど実務直結のIT知識を、ゲーム的な仕掛け
 
 UXでは「学習のハードルを下げながら継続意欲を高める」を軸に、トースト通知・プログレスバー・スタミナ回復カウントダウンなど即時フィードバックを丁寧に実装。デモアカウントで課金フローも体験できます。`,
     tech: ['Python', 'Django', 'PostgreSQL', 'Docker', 'nginx', 'VPS', "Let's Encrypt"],
-    productUrl: '#',
-    githubUrl: '#',
+    productUrl: 'https://quiz.sorapenguin.dev/',
+    githubUrl: null,
     sections: [
       {
         images: [
@@ -66,8 +63,8 @@ PHPとSpring Bootを組み合わせた構成で、実際のECサービスを意�
 
 ユーザー向け機能として、キーワード・カテゴリ・価格帯・在庫状態での複合絞り込み検索とページネーションを備えた商品一覧、お気に入り登録、クーポンコードの割引適用、カートの数量変更・削除・購入フロー、注文履歴閲覧を実装しています。管理者側はChart.jsを用いた月別売上グラフ・人気商品ドーナツチャートのダッシュボード、商品CRUD（カテゴリ管理・公開フラグ切り替え含む）、注文ステータス管理、クーポン発行・一覧の4機能を備え、実際の運用シーンを想定した管理画面設計を意識しました。`,
     tech: ['PHP', 'Spring Boot', 'Java', 'PostgreSQL', 'Docker', 'nginx', 'JWT', 'JavaScript', 'Chart.js'],
-    productUrl: '#',
-    githubUrl: '#',
+    productUrl: 'https://ec.sorapenguin.dev/login.php',
+    githubUrl: null,
     sections: [
       {
         images: [
@@ -109,41 +106,154 @@ PHPとSpring Bootを組み合わせた構成で、実際のECサービスを意�
   },
   {
     slug: 'project-c',
-    title: '放置バトルゲーム (Android)',
+    title: '放置バトルゲーム',
     thumbnail: `${base}images/works/project-c/project-c-1-1.png`,
-    description: '武器の自動生成・合成による指数的な攻撃力上昇、コイン・ジェムの二重通貨、オフライン報酬計算など、インクリメンタルゲームの核心メカニクスをKotlin + MVVMで実装したAndroidアプリです。',
-    detail: `放置型インクリメンタルゲーム Android アプリ
+    description: 'Kotlin + Ktor のフルスタック構成で開発した放置型RPGゲームアプリです。MVVM × StateFlow × Coroutines による状態管理と、Room・DataStore・クラウドセーブの3層永続化を組み合わせており、オフライン時間の報酬計算をサーバー時刻ベースで行うチート耐性設計など、プロダクションを意識した設計を実装しています。',
+    detail: `IdleGame — 放置型RPGゲーム（Android × Ktor API）
 
-武器の自動生成・合成システムを中心に、コインとジェムの二重通貨でゲームループを構成した放置バトルゲームです。毎秒生成される武器は同レベルのものが2つ揃うと自動で合成・上位進化し、指数関数的に増大する攻撃力でステージを自動攻略していく仕組みです。
+Kotlin × Ktor のフルスタック構成で開発した放置型クリッカーRPGです。武器を自動生成・合成して攻撃力を高め、ステージを進めていくゲームとして設計しました。広告・クラウドセーブ・オフライン報酬・プレステージ（周回システム）など、リリースを見据えたゲームの標準的な機能を実際に組み込み、設計水準を意識しながら実装しています。
 
-アーキテクチャはSingle ActivityにNavigation ComponentとBottomNavigationViewを組み合わせたFragment構成を採用。ゲームロジックをMainViewModelに集約し、StateFlowでUIへリアクティブに状態を流すMVVMパターンで設計しています。永続化はSharedPreferencesを使い、アプリ終了時の経過時間から最大8時間分のオフライン報酬を再計算して復元します。
+Android側はMVVM + AndroidViewModel + StateFlowで状態管理を行い、1秒ごとの武器自動生成・自動合成・60秒ごとのバトル判定をCoroutinesのtimerで制御しています。ローカル保存はRoom + DataStoreの2層構成とし、ネットワーク通信はRetrofit + OkHttpで実装。クラウドセーブは5分インターバルの非同期保存に制限してサーバー負荷を抑えています。バックエンドはKtor 3.1 + Exposed ORM + PostgreSQL + HikariCPの構成で、Docker Composeでコンテナ化。Traefikをリバースプロキシとして配置し、レート制限とヘルスチェックも実装しています。
 
-ゲームシステムとして、武器スロット管理（5〜50スロット、コインで拡張）・コイン投資型の攻撃力強化・ジェム消費による星生成確率の段階解除・10秒タップミニゲームなど複数の強化ルートを実装し、長期的な成長曲線を意識したバランス設計にしています。`,
-    tech: ['Kotlin', 'Android', 'MVVM', 'StateFlow', 'Coroutines', 'Navigation Component', 'ViewBinding', 'Material Design 3', 'SharedPreferences', 'RecyclerView'],
+機能面では8つのナビゲーション画面（メイン・武器管理・ショップ・星生成強化・プレステージ・実績・レシピ・設定）を実装。武器は星レベルに応じて攻撃力が2.2倍ずつ指数的に増加し、削除時に素材（鉄・銀・金の欠片）を生成してレシピクラフトに使用するシステムを持ちます。Prestige（永久アップグレード）は攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率の4系統を用意し、周回プレイの動機付けとしています。
+
+設計面で特に意識したのはオフライン報酬のチート耐性設計です。クライアントの端末時計ではなく /idlegame/time で取得したサーバー時刻を基準にオフライン経過時間を計算することで、端末時計の操作による不正取得を防いでいます。JWTトークンはEncryptedSharedPreferences（AES256-GCM）に暗号化して保存し、パスワードはBCryptハッシュで管理。クラウドセーブの登録はユーザー名の入力を不要とし（サーバー側でランダム生成）、パスワードのみでセーブデータを紐づける設計にすることでUXとセキュリティを両立しています。`,
+    tech: ['Kotlin', 'Android MVVM', 'AndroidViewModel', 'StateFlow', 'Coroutines', 'Retrofit', 'OkHttp', 'Room', 'DataStore', 'Navigation Component', 'EncryptedSharedPreferences', 'AdMob', 'Ktor', 'Exposed ORM', 'PostgreSQL', 'HikariCP', 'BCrypt', 'JWT', 'Docker'],
+    productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/idlegame-v1.0.0',
+    githubUrl: null,
+    sections: [
+      {
+        images: [
+          `${base}images/works/project-c/project-c-1-1.png`,
+          `${base}images/works/project-c/project-c-1-2.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'ホーム画面ではステージ番号・コイン・ジェムの現在値、デイリーミッション（武器合成・プレイ時間・広告視聴）の進捗と冒険ログをリアルタイム表示。武器画面では各武器の星レベル・攻撃力を確認しながら手動合成・自動合成（3分間無料）・ジェム消費によるジェム合成が可能で、スロットが満杯になると合成を促すメッセージが表示されます。',
+      },
+      {
+        images: [
+          `${base}images/works/project-c/project-c-2-1.png`,
+          `${base}images/works/project-c/project-c-2-2.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: '強化画面では武器スロット拡張（コイン消費・指数的コスト増加）、コイン消費による攻撃力ボーナスの段階強化、ジェム消費の★2/★3生成確率解除（★3はLv.50解放）、輝石によるプレミアム強化を管理。ショップ画面では広告視聴（ジェム+10・1日5回上限）、10分インターバルのコイン獲得広告、15分インターバルの攻撃力2倍ブーストを利用できます。',
+      },
+      {
+        images: [
+          `${base}images/works/project-c/project-c-3-1.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: '設定画面ではSEエフェクト・振動のON/OFFを切り替えられるほか、アカウントセクションからクラウドセーブのログイン・登録が可能です（ゲストモード時はデータを端末のみで管理）。記録セクションから実績一覧と累計撃破数・最大到達ステージ・総獲得コインなどの統計を確認できます。',
+      },
+    ],
+  },
+  {
+    slug: 'project-d',
+    title: 'ノノグラム',
+    thumbnail: `${base}images/works/project-d/project-d-1-1.png`,
+    description: 'Jetpack Compose + Hilt + Room で構築した Android ノノグラム（お絵かきロジック）パズルゲームです。Python 製の制約充足ソルバーによるパズル自動生成・難易度評価パイプラインと、Ktor + PostgreSQL バックエンドを組み合わせ、スタミナ回復・広告報酬・ヒント購入といったゲーム内経済システムも実装しています。',
+    detail: `ノノグラムパズル Android アプリ
+
+数字ヒントを手がかりにマス目を塗りつぶすロジックパズル「ノノグラム」をスマートフォン向けに実装したアプリです。パズルのクオリティを担保するため、ゲームロジックを Python で先行開発し、論理的に一意解が導けるパズルだけを選別してバックエンドに投入する自動生成パイプラインを構築しました。「推測なしで解ける」という制約を設計の起点に置いたことが特徴です。
+
+アプリアーキテクチャは MVVM + Repository パターンを採用し、Hilt で依存性を一元管理しています。UI は Jetpack Compose (Material3) で構築し、状態管理には StateFlow を使用。ローカルデータは Room（パズル進捗）と DataStore Preferences（スタミナ・ヒント数・スキップチケット）で管理し、バックエンド（Ktor + PostgreSQL）とは Retrofit で同期します。WorkManager によるバックグラウンド処理でパズルのプリフェッチとスタミナ回復通知を実装し、起動時のラグを最小化しています。
+
+パズル生成・難易度評価は Python で独立したパイプラインとして構築しました。制約充足ソルバー（バックトラックなし・制約伝播のみ）が論理的一意解を検証し、充填率・連結性・ヒント長の上限といった複数フィルタを通過したものだけを採用。難易度スコアは「ソルバーの反復回数」と「最難パスのボトルネック」を主軸とした 1〜5 段階評価で定量化し、MINI（5×5）・NORMAL（10×10）・LARGE（15×15）の 3 カテゴリに分類して bulk API で一括登録します。
+
+ゲーム内経済は AdMob 報酬動画広告と連動しており、広告視聴でスタミナ・ヒント・スキップチケットを補充できる設計になっています。スタミナは 10 分ごとに 1 回復（最大 8）、ヒントは初期 10 枚・広告視聴で +10 枚、スキップチケットは初期 3 枚・1 日 3 回広告で補充可能という具体的な数値で経済バランスを調整しました。ポートフォリオ配布用に広告なしビルドバリアント（portfolio フレーバー）も用意し、デモ配布と製品配布を Gradle ビルドで切り替えています。インフラは Docker Compose + Traefik + Let's Encrypt で本番構成を組み、Prometheus + Grafana でメトリクス監視も整備しています。`,
+    tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'Exposed ORM', 'PostgreSQL', 'JWT', 'Docker', 'Traefik', "Let's Encrypt", 'Python'],
     productUrl: null,
     githubUrl: null,
     inProgress: true,
     sections: [
       {
         images: [
-          `${base}images/works/project-c/project-c-1-1.png`,
+          `${base}images/works/project-d/project-d-1-1.png`,
           `${base}images/works/coming-soon.png`,
           `${base}images/works/coming-soon.png`,
           `${base}images/works/coming-soon.png`,
         ],
-        caption: 'ホーム画面ではステージ番号・コイン・ジェムの現在値と最新20件の冒険ログを表示。武器タブでは自動生成された武器カードがグリッドに並び、同レベルの武器が揃うと自動合成で上位進化します。強化タブではコイン消費の攻撃力強化とジェム消費の星生成確率解除をそれぞれ管理でき、タップミニゲームで追加ジェムを獲得することもできます。',
+        caption: 'パズル一覧画面では Mini 5×5 / Normal 10×10 / Large 15×15 のカテゴリタブでステージを切り替えられ、右上にクリア済み問題数を表示。スタミナ（最大8・7分で1回復）が不足しているステージにはロックと「⚡解除」ボタンが表示され、スタミナ消費と解放の動線が一目でわかる設計です。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'ゲームプレイ画面では上部に列ヒント数字・左端に行ヒント数字が表示され、中央のグリッドをタップで「塗り」、長押しで「×マーク（除外）」と操作を切り替えられます。右上のヒントボタンで解の一部を開示でき、消費枚数はリアルタイムで残量表示されます。解答完了時にはアニメーションとともにクリア確認が行われ、進捗がローカル DB とバックエンドに保存されます。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'ショップ画面では「ヒント補充」「スタミナ回復」「スキップチケット取得」それぞれのボタンから AdMob 報酬動画広告を再生でき、視聴完了後に即時付与されます。1 日あたりの視聴上限や 10 分クールダウンもリアルタイムでカウントダウン表示され、過剰消費を防ぐゲームバランス上の制約が UI に反映されています。',
       },
     ],
   },
   {
-    slug: 'project-d',
-    title: 'VPS 本番環境構成',
+    slug: 'project-e',
+    hidden: true,
+    title: 'このポートフォリオ',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'VPS (Linux) 上で Docker Compose を使い nginx・Let\'s Encrypt・PostgreSQL を本番構成で運用するための設定をまとめたリポジトリです。セキュリティや運用を意識したインフラ設計を公開しています。',
+    description: 'React + Vite で構築したポートフォリオサイト。GitHub Actions による自動デプロイ、OGP 設定、ESLint / Prettier によるコード品質管理を実装しています。',
+    detail: `ポートフォリオサイト
+
+React + Vite で構築した SPA ポートフォリオです。GitHub Pages にホスティングし、master ブランチへの push で GitHub Actions が自動ビルド・デプロイする CI/CD パイプラインを構築しています。
+
+OGP（og:image / og:title / og:description）と Twitter Card を設定し、SNS やメッセージアプリでのリンク共有時にサムネイルが表示されるよう対応しています。
+
+ESLint（react-hooks / react-refresh）と Prettier を導入し、コードスタイルの一貫性を担保しています。`,
+    tech: ['React', 'Vite', 'JavaScript', 'GitHub Actions', 'GitHub Pages'],
+    productUrl: 'https://sorapenguin.github.io/portfoliowp/',
+    githubUrl: null,
+    sections: [],
+  },
+  {
+    slug: 'project-f',
+    hidden: true,
+    title: '準備中',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: '現在準備中です。',
     detail: '',
-    tech: ['Docker', 'Docker Compose', 'nginx', "Let's Encrypt", 'PostgreSQL', 'Linux', 'Bash'],
+    tech: [],
     productUrl: null,
-    githubUrl: '#',
+    githubUrl: null,
+    inProgress: true,
+    sections: [],
+  },
+  {
+    slug: 'project-g',
+    hidden: true,
+    title: '準備中',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: '現在準備中です。',
+    detail: '',
+    tech: [],
+    productUrl: null,
+    githubUrl: null,
+    inProgress: true,
+    sections: [],
+  },
+  {
+    slug: 'project-h',
+    hidden: true,
+    title: '準備中',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: '現在準備中です。',
+    detail: '',
+    tech: [],
+    productUrl: null,
+    githubUrl: null,
+    inProgress: true,
     sections: [],
   },
 ]

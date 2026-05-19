@@ -36,9 +36,7 @@ export default function About() {
             <h3 className="card-title">関連リンク</h3>
             <h3 className="card-subtitle">Links</h3>
             <ul className="card-list">
-              <li><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">Comming soon...</a></li>
-              <li><a href="mailto:example@example.com" target="_blank" rel="noopener noreferrer">Comming soon...</a></li>
+              <li><a href="https://github.com/sorapenguin" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
           </div>
         </div>
