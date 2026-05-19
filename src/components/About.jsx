@@ -9,12 +9,12 @@ export default function About() {
         </h2>
 
         <p className="example">
-          本サイトは、学習の成果として制作したアプリ・Webサービスをまとめたポートフォリオです。
-          現在はWebアプリ開発を中心に、バックエンド（Django / Spring Boot）からインフラ（Docker / VPS / Nginx / PostgreSQL）まで幅広く学習し、
-          「実際に動くものを作る」ことを意識して開発に取り組んでいます。
+          バックエンド（Django・Spring Boot・Ktor）・Androidアプリ（Kotlin・Jetpack Compose・MVVM）・インフラ（Docker・VPS・Traefik・PostgreSQL）まで、設計から本番デプロイまでを一貫して手がけています。
+          JWT認証・BCryptハッシュ・サーバー時刻ベースのチート耐性設計など、運用を意識したセキュリティ設計を各プロダクトで実践してきました。
           <br />
           <br />
-          制作物では、ユーザー視点での使いやすさや、保守しやすい構成・設計を意識しながら改善を重ねています。
+          「動くコードを書く」だけでなく、なぜその技術スタックを選ぶのか・どう責務を分離するのかを意識した設計を重視しています。
+          制作物はいずれも実際に公開・配布しており、要件定義からリリースまでを一人で担当しています。
         </p>
 
         <div className="about-image">
@@ -36,7 +36,8 @@ export default function About() {
             <h3 className="card-title">関連リンク</h3>
             <h3 className="card-subtitle">Links</h3>
             <ul className="card-list">
-              <li><a href="https://github.com/sorapenguin" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://github.com/sorapenguin" target="_blank" rel="noopener noreferrer">GitHub（ホーム）</a></li>
+              <li><a href="https://github.com/sorapenguin/portfolio-public" target="_blank" rel="noopener noreferrer">GitHub（Portfolio）</a></li>
             </ul>
           </div>
         </div>

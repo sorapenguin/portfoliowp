@@ -1,28 +1,23 @@
 const skillCategories = [
   {
-    label: 'バックエンド',
-    accent: '#4B52A7',
-    skills: ['Python', 'Django', 'Java', 'Spring Boot', 'PHP'],
-  },
-  {
     label: 'インフラ・DevOps',
     accent: '#2e7d6e',
-    skills: ['Docker', 'Docker Compose', 'nginx', 'VPS (Linux)', "Let's Encrypt", 'PostgreSQL', 'Terraform'],
+    skills: ['Docker', 'Docker Compose', 'nginx', 'Traefik', 'VPS（Linux）', 'AWS', "Let's Encrypt", 'PostgreSQL', 'GitHub Actions'],
   },
   {
-    label: 'AWS / クラウド',
-    accent: '#E8750A',
-    skills: ['AWS'],
+    label: 'バックエンド',
+    accent: '#4B52A7',
+    skills: ['Python', 'Django', 'Java', 'Spring Boot', 'PHP', 'Kotlin / Ktor', 'Exposed ORM', 'JWT', 'BCrypt', 'HikariCP'],
+  },
+  {
+    label: 'Android',
+    accent: '#8B5CA7',
+    skills: ['Kotlin', 'Jetpack Compose', 'MVVM', 'StateFlow', 'Coroutines', 'Hilt', 'Room', 'DataStore', 'WorkManager', 'Retrofit'],
   },
   {
     label: 'フロントエンド',
     accent: '#32839C',
-    skills: ['JavaScript', 'HTML / CSS', 'React', 'Chart.js'],
-  },
-  {
-    label: 'モバイル',
-    accent: '#8B5CA7',
-    skills: ['Kotlin', 'Android Studio'],
+    skills: ['JavaScript', 'HTML / CSS', 'React', 'Vite', 'Chart.js'],
   },
 ]
 

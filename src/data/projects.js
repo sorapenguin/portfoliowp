@@ -166,27 +166,26 @@ Android側はMVVM + AndroidViewModel + StateFlowで状態管理を行い、1秒�
 
 ゲーム内経済は AdMob 報酬動画広告と連動しており、広告視聴でスタミナ・ヒント・スキップチケットを補充できる設計になっています。スタミナは 10 分ごとに 1 回復（最大 8）、ヒントは初期 10 枚・広告視聴で +10 枚、スキップチケットは初期 3 枚・1 日 3 回広告で補充可能という具体的な数値で経済バランスを調整しました。ポートフォリオ配布用に広告なしビルドバリアント（portfolio フレーバー）も用意し、デモ配布と製品配布を Gradle ビルドで切り替えています。インフラは Docker Compose + Traefik + Let's Encrypt で本番構成を組み、Prometheus + Grafana でメトリクス監視も整備しています。`,
     tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'Exposed ORM', 'PostgreSQL', 'JWT', 'Docker', 'Traefik', "Let's Encrypt", 'Python'],
-    productUrl: null,
+    productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/nonogram-v1.0.0',
     githubUrl: null,
-    inProgress: true,
     sections: [
       {
         images: [
           `${base}images/works/project-d/project-d-1-1.png`,
-          `${base}images/works/coming-soon.png`,
+          `${base}images/works/project-d/project-d-1-2.png`,
           `${base}images/works/coming-soon.png`,
           `${base}images/works/coming-soon.png`,
         ],
-        caption: 'パズル一覧画面では Mini 5×5 / Normal 10×10 / Large 15×15 のカテゴリタブでステージを切り替えられ、右上にクリア済み問題数を表示。スタミナ（最大8・7分で1回復）が不足しているステージにはロックと「⚡解除」ボタンが表示され、スタミナ消費と解放の動線が一目でわかる設計です。',
+        caption: 'ホーム画面ではログイン時にボーナスアイテム（スキップ券など）が付与され、スタミナ残量と次回回復時間がリアルタイムで表示されます。Mini 5×5 / Normal 10×10 / Large 15×15 のカテゴリタブでステージを切り替えられ、クリア済みステージは明るく、スタミナ不足のステージにはロックと「⚡解除」ボタンが表示されます。',
       },
       {
         images: [
-          `${base}images/works/coming-soon.png`,
+          `${base}images/works/project-d/project-d-2-1.png`,
           `${base}images/works/coming-soon.png`,
           `${base}images/works/coming-soon.png`,
           `${base}images/works/coming-soon.png`,
         ],
-        caption: 'ゲームプレイ画面では上部に列ヒント数字・左端に行ヒント数字が表示され、中央のグリッドをタップで「塗り」、長押しで「×マーク（除外）」と操作を切り替えられます。右上のヒントボタンで解の一部を開示でき、消費枚数はリアルタイムで残量表示されます。解答完了時にはアニメーションとともにクリア確認が行われ、進捗がローカル DB とバックエンドに保存されます。',
+        caption: 'プレイ画面では上部に列ヒント・左端に行ヒントの数字が並び、グリッドをタップで「塗り」、×ボタン選択中は「除外マーク」と操作モードを切り替えられます。「ヒント」ボタンで解の一部を開示（残枚数をリアルタイム表示）、「戻す」ボタンで直前操作を取り消せます。Large 15×15 の複雑なパズルも論理的一意解が保証されています。',
       },
       {
         images: [
