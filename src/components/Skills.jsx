@@ -2,17 +2,17 @@ const skillCategories = [
   {
     label: 'インフラ・DevOps',
     accent: '#2e7d6e',
-    skills: ['Docker', 'Docker Compose', 'nginx', 'Traefik', 'VPS（Linux）', 'AWS', "Let's Encrypt", 'PostgreSQL', 'GitHub Actions'],
+    skills: ['Docker', 'Docker Compose', 'nginx', 'Traefik', 'Cloudflare', 'VPS（Linux）', 'AWS', "Let's Encrypt", 'PostgreSQL', 'Prometheus', 'Grafana', 'GitHub Actions'],
   },
   {
     label: 'バックエンド',
     accent: '#4B52A7',
-    skills: ['Python', 'Django', 'Java', 'Spring Boot', 'PHP', 'Kotlin / Ktor', 'Exposed ORM', 'JWT', 'BCrypt', 'HikariCP'],
+    skills: ['Python', 'Django', 'Gunicorn', 'Java', 'Spring Boot', 'PHP', 'Kotlin / Ktor', 'Exposed ORM', 'JWT', 'BCrypt', 'FreeMarker'],
   },
   {
     label: 'Android',
     accent: '#8B5CA7',
-    skills: ['Kotlin', 'Jetpack Compose', 'MVVM', 'StateFlow', 'Coroutines', 'Hilt', 'Room', 'DataStore', 'WorkManager', 'Retrofit'],
+    skills: ['Kotlin', 'Jetpack Compose', 'Clean Architecture', 'MVVM', 'StateFlow', 'Coroutines', 'Hilt', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob'],
   },
   {
     label: 'フロントエンド',

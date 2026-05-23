@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 import Header from '../components/Header'
@@ -24,6 +24,10 @@ export default function WorkDetail() {
   const project = projects.find((p) => p.slug === slug)
   const [showDetail, setShowDetail] = useState(false)
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [slug])
+
   if (!project) {
     return (
       <>
@@ -41,8 +45,7 @@ export default function WorkDetail() {
     <>
       <Header />
       <div className="work-detail">
-        <Link to="/" className="back-link">← 制作物一覧に戻る</Link>
-        <img src={project.thumbnail} alt={`${project.title} サムネイル`} />
+        <Link to="/" state={{ scrollTo: 'works' }} className="back-link">← 制作物一覧に戻る</Link>
         <h2>{project.title}</h2>
         <div className="tech-tags">
           {project.tech.map((t) => (

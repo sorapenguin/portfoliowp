@@ -1,7 +1,15 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 
+const PAGE_SIZE = 4
+
 export default function Works() {
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const visible = projects.filter((p) => !p.hidden)
+  const displayed = visible.slice(0, visibleCount)
+  const hasMore = visibleCount < visible.length
+
   return (
     <section id="works">
       <div className="container">
@@ -9,7 +17,7 @@ export default function Works() {
         <h3 className="gallery-title">ポートフォリオ一覧</h3>
 
         <div className="gallery">
-          {projects.filter((project) => !project.hidden).map((project) => (
+          {displayed.map((project) => (
             <div className="gallery-item" key={project.slug}>
               <Link to={`/works/${project.slug}`} className="gallery-thumb-link">
                 {project.inProgress && (
@@ -67,6 +75,16 @@ export default function Works() {
             </div>
           ))}
         </div>
+        {hasMore && (
+          <div style={{ textAlign: 'center', marginTop: '32px' }}>
+            <button
+              className="btn btn-more"
+              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+            >
+              More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

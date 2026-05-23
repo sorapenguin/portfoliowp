@@ -30,5 +30,13 @@
     "examCode": "SOA-C02",
     "description": "監視・可観測性・高可用性設計・デプロイ自動化・セキュリティコンプライアンス・ネットワーク管理をハンズオンで実践。AWSシステム管理者として本番環境を守る運用設計力を習得",
     "status": "completed"
+  },
+  {
+    "id": "azure-az104",
+    "provider": "Azure",
+    "exam": "Administrator Associate",
+    "examCode": "AZ-104",
+    "description": "ガバナンス・ストレージ・コンピュート・ネットワーク・監視の5領域を体系的にハンズオンで実践。Azure PolicyによるDeny制御からApplication GatewayのL7ルーティング・TLS終端、ARM/Bicep/Terraformによるインフラ自動化まで、Azureインフラ管理者の設計判断力を習得",
+    "status": "completed"
   }
 ]
