@@ -8,16 +8,16 @@ export const projects = [
     title: 'TechQuiz',
     thumbnail: gallery01,
     description: 'IT 知識をゲーミフィケーションで継続学習できるクイズ型 Web アプリ。VPS 本番構成・CI/CD・Prometheus 監視まで整備済み。',
-    detail: `IT技術系クイズ学習プラットフォーム
+    detail: `IT技術系クイズ学習プラットフォーム（Django 6.0 / Python 3.12）
 
-PythonやAWS・Dockerなど実務直結のIT知識を、ゲーム的な仕掛けで継続学習できるWebアプリです。AI駆動開発によりスピード感を持って設計・実装し、「まず動くサービスとして使えるもの」をゴールに据えました。
+Python・AWS・Docker など実務直結の IT 知識を、ゲーム的な仕掛けで継続学習できる Web アプリです。8 カテゴリ・589+ 問の問題データを整備し、VPS 本番稼働中です。
 
-インフラ面では、VPS（Linux）上にDockerでコンテナを分離し、Traefikをリバースプロキシとして配置。Cloudflare → Traefik（HTTPS終端・Let's Encrypt）→ Django（Gunicorn）→ PostgreSQL という構成でサービスを提供しています。GitHub Actions（deploy-quiz.yml）によりmasterへのpushでSSH・migrate・restartを自動化するCI/CDパイプラインを構築。django-prometheusによるメトリクス計装でPrometheus + Grafanaの統合監視に接続し、停止検知からDiscord通知まで自動化しています。管理画面はDjango独自認証とURL難読化で保護し、Traefikレイヤーでセキュリティヘッダー（middlewares.yml）を一括適用しています。
+インフラ面では、Docker Compose で Traefik・Django・Redis・PostgreSQL をコンテナ分離しています。Cloudflare → Traefik（HTTPS 終端・60req/min レート制限）→ Django（Gunicorn）→ PostgreSQL の多層構成で、GitHub Actions により push → SSH → migrate → restart の CI/CD を自動化しています。Prometheus + Grafana による統合監視で停止検知から Discord 通知まで自動化。Redis キャッシュでカテゴリ問題 ID リストの DB 負荷を抑制し、静的ファイルは WhiteNoise で効率配信しています。
 
-機能面では、XP・レベルアップ・スタミナ・ジェム（通貨）といったゲーミフィケーション要素を組み込み、学習継続を促す仕組みを実装。フリー・月額・生涯プランのサブスクリプション設計、ジェムによる追加コンテンツ解放、回答フィルタリング・学習カレンダー（GitHub風ヒートマップ）など、将来的に本サービスとして展開できる機能設計を意識しました。
+機能面では、XP・レベル・スタミナ・ジェムのゲーミフィケーション要素を実装しています。問題フィルタリングは「ステータス（未出題/ミス/ヒット/コンボ）・正答率・経過時間・難易度・サブカテゴリ」の 5 軸で絞り込め、サブカテゴリ折り畳み複数選択 UI・設定秒数で自動進行する自動再生・👍/👎 フィードバック機能・英語カテゴリでの音声読み上げ（TTS）自動切替を実装しています。フリー・月額・生涯プランのサブスクリプション設計とジェムによる問題解放、学習カレンダー（GitHub 風ヒートマップ）も備えます。
 
-UXでは「学習のハードルを下げながら継続意欲を高める」を軸に、トースト通知・プログレスバー・スタミナ回復カウントダウンなど即時フィードバックを丁寧に実装。デモアカウントで課金フローも体験できます。`,
-    tech: ['Python', 'Django', 'Gunicorn', 'PostgreSQL', 'Docker', 'Traefik', 'VPS', "Let's Encrypt", 'GitHub Actions', 'Prometheus'],
+セキュリティ・運用設計として、二重のレート制限（ログイン・登録・質問閲覧を IP ベースで制御）、reCAPTCHA v2 によるボット対策、構造化ログ、SendGrid を用いたメール配信フォールバック設計を実装しています。管理画面は URL 難読化で保護し、機能フラグで新規登録・ゲスト開始のオン/オフを制御可能です。`,
+    tech: ['Python', 'Django', 'Gunicorn', 'PostgreSQL', 'Redis', 'Docker', 'Traefik', 'VPS', 'GitHub Actions', 'Prometheus', 'Grafana', 'SendGrid'],
     productUrl: 'https://quiz.sorapenguin.dev/',
     githubUrl: null,
     sections: [
@@ -37,7 +37,7 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
           `${base}images/works/project-a/project-a-2-3.png`,
           `${base}images/works/project-a/project-a-2-4.png`,
         ],
-        caption: '問題選択画面では挑戦モード（新問・同一・間違い）や出題対象（未出題・ミス・ヒット・コンボ）、問題数、正答率による絞り込みを細かく設定できます。自動再生モードを有効にすると解答後に設定秒数で次の問題へ自動遷移し、解説を読みながらのながら学習をサポート。連続学習が完了すると自動再生完了画面に遷移し、今回の解答履歴や過去の履歴一覧へのナビゲーションが表示されます。',
+        caption: '問題選択画面では挑戦モード（新問・同一・間違い）・出題対象（未出題/ミス/ヒット/コンボ）・問題数・正答率・難易度・サブカテゴリの 6 軸でフィルタリングできます。サブカテゴリは折り畳み UI で複数選択可能です。自動再生モードを有効にすると解答後に設定秒数で次の問題へ自動遷移し、解説を読みながらのながら学習をサポートします。問題画面では 👍/👎 フィードバックボタンで問題の品質報告ができ、英語カテゴリでは TTS（音声読み上げ）が en-US で自動動作します。',
       },
       {
         images: [
@@ -54,17 +54,17 @@ UXでは「学習のハードルを下げながら継続意欲を高める」を
     slug: 'project-c',
     title: '放置バトルゲーム',
     thumbnail: `${base}images/works/project-c/project-c-1.png`,
-    description: 'Kotlin + Ktor フルスタック構成の放置型 RPG Android アプリ。Clean Architecture・デュアルセーブ・サーバー時刻ベースのオフライン計算を実装。',
+    description: '武器を自動生成・合成して攻撃力を高め、ステージを進める放置型 RPG Android アプリです。クラウドセーブ・オフライン報酬・プレステージなどリリース水準の機能を Kotlin × Ktor フルスタック構成で設計・実装しています。',
     detail: `IdleGame（StellarRise）— 放置型RPGゲーム（Android × Ktor API）
 
 Kotlin × Ktor のフルスタック構成で開発した放置型クリッカーRPGです。武器を自動生成・合成して攻撃力を高め、ステージを進めていくゲームとして設計しました。広告・クラウドセーブ・オフライン報酬・プレステージ（周回システム）など、リリースを見据えたゲームの標準的な機能を実際に組み込み、設計水準を意識しながら実装しています。
 
-Android側はClean Architecture + MVVM + Repository パターンで設計し、MainViewModelがStateFlowでゲーム状態を一元管理、Coroutinesの1秒周期タイマーで戦闘シミュレーション・武器自動生成・合成を制御しています。ローカル保存はRoom（スキーマv10・10世代マイグレーション管理）+ DataStoreの2層構成とし、クラウドセーブはWorkManagerによる5分インターバルのバックグラウンド同期を採用。タイムスタンプ比較によるサーバー優先の競合解決と、ApiResult<T> sealed classによるオフライン/エラー状態管理を実装しています。バックエンド（GameApi）はKtor 3.1 + Exposed ORM + PostgreSQLの構成で、Dockerマルチステージビルド（Gradle Alpine → JRE Alpine）によりVPSイメージサイズを最小化。Traefikをリバースプロキシとして配置し、レート制限とヘルスチェックも実装しています。
+Android 側は Clean Architecture + MVVM + Repository パターンで設計し、ゲーム状態を一元管理しながら戦闘シミュレーション・武器自動生成・合成を制御しています。ローカル保存は継続的な機能追加に対応した Room + DataStore の2層構成とし、クラウドセーブはバックグラウンドで定期同期する設計を採用。サーバー側のタイムスタンプを優先してセーブデータの競合を解決し、オフライン・エラー状態を型安全に管理しています。バックエンドは Ktor + PostgreSQL の構成で、Docker によるイメージ軽量化と Traefik によるレート制限・ヘルスチェックも実装しています。
 
-機能面では11のFragment画面（メイン・武器管理・ショップ・星生成強化・プレステージ・実績・レシピ・設定ほか）を実装。武器は星レベルに応じて攻撃力が2.2倍ずつ指数的に増加し（★99で約10^25）、削除時に素材（鉄・銀・金の欠片）を生成してレシピクラフトに使用するシステムを持ちます。Prestige（永久アップグレード）は攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率の4系統を用意し、ワールド制（10ワールド、Easy/Normal各5）でワールドごとに武器ステートを管理しています。
+メイン・武器管理・ショップ・強化・プレステージ・実績・設定など複数の画面で各要素を整理しています。武器は星レベルに応じて攻撃力が指数的に増加し（★99 で約 10²⁵）、削除時に素材を生成してレシピクラフトに使用できます。プレステージ（永久アップグレード）で攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率を強化でき、10 ワールド構成でワールドごとに武器ステートを管理しています。サポートキャラクターの育成でダンジョン進行をアシストする仕組みや、スペシャルボス撃破で輝石を時間蓄積するシステムも備え、機能追加に対応した拡張性の高いローカル保存設計を採用しています。
 
-設計面で特に意識したのはオフライン報酬のチート耐性設計です。クライアントの端末時計ではなく /idlegame/time で取得したサーバー時刻を基準にオフライン経過時間を計算することで、端末時計の操作による不正取得を防いでいます。JWTトークンはEncryptedSharedPreferences（AES256-GCM）に暗号化して保存し、パスワードはBCryptハッシュで管理。クラウドセーブの登録はユーザー名の入力を不要とし（サーバー側でランダム生成）、パスワードのみでセーブデータを紐づける設計にすることでUXとセキュリティを両立しています。`,
-    tech: ['Kotlin', 'Clean Architecture', 'MVVM', 'StateFlow', 'Coroutines', 'WorkManager', 'Retrofit', 'OkHttp', 'Room', 'DataStore', 'Navigation Component', 'EncryptedSharedPreferences', 'AdMob', 'Ktor', 'Exposed ORM', 'PostgreSQL', 'BCrypt', 'JWT', 'Docker', 'Traefik'],
+設計面で特に意識したのはオフライン報酬のチート耐性設計です。端末時計ではなくサーバー時刻を基準にオフライン経過時間を計算することで、時計操作による不正取得を防いでいます。JWT トークンは端末内で暗号化保存し、パスワードは BCrypt でハッシュ管理。クラウドセーブはパスワードのみでデータを紐づける設計にすることで、UX とセキュリティを両立しています。`,
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/idlegame-v1.1.0',
     githubUrl: null,
     sections: [
@@ -104,7 +104,7 @@ Android側はClean Architecture + MVVM + Repository パターンで設計し、M
 パズル生成は Python で独立したパイプラインとして構築しました。solver.py（制約伝播ソルバー・バックトラックなし）が論理的一意解を検証し、generator.py が密度・連結性・対称性の美的フィルタを適用して採用パズルを選別。validator.py で solution/ヒントを検証後、upload.py が bulk API で一括登録します。計100問（5×5=34問 / 10×10=33問 / 15×15=33問）を自動生成・投入済みです。バックエンド側には FreeMarker 管理画面でパズルデータの CRUD も整備しています。
 
 ゲーム内経済は AdMob 報酬動画広告と連動しており、広告視聴でスタミナ・ヒント・スキップチケットを補充できる設計になっています。スタミナは 10 分ごとに 1 回復（最大 8）・広告視聴で +6 回復、ヒントは初期 10 枚・広告視聴で +10 枚、スキップチケットは初期 3 枚・最大 10 枚（広告補充）という具体的な数値で経済バランスを調整しました。ポートフォリオ配布用に広告なしビルドバリアント（portfolio フレーバー）も用意し、デモ配布と製品配布を Gradle ビルドで切り替えています。インフラは Docker Compose + Traefik + Let's Encrypt で本番構成を組み、Prometheus + Grafana でメトリクス監視も整備しています。`,
-    tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'Clean Architecture', 'MVVM', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'Exposed ORM', 'FreeMarker', 'PostgreSQL', 'Docker', 'Traefik', "Let's Encrypt", 'Python'],
+    tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'MVVM', 'Clean Architecture', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'FreeMarker', 'PostgreSQL', 'Docker', 'Python'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/nonogram-v1.0.0',
     githubUrl: null,
     sections: [
@@ -150,12 +150,12 @@ VPS（Xserver VPS / Ubuntu）上で稼働中の4サービスを AWS マネージ
 
 アーキテクチャは Internet → ALB（パブリックサブネット×2 / 2AZ）→ ECS Fargate（プライベートサブネット）→ RDS PostgreSQL 16（DB サブネット）の多層構造です。ALB のパスベースルーティングで GameApi・EcApi・Quiz・EC-Nginx の4サービスを単一エンドポイントに集約しています。VPC は6サブネット構成（パブリック×2 / プライベート×2 / DB×2）で2AZ に分散し、NAT Gateway を経由してプライベートサブネットからのアウトバウンド通信を制御しています。
 
-Terraform ファイルは機能ごとに15ファイルに分割しています（main.tf / variables.tf / vpc.tf / security_groups.tf / iam.tf / ecr.tf / rds.tf / secrets.tf / cloudwatch.tf / alb.tf / ecs_cluster.tf + サービス別4ファイル）。タグ・サブネット ID は main.tf の locals に集約し、各リソースファイルから local.common_tags / local.private_subnet_ids を参照することで変更箇所を1ファイルに集中させています。
+Terraform ファイルはネットワーク・セキュリティ・コンテナ実行・DB などのリソースごとに分割しています。共通タグやサブネット ID は一箇所に集約し、各リソースファイルから参照することで変更箇所を1ファイルに集中させています。
 
-設計上のポイントは3点です。①Secrets Manager によるシークレット分離：VPS の .env 管理をゼロにし、ECS タスク定義の secrets ブロックで起動時に自動注入することでコードにシークレットを書かない設計を実現。②IAM 最小権限設計：ECS タスク実行ロールに AmazonECSTaskExecutionRolePolicy と GetSecretValue（対象シークレットのみ）を付与。③コスト比較：NAT Gateway（~$35/月）が最大のコスト要因であり月額概算は ~$80〜となるため、VPS（~$13/月）を本番継続採用する判断の根拠を設計段階で把握しています。
+設計上のポイントは3点です。①Secrets Manager によるシークレット分離：VPS の .env 管理をゼロにし、ECS タスク起動時に自動注入することでコードにシークレットを書かない設計を実現。②IAM 最小権限設計：ECS タスク実行ロールに必要最小限のシークレット読み取り権限のみを付与。③コスト比較：NAT Gateway（~$35/月）が最大のコスト要因であり月額概算は ~$80〜となるため、VPS（~$13/月）を本番継続採用する判断の根拠を設計段階で把握しています。
 
 VPS（Traefik）と ALB でのルーティングの対比も意識した設計で、VPS ではラベルベースでドメイン単位ルーティング、ALB ではパスベースルールで1エンドポイントに4サービスを集約するという、同じ構成を異なるアプローチで実現する違いを整理しています。この設計を通じて、VPC のサブネット分割と NAT Gateway の役割、ECS Fargate タスク定義（Secrets Manager 注入・CloudWatch ログ連携）、Terraform でのリソース間参照と依存関係管理、IAM ロール最小権限設計の考え方を整理しました。`,
-    tech: ['AWS', 'Terraform', 'VPC', 'ALB', 'ECS Fargate', 'RDS', 'ECR', 'Secrets Manager', 'CloudWatch', 'ACM', 'IAM'],
+    tech: ['AWS', 'Terraform', 'VPC', 'ALB', 'ECS Fargate', 'RDS', 'ECR', 'Secrets Manager', 'CloudWatch', 'IAM'],
     productUrl: null,
     githubUrl: null,
     sections: [],
@@ -169,10 +169,10 @@ VPS（Traefik）と ALB でのルーティングの対比も意識した設計�
 
 PHPフロントエンドを稼働させたまま、バックエンドをSpring Boot（Java）からKtor（Kotlin）へ移植したプロジェクトです。PHPが叩くAPIエンドポイントをURLゼロ変更で移行することでフロントへの影響を排除し、JVMメモリを約500MB（Spring Boot）→約150MB（Ktor）に削減してVPS 4GB制限内への収容を実現しました。フロントは描画のみを担うPHPシェルとし、ビジネスロジックはすべてKtor REST APIに集約することでフロントとバックエンドの責務を明確に分離しています。
 
-インフラはDocker Composeで4サービス（Nginx / PHP-FPM / Ktor / PostgreSQL）をコンテナ分離。Nginxをリバースプロキシとして配置し、/api/* へのリクエストをKtorへ転送することでPHPとAPIを同一オリジン構成にまとめています。認証はJWT + BCryptを採用し、一般ユーザーとADMINロールをJWTクレームで管理。PHP側の\`$2y$\`ハッシュをKtor側で\`$2a$\`に正規化して検証することで、移行前後の相互認証互換性を維持しています。管理者ログインはワンタイムコードによる2段階認証を実装しています。
+インフラはDocker Composeで4サービス（Nginx / PHP-FPM / Ktor / PostgreSQL）をコンテナ分離。Nginxをリバースプロキシとして配置し、/api/* へのリクエストをKtorへ転送することでPHPとAPIを同一オリジン構成にまとめています。認証はJWT + BCryptを採用し、一般ユーザーとADMINロールをJWTクレームで管理。移行前後の相互認証互換性を BCrypt による互換処理で維持しています。管理者ログインはワンタイムコードによる2段階認証を実装しています。
 
 ユーザー向け機能として、キーワード・カテゴリ・価格帯・在庫状態での複合絞り込み検索とページネーションを備えた商品一覧、お気に入り登録、クーポンコードの割引適用、カートの数量変更・削除・購入フロー、注文履歴閲覧を実装しています。管理者側はChart.jsを用いた月別売上グラフ・人気商品ドーナツチャートのダッシュボード、商品CRUD（カテゴリ管理・公開フラグ切り替え含む）、注文ステータス管理、クーポン発行・一覧の4機能を備えています。`,
-    tech: ['PHP', 'Kotlin', 'Ktor', 'Exposed ORM', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'nginx', 'JWT', 'BCrypt', 'JavaScript', 'Chart.js'],
+    tech: ['PHP', 'Kotlin', 'Ktor', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Nginx', 'JWT', 'JavaScript', 'Chart.js'],
     productUrl: 'https://ec.sorapenguin.dev/login.php',
     githubUrl: null,
     sections: [
@@ -218,20 +218,37 @@ PHPフロントエンドを稼働させたまま、バックエンドをSpring B
     slug: 'project-e',
     title: 'AlchemyGame',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Kotlin 製の放置系錬金術 Android ゲーム。MVVM + Clean Architecture + UseCase で設計し、80種以上のレシピ・プレステージ・IAP を備えるプロダクション構成。',
+    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化・宇宙・文明と 5 段階でワールドが広がる設計を採用し、IAP・コンボシステム・デイリーミッションを MVVM + Clean Architecture + UseCase パターンで実装しています。',
     detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
 
-Kotlin製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、ビジネスロジックを CraftUseCase / MissionUseCase / AchievementUseCase に分離しています。GameState は immutable な data class として定義し、全ての状態更新を copy() で新インスタンス生成することで状態の一貫性を保証。UseCase が CraftResult sealed class で状態変化とイベントを一括返却することで UI と疎結合を実現し、GameEvent sealed class でログ・チュートリアル・実績・ランクアップを型安全に処理しています。
+Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、合成・ミッション・実績などのビジネスロジックを各 UseCase に分離しています。ゲーム状態は immutable な設計で一貫性を保証し、状態変化と UI イベントを疎結合に扱う仕組みを整えています。
 
-コアゲームループは1秒周期のCoroutinesタイマーで4元素（火・水・土・風）を自動収集し、80種以上のレシピを5段階ティアで管理する発見型コンビネーションシステムを実装しています。錬金炉は非同期マルチスロット生産（最大3スロット）を採用し、装備レベルに応じてオートプロデュースのスロット数が拡張されます。
+コアゲームループは 4 元素（火・水・土・風）の自動収集から始まり、80 種以上のレシピを段階的に発見・合成していく仕組みです。錬金炉は最大 3 スロットの並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。最終素材の合成でプレステージ（昇華）が発動し、錬金術→料理→生物進化→宇宙創造→文明史の 5 ワールドが段階的に解放される設計で、各ワールドの在庫・発見素材・プレステージ状態を独立して管理しています。
 
-進行・リテンション設計として、クラフト・発見ごとにXPが加算されるアルケミストランク（5段階昇格）、収集速度・スロット数・ストレージ上限の永続ボーナスを付与するプレステージ、UTC0リセットの5種ランダムデイリーミッション、最大100日マイルストーン報酬付きのログインカレンダー、20種以上のアチーブメント、8ステップのチュートリアルを実装しています。
+継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（5 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、20 種以上のアチーブメント、8 ステップのチュートリアルを実装しています。
 
-オフライン進捗はサーバー時刻取得によりデバイス時計改ざんを防止し、装備レベルに応じた上限変動と3日以上放置でのアシスタントギフト付与を実装。JWTトークンはEncryptedDataStoreに暗号化して保存し、GameApi（Ktor）とのWorkManagerバックグラウンド同期でクラウドセーブを実現しています。IAP（スターターパック・ゴールドパック・広告除去・オフライン延長・ヒントブック）の課金設計と広告報酬（オフライン2倍・ゴールドボーナス・ミッション2倍）も実装しています。`,
-    tech: ['Kotlin', 'Clean Architecture', 'MVVM', 'UseCase', 'StateFlow', 'Coroutines', 'WorkManager', 'DataStore', 'Retrofit', 'OkHttp', 'Navigation Component', 'AdMob', 'IAP', 'Ktor', 'Exposed ORM', 'PostgreSQL', 'JWT', 'BCrypt', 'Docker', 'Traefik'],
+オフライン進捗はサーバー時刻を基準に計算してデバイス時計の改ざんを防止し、長期放置時にはアシスタントギフトを付与する設計にしています。JWT トークンは端末内で暗号化保存し、Ktor バックエンドとのバックグラウンド同期でクラウドセーブを実現。スターターパック・広告除去・オフライン延長・ヒントブックなどの IAP と広告報酬（オフライン 2 倍・ゴールドボーナス）も実装しています。
+
+合成・購入・図鑑・ワールド進行など複数の画面で各機能を整理し、全ゲーム状態を一元管理する設計です。コンボシステムは連続クラフトで倍率ボーナスを付与し、一定コンボ数でマイルストーン報酬を獲得できます。グリモワール（レシピ図鑑）では未発見レシピにヒントチケットを消費してヒントを開示できます。`,
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'IAP', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
     productUrl: null,
     githubUrl: null,
-    sections: [],
+    sections: [
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'Lab（錬金炉）画面では 4 元素を自動収集しながら 80 種以上の素材を発見・合成する発見型システムを操作できます。錬金炉は最大 3 スロット並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。連続クラフトでコンボボーナスが積み上がり、一定コンボ数でマイルストーン報酬を獲得できます。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'グリモワール（レシピ図鑑）では発見済み・未発見レシピを管理し、ヒントチケットを消費してヒントを開示できます。プレステージ画面では収集速度・スロット数・ストレージ上限の永続ボーナスを管理し、アルケミストランク・デイリーミッション・ログインカレンダーで継続プレイを促します。',
+      },
+    ],
   },
   {
     slug: 'project-i',
@@ -247,32 +264,140 @@ VPS（Xserver VPS / Ubuntu）1台上で Traefik + Docker Compose を用いて4�
 セキュリティ面では、SSH ポート変更・公開鍵認証のみ（パスワード認証無効）、Traefik による HTTPS 強制、Cloudflare WAF、管理画面系エンドポイントへのアクセス制限を実装しています。
 
 監視は Prometheus + Grafana でコンテナリソース・レスポンスタイムを可視化し、Discord Webhook で異常検知時の即時通知を実装。PostgreSQL 自動バックアップスクリプトの定期実行と Runbook（障害対応手順）の整備まで含む、本番運用を意識した構成にしています。`,
-    tech: ['Docker', 'Docker Compose', 'Traefik', 'Nginx', 'PostgreSQL', 'Prometheus', 'Grafana', 'Cloudflare', 'Ubuntu', "Let's Encrypt"],
+    tech: ['Docker', 'Docker Compose', 'Traefik', 'Nginx', 'PostgreSQL', 'Prometheus', 'Grafana', 'Cloudflare', 'Ubuntu'],
     productUrl: null,
     githubUrl: null,
     sections: [],
   },
   {
-    slug: 'project-f',
-    hidden: true,
-    title: '準備中',
+    slug: 'project-j',
+    title: 'StarForge',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: '現在準備中です。',
-    detail: '',
-    tech: [],
+    description: 'モンスターを合成・育成しながら 50 フロアのダンジョンを攻略し、休憩エリアではノノグラムパズルでボーナスを獲得できる 3 モード統合の Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索など多数のシステムを Kotlin で個人設計・実装中。',
+    detail: `StarForge — 複合ジャンル Android ゲーム（Kotlin × Ktor）
+
+Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズルを統合した Android アプリです。3 つのゲームモードを 1 アプリに収め、独自 Canvas レンダリングエンジン・プロシージャルダンジョン生成・A* 経路探索を含む多数のシステムを MVVM + Clean Architecture + UseCase パターンで設計・実装しています。
+
+ダンジョンは自作プロシージャル生成エンジンでフロアごとにマップを自動生成し、霧の探索表現とスキルの照射プレビューを独自 Canvas でリアルタイム描画しています。AUTO 探索は出口優先→未探索エリア→BFS の 3 段優先度で A* 経路探索を実装し、HP 30% 以下・ボス出現時に自動停止します。敵は 23 種（通常 18 + ボス 5）、スキルは 15 種（回復・範囲攻撃・貫通・スタン等）をフロア床上ドロップで取得します。
+
+アーキテクチャはゲーム状態の StateFlow と演出イベントの SharedFlow を二本立てで管理する設計です。ゲーム状態は完全 immutable な設計で一貫性を保証し、DataStore に JSON 直列化して永続化。バージョン管理によるセーブデータのマイグレーションにも対応しています。
+
+モンスターは 7 段階のティア × 5 タイプで 35 体を定義し、同ティア合成では確定昇格・異ティア合成ではランダム昇格という合成ルールで発見要素を持たせています。ノノグラムはフィル/消しモード切替・タッチジェスチャー・自動スケールを実装した独自 Canvas 描画で構成し、自作 Python ジェネレーターで生成したパズルをそのまま取り込む設計です。日替わりショップは日付をシードとした決定論的な抽選で、同じ日は常に同じ品揃えを保証しています。敵 23 種・スキル 15 種・モンスター 35 体を実装済みです。`,
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'DataStore', 'Retrofit', 'Navigation Component', 'Ktor', 'Python'],
     productUrl: null,
     githubUrl: null,
     inProgress: true,
-    sections: [],
+    sections: [
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'ホーム画面では 35 体のモンスター一覧を確認でき、かけらを集めて召喚・合成でモンスターを発見・強化します。習熟度を上げるとサポートパーティのボーナスが上昇し、最大 3 体のサポートメンバーがダンジョン開始時に能力を底上げします。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: '独自 Canvas 描画によるターン制ローグライク（50 フロア）。プロシージャル生成マップ上でスキルをフロア床上から拾いながら 23 種の敵と戦います。AUTO 探索で自動進行しつつ、HP が残り少なくなるかボスが出現すると自動停止します。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'ノノグラムミニゲームはフィル/消しモード切替・タッチジェスチャー・自動スケールを実装した独自 Canvas 描画で構成されています。自作 Python ジェネレーターで生成した難易度別パズルを管理し、休憩エリアのノノグラム祠ではクリアするとダンジョンボーナス効果を獲得できます。',
+      },
+    ],
+  },
+  {
+    slug: 'project-f',
+    title: 'IdleMine',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: '鉱石を集め、ガチャで仲間を増やし、採掘チームと探索派遣で効率を高めていく放置系 Android ゲームです。Unity 6 LTS / C# で AI 作戦付き採掘システム・天井保証ガチャ・オフライン報酬を実装し、実機テスト中。',
+    detail: `IdleMine — 放置型鉱山採掘ゲーム（Android × Unity）
+
+Unity 6 LTS / C# 製の 2D 横スクロール放置鉱山採掘ゲームです。のんびり系ゲームデザイン（敵は徘徊するだけ・フロアクリア制・転生なし）を軸に、ガチャ・探索派遣・ガーデンバフなど多彩なシステムを個人で設計・実装しています。Android 実機ビルド成功済みでテストプレイ中です。
+
+採掘コアシステムは採掘グリッドの描画・鉱石スポーン・ハイライトを管理し、採掘 AI が作戦設定（近い・価値が高い・安全・深い）に従って自動採掘します。カメラは採掘エリアに合わせて自動フィットし、全自動採掘をワンタップで制御できます。
+
+ガチャシステムは SR/SSR 抽選・演出・ポートレート表示を実装し、10/50/100 連の天井保証を備えています。ガーデンでは採掘速度・ゴールド獲得などのバフを管理し、探索派遣でオフライン中の報酬収集が行えます。
+
+UI は 5 タブ（ホーム・採掘・ベース・ガチャ・設定）で構成し、マーケットでは鉱石を 1 個・10 個・全量単位で売却できます。プロフィール画面ではプレイ統計・ランキングを確認でき、アカウント削除は 2 段階確認で安全に行えます。
+
+モバイル向け最適化として、描画の無駄な更新をガードで抑制し、カメラの不要な再フィットも閾値比較で防止しています。UI/UX の大規模改修を経て、IL2CPP ビルドで Android 実機テストプレイ中です。`,
+    tech: ['Unity 6', 'C#', 'IL2CPP', 'Android', 'Ktor', 'JWT'],
+    productUrl: null,
+    githubUrl: null,
+    inProgress: true,
+    sections: [
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'Mine 画面では採掘グリッド上で AI 作戦（近い・価値が高い・安全・深い）に従いキャラクターが自動採掘します。カメラは採掘エリアに合わせて自動フィットし、HUD でフロア進行・次の目標・アップグレードバナーを確認できます。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: 'Gacha 画面では SR/SSR 抽選・10/50/100 連の天井保証でキャラクターを召喚します。Base 画面ではガーデンバフ（採掘速度・ゴールド・スタミナ系）の管理と探索派遣でオフライン中の報酬収集を行えます。',
+      },
+    ],
   },
   {
     slug: 'project-h',
-    hidden: true,
-    title: '準備中',
+    title: 'IslandDev',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: '現在準備中です。',
-    detail: '',
-    tech: [],
+    description: 'Unity 6 / C# 製の 2D 無人島開拓 × 放置ゲーム（Android）。30 日クリア設計・スタミナなしのコンセプトで、100×16 グリッドマップ上の探索・クラフト・施設建設・ボス戦を実装中。',
+    detail: `IslandDev — 無人島開拓 × 放置ゲーム（Android × Unity）
+
+Unity 6 / C# 製の 2D 無人島開拓 × 放置ゲームです。30 日クリア設計・スタミナなし・ソシャゲ疲れ層向けのデザインコンセプトで開発中です。100×16 統合グリッドマップ上での探索・クラフト・施設建設・ボス戦をゲームループの中核に据えています。
+
+マップは砂浜・森・岩礁・奥地・山頂の 5 ゾーン・100×16 統合グリッドで構成されています。未解放エリアは霧で覆われ、開拓が進むにつれて視界が広がります。自動採取・自動戦闘でプレイヤーの手を離しても資源が集まる放置設計を採用しています。
+
+集めた資源（木材・石・果実・繊維・貝殻・粘土・竹・鉱石の 8 種）を使って武器 6 種をクラフトし、施設 8 種を建設して採取効率や探索能力を高めます。
+
+敵 10 種と門番ボス 5 体（大ガメ・大イノシシ・大タコ・大ヒョウ・大鷲）が配置され、ボスを倒すと新エリアが解放されます。小ゾーン開拓タイマー管理とエンディング演出も実装しています。
+
+Unity Editor のカスタムツールを自作しており、ボタン操作一つでシーン全体を再構築・参照を自動接続できるため、開発効率を大幅に向上させています。`,
+    tech: ['Unity 6', 'C#', 'Android'],
+    productUrl: null,
+    githubUrl: null,
+    inProgress: true,
+    sections: [
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: '砂浜・森・岩礁・奥地・山頂の 5 ゾーン・100×16 統合グリッドマップを探索します。未解放エリアは霧で覆われ、自動採取・自動戦闘で資源を収集しながら島を開拓していきます。',
+      },
+      {
+        images: [
+          `${base}images/works/coming-soon.png`,
+          `${base}images/works/coming-soon.png`,
+        ],
+        caption: '収集した資源で武器 6 種をクラフトし、施設 8 種を建設して採取効率を高めます。門番ボス 5 体（大ガメ・大イノシシ・大タコ・大ヒョウ・大鷲）を撃破してゾーンを解放しながら 30 日クリアを目指します。',
+      },
+    ],
+  },
+  {
+    slug: 'project-k',
+    title: 'LLM 問題生成パイプライン',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: 'Python + ローカル LLM（Ollama / qwen2.5:14b）で CCNP ENARSI・LPIC-3 300 の問題を半自動生成するパイプライン。生成→検証→修復→GPT レビュー→統合まで CLI で一貫処理し、TechQuiz の問題データとして投入。',
+    detail: `LLM 問題生成パイプライン — CCNP ENARSI / LPIC-3 300 問題ドラフト自動生成
+
+Python + Ollama（ローカル LLM / qwen2.5:14b）を使って資格試験問題のドラフトを半自動生成するパイプラインです。CCNP ENARSI 300-410・LPIC-3 300 の 2 科目に対応し、API コストをかけずに大量の問題下書きを生成しながら、GPT Thinking によるレビューと人間の最終確認を経て TechQuiz へ投入する運用フローを実現しています。
+
+パイプラインは生成・検証・修復・レビュー・統合の各役割を独立したスクリプトに分離しています。観点プールから未使用観点を自動選択して問題を生成し、フォーマットや必須フィールドのバリデーションを実施。失敗した場合は Ollama に修復させる 2 段構成で品質を担保します。ChatGPT Thinking 向けのレビュープロンプトを自動生成し、レビュー結果を反映・統合後に TechQuiz へ手動投入します。
+
+重複排除は文章類似度計算で実施し、同じ観点が繰り返し使われないよう観点使用履歴を管理しています。科目設定を切り替えるだけで全工程が同一フローで動作する設計で、2 科目への対応を最小コストで実現しています。生成実績は CCNP ENARSI 895〜1000 問相当・LPIC-3 300 200+ 問です。`,
+    tech: ['Python', 'Ollama', 'LLM', 'JSON'],
     productUrl: null,
     githubUrl: null,
     inProgress: true,
