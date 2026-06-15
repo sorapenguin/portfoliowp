@@ -26,9 +26,9 @@ export default function About() {
             <h3 className="card-title">得意・興味のある分野</h3>
             <h3 className="card-subtitle">Interests</h3>
             <ul className="card-list">
-              <li>Webアプリ開発（Django / Spring Boot）</li>
-              <li>API設計・DB設計（PostgreSQL）</li>
-              <li>Dockerを用いた環境構築・デプロイ</li>
+              <li>Android アプリ開発（Kotlin・Jetpack Compose・MVVM）</li>
+              <li>Webアプリ開発（Django・Ktor）</li>
+              <li>インフラ構築・運用（Docker・VPS・Traefik）</li>
             </ul>
           </div>
 
@@ -38,6 +38,7 @@ export default function About() {
             <ul className="card-list">
               <li><a href="https://github.com/sorapenguin" target="_blank" rel="noopener noreferrer">GitHub（ホーム）</a></li>
               <li><a href="https://github.com/sorapenguin/portfolio-public" target="_blank" rel="noopener noreferrer">GitHub（Portfolio）</a></li>
+              <li><a href="https://quiz.sorapenguin.dev/" target="_blank" rel="noopener noreferrer">問題演習サイト（TechQuiz）</a></li>
             </ul>
           </div>
         </div>

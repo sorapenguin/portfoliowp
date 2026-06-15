@@ -28,7 +28,7 @@ Python・AWS・Docker など実務直結の IT 知識を、ゲーム的な仕掛
           `${base}images/works/project-a/project-a-1-3.png`,
           `${base}images/works/project-a/project-a-1-4.png`,
         ],
-        caption: 'ポートフォリオ閲覧専用のワンクリックログイン機能を備えた認証画面では、通常ログインに加えて課金ユーザー向けの別ルートも用意しています。トップページではカテゴリー一覧の表示と同時にジェム購入プランの選択モーダル・クレジットカード入力フォームをオーバーレイ表示し、マイページではレベル・累計XP・ジェム数と過去1年の学習カレンダーで進捗を一望できます。',
+        caption: 'トップページでは Python・SAA・Docker・CCNP など 8 カテゴリ（589 問+）が一覧表示され、サイトの特徴説明とジェム購入プランも確認できます。ログイン画面ではポートフォリオ閲覧専用のワンクリックログイン（無料・課金ユーザー向け 2 種）を提供しており、採用担当者が即時に全機能を試せる設計です。モバイル・PC 両対応のレスポンシブデザインで、PC では 4 カラムのカテゴリグリッドを表示します。',
       },
       {
         images: [
@@ -37,7 +37,7 @@ Python・AWS・Docker など実務直結の IT 知識を、ゲーム的な仕掛
           `${base}images/works/project-a/project-a-2-3.png`,
           `${base}images/works/project-a/project-a-2-4.png`,
         ],
-        caption: '問題選択画面では挑戦モード（新問・同一・間違い）・出題対象（未出題/ミス/ヒット/コンボ）・問題数・正答率・難易度・サブカテゴリの 6 軸でフィルタリングできます。サブカテゴリは折り畳み UI で複数選択可能です。自動再生モードを有効にすると解答後に設定秒数で次の問題へ自動遷移し、解説を読みながらのながら学習をサポートします。問題画面では 👍/👎 フィードバックボタンで問題の品質報告ができ、英語カテゴリでは TTS（音声読み上げ）が en-US で自動動作します。',
+        caption: 'カテゴリ別（Python・SAA など）の問題選択画面では、挑戦モード（新問・同一・間違い）・出題対象（未出題/ミス/ヒット/コンボ）・難易度・問題数の軸でフィルタリングできます。即時判定モードや自動再生モードで学習スタイルを切り替えられ、解放済み問題数と残り寄り石数も表示されます。問題画面では「二択に絞る」ジェム機能で 4 択を 2 択に絞り込め（正解 +3XP ボーナス付き）、解答後は選択した選択肢がハイライト表示されます。',
       },
       {
         images: [
@@ -46,7 +46,7 @@ Python・AWS・Docker など実務直結の IT 知識を、ゲーム的な仕掛
           `${base}images/works/project-a/project-a-3-3.png`,
           `${base}images/works/project-a/project-a-3-4.png`,
         ],
-        caption: '解答履歴一覧ページでは、カテゴリーごとに全問題の習熟ステータス（未出題・ミス・ヒット・コンボ）をカラーバーで可視化しつつ、過去の各セッションを解答日時・問題数・正解数・正答率とともに一覧表示します。詳細ボタンからはセッション内の個別問題ごとの正誤確認もでき、学習の振り返りを詳細に行える設計です。',
+        caption: 'クイズ結果画面では正解数・正答率を表示し、今回のセッション履歴確認や問題選択への帰還ができます。マイページではレベル・総 XP・ジェム数・ランキング順位（全ユーザー中の上位 %）に加え、過去 1 年の学習カレンダー（GitHub 風ヒートマップ）でアクティビティを可視化しています。解答履歴ページではカテゴリ別の問題ステータス（未出題・ミス・ヒット・コンボ）をカラーバーで確認でき、モバイル・PC 両レイアウトに対応しています。',
       },
     ],
   },
@@ -73,20 +73,104 @@ Android 側は Clean Architecture + MVVM + Repository パターンで設計し�
         caption: 'ホーム画面。ステージ数・コイン・ジェムの現在値を上部に表示し、次のマイルストーン報酬の達成条件をバナーで確認できます。デイリーミッション受け取り通知と冒険ログ（1分ごとに更新）も表示されます。',
       },
       {
-        images: [`${base}images/works/project-c/project-c-3-1.png`],
-        caption: '武器画面。武器・レシピ・スロット・図鑑の4タブ構成で、総攻撃力と最高★数を確認しながら手動合成・自動合成（無料残り回数表示）・ジェム合成を操作できます。スロット満杯時は合成を促すメッセージが表示されます。',
+        images: [
+          `${base}images/works/project-c/project-c-3-1.png`,
+          `${base}images/works/project-c/project-c-3-2.png`,
+        ],
+        caption: '武器画面（武器タブ）では★1〜5 の武器を 5 スロットで管理し、総攻撃力を確認しながら手動合成・自動合成（無料残り回数表示）・ジェム合成を操作できます。図鑑タブでは総討伐数とモンスターの発見状況を確認でき、撃破した通常モンスター・ボスが順にアンロックされていきます。',
       },
       {
         images: [`${base}images/works/project-c/project-c-4-1.png`],
-        caption: '強化画面（輝石タブ）。攻撃力倍率・コイン倍率・オフライン延長・ジェムドロップUPのプレステージアップグレードをレベル上限付きで管理します。輝石はボス撃破で獲得でき、各強化の現在レベルと次レベルの効果が表示されます。',
+        caption: '強化画面（コイン強化タブ）。コイン攻撃力強化とコイン/分強化をレベルアップできます。コイン/分強化を Lv.5 に上げると放置中のコイン獲得量が +50/分 増加します。タブを切り替えると★生成・輝石強化（プレステージ攻撃倍率など）・レシピクラフト・転生も操作できます。',
       },
       {
         images: [`${base}images/works/project-c/project-c-5-1.png`],
         caption: 'ショップ画面。スキップ券・ジェム+10・コイン取得・攻撃力×2緊急強化・落下防止シールドの各広告視聴ボタンが並びます。1日の視聴回数上限と残り回数がリアルタイムで表示されます。',
       },
       {
-        images: [`${base}images/works/project-c/project-c-6-1.png`],
-        caption: '設定画面。SEエフェクト・振動のON/OFFを切り替えられるほか、アカウントセクションからクラウドセーブのログイン・登録が可能です（ゲストモードでは端末のみ保存）。記録セクションから実績・称号・統計を閲覧できます。',
+        images: [
+          `${base}images/works/project-c/project-c-6-1.png`,
+          `${base}images/works/project-c/project-c-6-2.png`,
+        ],
+        caption: '設定画面では SE エフェクト・振動の ON/OFF を切り替えられ、アカウントセクションからログイン / クラウドセーブが可能です（ゲストモードでは端末のみ保存）。実績画面では「1000 体撃破ごとにジェム +5」「ステージ 100 の倍数ごとにジェム +10」など進行に応じた報酬を確認・受け取れます。',
+      },
+    ],
+  },
+  {
+    slug: 'project-e',
+    title: 'AlchemyGame',
+    thumbnail: `${base}images/works/project-e/project-e-1-1.png`,
+    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化・宇宙・文明と 5 段階でワールドが広がる設計を採用し、IAP・コンボシステム・デイリーミッションを MVVM + Clean Architecture + UseCase パターンで実装しています。',
+    detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
+
+Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、合成・ミッション・実績などのビジネスロジックを各 UseCase に分離しています。ゲーム状態は immutable な設計で一貫性を保証し、状態変化と UI イベントを疎結合に扱う仕組みを整えています。
+
+コアゲームループは 4 元素（火・水・土・風）の自動収集から始まり、80 種以上のレシピを段階的に発見・合成していく仕組みです。錬金炉は最大 3 スロットの並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。最終素材の合成でプレステージ（昇華）が発動し、錬金術→料理→生物進化→宇宙創造→文明史の 5 ワールドが段階的に解放される設計で、各ワールドの在庫・発見素材・プレステージ状態を独立して管理しています。
+
+継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（5 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、20 種以上のアチーブメント、8 ステップのチュートリアルを実装しています。
+
+オフライン進捗はサーバー時刻を基準に計算してデバイス時計の改ざんを防止し、長期放置時にはアシスタントギフトを付与する設計にしています。JWT トークンは端末内で暗号化保存し、Ktor バックエンドとのバックグラウンド同期でクラウドセーブを実現。スターターパック・広告除去・オフライン延長・ヒントブックなどの IAP と広告報酬（オフライン 2 倍・ゴールドボーナス）も実装しています。
+
+合成・購入・図鑑・ワールド進行など複数の画面で各機能を整理し、全ゲーム状態を一元管理する設計です。コンボシステムは連続クラフトで倍率ボーナスを付与し、一定コンボ数でマイルストーン報酬を獲得できます。グリモワール（レシピ図鑑）では未発見レシピにヒントチケットを消費してヒントを開示できます。`,
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'IAP', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
+    productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/alchemygame-v1.0.0',
+    githubUrl: null,
+    sections: [
+      {
+        images: [
+          `${base}images/works/project-e/project-e-1-1.png`,
+          `${base}images/works/project-e/project-e-1-2.png`,
+        ],
+        caption: 'ラボ画面では火・水・土・風の 4 元素を採集器で自動収集しながら、2 素材を選んで調合し 80 種以上の素材を発見していきます。オフライン中も採集が続き、起動時に放置時間分の素材をまとめて受け取れます。デイリーミッション（調合 20 回・gold 消費など）が毎日リセットされ、継続プレイを促します。',
+      },
+      {
+        images: [
+          `${base}images/works/project-e/project-e-2-1.png`,
+          `${base}images/works/project-e/project-e-2-2.png`,
+        ],
+        caption: '錬成書（図鑑）では T1〜T7 のティア別に発見済み素材を管理でき、素材を選ぶと必要な基礎素材・調合コストを確認しながら「ツリー錬成」で中間素材から一括生成できます。工房の実績タブでは錬金術ランク・累計 XP・ログイン記録に加え、大錬金術師（調合 1000 回）などのアチーブメント達成状況を確認できます。',
+      },
+    ],
+  },
+  {
+    slug: 'project-j',
+    title: 'StarForge',
+    thumbnail: `${base}images/works/project-j/project-j-1-1.png`,
+    description: 'モンスターを合成・育成しながら 50 フロアのダンジョンを攻略し、休憩エリアではノノグラムパズルでボーナスを獲得できる 3 モード統合の Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索など多数のシステムを Kotlin で個人設計・実装中。',
+    detail: `StarForge — 複合ジャンル Android ゲーム（Kotlin × Ktor）
+
+Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズルを統合した Android アプリです。3 つのゲームモードを 1 アプリに収め、独自 Canvas レンダリングエンジン・プロシージャルダンジョン生成・A* 経路探索を含む多数のシステムを MVVM + Clean Architecture + UseCase パターンで設計・実装しています。
+
+ダンジョンは自作プロシージャル生成エンジンでフロアごとにマップを自動生成し、霧の探索表現とスキルの照射プレビューを独自 Canvas でリアルタイム描画しています。AUTO 探索は出口優先→未探索エリア→BFS の 3 段優先度で A* 経路探索を実装し、HP 30% 以下・ボス出現時に自動停止します。敵は 23 種（通常 18 + ボス 5）、スキルは 15 種（回復・範囲攻撃・貫通・スタン等）をフロア床上ドロップで取得します。
+
+アーキテクチャはゲーム状態の StateFlow と演出イベントの SharedFlow を二本立てで管理する設計です。ゲーム状態は完全 immutable な設計で一貫性を保証し、DataStore に JSON 直列化して永続化。バージョン管理によるセーブデータのマイグレーションにも対応しています。
+
+モンスターは 7 段階のティア × 5 タイプで 35 体を定義し、同ティア合成では確定昇格・異ティア合成ではランダム昇格という合成ルールで発見要素を持たせています。ノノグラムはフィル/消しモード切替・タッチジェスチャー・自動スケールを実装した独自 Canvas 描画で構成し、自作 Python ジェネレーターで生成したパズルをそのまま取り込む設計です。日替わりショップは日付をシードとした決定論的な抽選で、同じ日は常に同じ品揃えを保証しています。敵 23 種・スキル 15 種・モンスター 35 体を実装済みです。`,
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'DataStore', 'Retrofit', 'Navigation Component', 'Ktor', 'Python'],
+    productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/starforge-v1.0.0',
+    githubUrl: null,
+    inProgress: true,
+    sections: [
+      {
+        images: [
+          `${base}images/works/project-j/project-j-1-1.png`,
+          `${base}images/works/project-j/project-j-1-2.png`,
+        ],
+        caption: 'ホーム画面では現在のダンジョン / ノノグラムスタミナ・所持 G と各機能（合成工房・ダンジョン・鍛冶屋・キャラ育成・ノノグラム・ショップ）へのショートカットを確認できます。合成工房では T1〜T5 のキャラクターを 2 体の素材から生み出し、かけら生誕でかけら数に応じて仲間を増やしていきます。',
+      },
+      {
+        images: [
+          `${base}images/works/project-j/project-j-2-1.png`,
+          `${base}images/works/project-j/project-j-2-2.png`,
+        ],
+        caption: '独自 Canvas 描画によるターン制ダンジョン探索。HP・ATK・DEF を確認しながらグリッドマップを移動し、スキルを使って敵と戦います。ミニマップで周囲を把握しつつ「脱出」ボタンで安全に報酬を持ち帰れます。キャラ育成画面では最大 3 体のサポートパーティを編成でき、役割（防御型 DEFN・回復型 HEAL など）に応じてパーティ効果が変化します。',
+      },
+      {
+        images: [
+          `${base}images/works/project-j/project-j-3-1.png`,
+          `${base}images/works/project-j/project-j-3-2.png`,
+        ],
+        caption: 'パズル画面では 5×5・10×10・15×15 の難易度別ノノグラムをスタミナ消費で挑戦できます。プレイ画面では行・列のヒント数字を頼りにグリッドをフィル（塗り）または × で埋めていき、クリアすると★を獲得してキャラのかけら生誕やショップ購入に活用できます。',
       },
     ],
   },
@@ -215,42 +299,6 @@ PHPフロントエンドを稼働させたまま、バックエンドをSpring B
     ],
   },
   {
-    slug: 'project-e',
-    title: 'AlchemyGame',
-    thumbnail: `${base}images/works/coming-soon.png`,
-    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化・宇宙・文明と 5 段階でワールドが広がる設計を採用し、IAP・コンボシステム・デイリーミッションを MVVM + Clean Architecture + UseCase パターンで実装しています。',
-    detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
-
-Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、合成・ミッション・実績などのビジネスロジックを各 UseCase に分離しています。ゲーム状態は immutable な設計で一貫性を保証し、状態変化と UI イベントを疎結合に扱う仕組みを整えています。
-
-コアゲームループは 4 元素（火・水・土・風）の自動収集から始まり、80 種以上のレシピを段階的に発見・合成していく仕組みです。錬金炉は最大 3 スロットの並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。最終素材の合成でプレステージ（昇華）が発動し、錬金術→料理→生物進化→宇宙創造→文明史の 5 ワールドが段階的に解放される設計で、各ワールドの在庫・発見素材・プレステージ状態を独立して管理しています。
-
-継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（5 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、20 種以上のアチーブメント、8 ステップのチュートリアルを実装しています。
-
-オフライン進捗はサーバー時刻を基準に計算してデバイス時計の改ざんを防止し、長期放置時にはアシスタントギフトを付与する設計にしています。JWT トークンは端末内で暗号化保存し、Ktor バックエンドとのバックグラウンド同期でクラウドセーブを実現。スターターパック・広告除去・オフライン延長・ヒントブックなどの IAP と広告報酬（オフライン 2 倍・ゴールドボーナス）も実装しています。
-
-合成・購入・図鑑・ワールド進行など複数の画面で各機能を整理し、全ゲーム状態を一元管理する設計です。コンボシステムは連続クラフトで倍率ボーナスを付与し、一定コンボ数でマイルストーン報酬を獲得できます。グリモワール（レシピ図鑑）では未発見レシピにヒントチケットを消費してヒントを開示できます。`,
-    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'IAP', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
-    productUrl: null,
-    githubUrl: null,
-    sections: [
-      {
-        images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
-        ],
-        caption: 'Lab（錬金炉）画面では 4 元素を自動収集しながら 80 種以上の素材を発見・合成する発見型システムを操作できます。錬金炉は最大 3 スロット並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。連続クラフトでコンボボーナスが積み上がり、一定コンボ数でマイルストーン報酬を獲得できます。',
-      },
-      {
-        images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
-        ],
-        caption: 'グリモワール（レシピ図鑑）では発見済み・未発見レシピを管理し、ヒントチケットを消費してヒントを開示できます。プレステージ画面では収集速度・スロット数・ストレージ上限の永続ボーナスを管理し、アルケミストランク・デイリーミッション・ログインカレンダーで継続プレイを促します。',
-      },
-    ],
-  },
-  {
     slug: 'project-i',
     title: 'インフラ構成（VPS）',
     thumbnail: `${base}images/works/coming-soon.png`,
@@ -270,51 +318,9 @@ VPS（Xserver VPS / Ubuntu）1台上で Traefik + Docker Compose を用いて4�
     sections: [],
   },
   {
-    slug: 'project-j',
-    title: 'StarForge',
-    thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'モンスターを合成・育成しながら 50 フロアのダンジョンを攻略し、休憩エリアではノノグラムパズルでボーナスを獲得できる 3 モード統合の Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索など多数のシステムを Kotlin で個人設計・実装中。',
-    detail: `StarForge — 複合ジャンル Android ゲーム（Kotlin × Ktor）
-
-Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズルを統合した Android アプリです。3 つのゲームモードを 1 アプリに収め、独自 Canvas レンダリングエンジン・プロシージャルダンジョン生成・A* 経路探索を含む多数のシステムを MVVM + Clean Architecture + UseCase パターンで設計・実装しています。
-
-ダンジョンは自作プロシージャル生成エンジンでフロアごとにマップを自動生成し、霧の探索表現とスキルの照射プレビューを独自 Canvas でリアルタイム描画しています。AUTO 探索は出口優先→未探索エリア→BFS の 3 段優先度で A* 経路探索を実装し、HP 30% 以下・ボス出現時に自動停止します。敵は 23 種（通常 18 + ボス 5）、スキルは 15 種（回復・範囲攻撃・貫通・スタン等）をフロア床上ドロップで取得します。
-
-アーキテクチャはゲーム状態の StateFlow と演出イベントの SharedFlow を二本立てで管理する設計です。ゲーム状態は完全 immutable な設計で一貫性を保証し、DataStore に JSON 直列化して永続化。バージョン管理によるセーブデータのマイグレーションにも対応しています。
-
-モンスターは 7 段階のティア × 5 タイプで 35 体を定義し、同ティア合成では確定昇格・異ティア合成ではランダム昇格という合成ルールで発見要素を持たせています。ノノグラムはフィル/消しモード切替・タッチジェスチャー・自動スケールを実装した独自 Canvas 描画で構成し、自作 Python ジェネレーターで生成したパズルをそのまま取り込む設計です。日替わりショップは日付をシードとした決定論的な抽選で、同じ日は常に同じ品揃えを保証しています。敵 23 種・スキル 15 種・モンスター 35 体を実装済みです。`,
-    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'DataStore', 'Retrofit', 'Navigation Component', 'Ktor', 'Python'],
-    productUrl: null,
-    githubUrl: null,
-    inProgress: true,
-    sections: [
-      {
-        images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
-        ],
-        caption: 'ホーム画面では 35 体のモンスター一覧を確認でき、かけらを集めて召喚・合成でモンスターを発見・強化します。習熟度を上げるとサポートパーティのボーナスが上昇し、最大 3 体のサポートメンバーがダンジョン開始時に能力を底上げします。',
-      },
-      {
-        images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
-        ],
-        caption: '独自 Canvas 描画によるターン制ローグライク（50 フロア）。プロシージャル生成マップ上でスキルをフロア床上から拾いながら 23 種の敵と戦います。AUTO 探索で自動進行しつつ、HP が残り少なくなるかボスが出現すると自動停止します。',
-      },
-      {
-        images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
-        ],
-        caption: 'ノノグラムミニゲームはフィル/消しモード切替・タッチジェスチャー・自動スケールを実装した独自 Canvas 描画で構成されています。自作 Python ジェネレーターで生成した難易度別パズルを管理し、休憩エリアのノノグラム祠ではクリアするとダンジョンボーナス効果を獲得できます。',
-      },
-    ],
-  },
-  {
     slug: 'project-f',
     title: 'IdleMine',
-    thumbnail: `${base}images/works/coming-soon.png`,
+    thumbnail: `${base}images/works/project-f/project-f-1-1.png`,
     description: '鉱石を集め、ガチャで仲間を増やし、採掘チームと探索派遣で効率を高めていく放置系 Android ゲームです。Unity 6 LTS / C# で AI 作戦付き採掘システム・天井保証ガチャ・オフライン報酬を実装し、実機テスト中。',
     detail: `IdleMine — 放置型鉱山採掘ゲーム（Android × Unity）
 
@@ -334,17 +340,17 @@ UI は 5 タブ（ホーム・採掘・ベース・ガチャ・設定）で構�
     sections: [
       {
         images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
+          `${base}images/works/project-f/project-f-1-1.png`,
+          `${base}images/works/project-f/project-f-1-2.png`,
         ],
-        caption: 'Mine 画面では採掘グリッド上で AI 作戦（近い・価値が高い・安全・深い）に従いキャラクターが自動採掘します。カメラは採掘エリアに合わせて自動フィットし、HUD でフロア進行・次の目標・アップグレードバナーを確認できます。',
+        caption: '採掘グリッド上で Stone・Iron・Crystal などの鉱石が自動生成され、キャラクターが自動採掘します。Mining Team 画面ではキャラクターの役割（Miner・Merchant）と次の目標（Clear Shallow Mine / 指定数の採掘）を確認しながらメンバーを管理できます。',
       },
       {
         images: [
-          `${base}images/works/coming-soon.png`,
-          `${base}images/works/coming-soon.png`,
+          `${base}images/works/project-f/project-f-2-1.png`,
+          `${base}images/works/project-f/project-f-2-2.png`,
         ],
-        caption: 'Gacha 画面では SR/SSR 抽選・10/50/100 連の天井保証でキャラクターを召喚します。Base 画面ではガーデンバフ（採掘速度・ゴールド・スタミナ系）の管理と探索派遣でオフライン中の報酬収集を行えます。',
+        caption: 'Gacha 画面では召喚したキャラクターの役割（Miner: Mining Speed +15% / Merchant: Sell Price +12% など）を確認し、Mine や Market に割り当てられます。Market では採掘した鉱石を個数単位で売却でき、レアリティが高いほど単価が上がります（Gem は 500G/ea）。',
       },
     ],
   },
