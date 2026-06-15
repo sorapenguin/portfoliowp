@@ -1,5 +1,13 @@
 [
   {
+    "id": "aws-dop",
+    "provider": "AWS",
+    "exam": "DevOps Engineer Professional",
+    "examCode": "DOP-C02",
+    "description": "CI/CD・IaC・監視・サーバーレス・コンテナ・高可用性をAWS DevOpsサービス横断でハンズオンにより実践",
+    "status": "completed"
+  },
+  {
     "id": "aws-dva",
     "provider": "AWS",
     "exam": "Developer Associate",
@@ -24,11 +32,43 @@
     "status": "completed"
   },
   {
+    "id": "aws-scs",
+    "provider": "AWS",
+    "exam": "Security Specialty",
+    "examCode": "SCS-C02",
+    "description": "脅威検知・暗号化・アクセス制御・ネットワーク防御・ログ監査をAWSセキュリティサービス横断でハンズオンにより実践",
+    "status": "completed"
+  },
+  {
     "id": "aws-soa",
     "provider": "AWS",
     "exam": "SysOps Administrator Associate",
     "examCode": "SOA-C02",
     "description": "監視・可観測性・高可用性設計・デプロイ自動化・セキュリティコンプライアンス・ネットワーク管理をハンズオンで実践。AWSシステム管理者として本番環境を守る運用設計力を習得",
+    "status": "completed"
+  },
+  {
+    "id": "azure-az104",
+    "provider": "Azure",
+    "exam": "Administrator Associate",
+    "examCode": "AZ-104",
+    "description": "ガバナンス・ストレージ・コンピュート・ネットワーク・監視の5領域を体系的にハンズオンで実践。Azure PolicyによるDeny制御からApplication GatewayのL7ルーティング・TLS終端、ARM/Bicep/Terraformによるインフラ自動化まで、Azureインフラ管理者の設計判断力を習得",
+    "status": "completed"
+  },
+  {
+    "id": "cncf-cka",
+    "provider": "CNCF",
+    "exam": "Certified Kubernetes Administrator",
+    "examCode": "CKA",
+    "description": "ワークロード管理・スケジューリング・ネットワーク・RBAC・クラスタ運用をKubernetesハンズオンで体系的に実践",
+    "status": "completed"
+  },
+  {
+    "id": "hashicorp-terraform",
+    "provider": "HashiCorp",
+    "exam": "Terraform Associate",
+    "examCode": "IAC",
+    "description": "AWS全サービスをTerraformでコード化し、VPC・EC2・RDS・ALB・Lambda・EKSをIaCで管理する設計力を習得",
     "status": "completed"
   }
 ]
