@@ -33,23 +33,9 @@ export default function Works() {
                     <span className="btn btn-product btn-disabled">プロダクト</span>
                     <span className="btn btn-github btn-disabled">GitHub</span>
                   </>
-                ) : project.inProgress ? (
-                  <>
-                    <span className="btn btn-product btn-disabled">🚧 開発中</span>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-github"
-                      >
-                        GitHub
-                      </a>
-                    )}
-                  </>
                 ) : (
                   <>
-                    {project.productUrl && (
+                    {project.productUrl ? (
                       <a
                         href={project.productUrl}
                         target="_blank"
@@ -58,7 +44,9 @@ export default function Works() {
                       >
                         プロダクト
                       </a>
-                    )}
+                    ) : project.inProgress ? (
+                      <span className="btn btn-product btn-disabled">🚧 開発中</span>
+                    ) : null}
                     {project.githubUrl && (
                       <a
                         href={project.githubUrl}
