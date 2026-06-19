@@ -175,6 +175,57 @@ Kotlin 製のモンスター育成合成 × ターン制ローグライク × �
     ],
   },
   {
+    slug: 'project-l',
+    title: 'StellarRise Web',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: 'StellarRise の採用担当者向け Web デモ版。TypeScript + Vite で実装し、ログイン不要で即プレイ可能。Docker コンテナを自前 VPS（Traefik + HTTPS）に配置し、実稼働公開中。',
+    detail: `StellarRise Web デモ — TypeScript × Vite × Docker
+
+Android アプリ「StellarRise」の採用担当者向け Web 体験版です。APK のインストールなしにブラウザで即プレイできるよう、TypeScript + Vite でフロントエンドを実装しました。
+
+ゲスト自動起動・デモ向け初期値設定を追加し、登録不要でゲームの核心部分をすぐに体験できるよう整備しています。Android 版と同じ Ktor バックエンドと通信し、CORS 設定によってWebからのアクセスを許可しています。
+
+インフラ面では Docker コンテナを自前 VPS（Ubuntu）に配置し、Traefik をリバースプロキシとして HTTPS で公開。Cloudflare DNS の A レコードでサブドメインを設定し、Let's Encrypt による自動証明書更新を実現しています。フロントエンド（TypeScript）・API（Ktor）・インフラ（VPS / Traefik / DNS）を一人で構築し、ポートフォリオとして実稼働中です。`,
+    tech: ['TypeScript', 'Vite', 'Docker', 'Traefik', 'Cloudflare', "Let's Encrypt", 'Ktor'],
+    productUrl: 'https://stellarrise-web.sorapenguin.dev',
+    githubUrl: null,
+    sections: [],
+  },
+  {
+    slug: 'project-m',
+    title: 'Webパズルサービス',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: 'ノノグラム・ヌリカベをブラウザで遊べる Web パズルプラットフォーム。300 問を VPS 上の PostgreSQL に投入し Ktor API で配信。管理画面からの公開制御と Android API の共用バックエンドを実装。',
+    detail: `Webパズルサービス — Ktor × Vanilla JS × PostgreSQL
+
+ノノグラム・ヌリカベをブラウザで遊べるパズルプラットフォームです。300 問を VPS 上の PostgreSQL に投入し、Ktor 製 API を通じて配信しています。
+
+is_published カラムによる管理画面からの公開・非公開制御を実装し、Android アプリのバックエンドと Web API を同一 Ktor サーバー上で共存させる設計を採用しています。フロントエンドはビルドツールなしの Vanilla HTML+CSS+JS で動作し、軽量・高速な配信を実現しています。
+
+Docker コンテナを自前 VPS に配置し、Traefik + Let's Encrypt で HTTPS 公開。puzzle.sorapenguin.dev として実稼働中です。`,
+    tech: ['Ktor', 'Kotlin', 'Vanilla JS', 'PostgreSQL', 'Docker', 'Traefik', "Let's Encrypt"],
+    productUrl: 'https://puzzle.sorapenguin.dev',
+    githubUrl: null,
+    sections: [],
+  },
+  {
+    slug: 'project-n',
+    title: 'VPS 監視ダッシュボード',
+    thumbnail: `${base}images/works/coming-soon.png`,
+    description: 'Go（Echo）で自作した VPS 監視ツール。CPU・メモリ・稼働時間を 30 秒ごとに収集しグラフ表示。127.0.0.1 バインド + SSH トンネル経由のアクセス設計でセキュリティを担保。',
+    detail: `VPS 監視ダッシュボード — Go × Echo × PostgreSQL
+
+Go（Echo）で実装した自作の VPS 監視ツールです。CPU 使用率・メモリ使用率・稼働時間を 30 秒ごとに収集し、時系列グラフで表示します。
+
+セキュリティを重視したアクセス設計を採用しています。サービスを 127.0.0.1 にのみバインドして外部ポートを一切開けず、SSH ポートフォワーディング経由のみでダッシュボードにアクセスできる構成です。認証なしで安全に利用できるよう、ネットワーク境界でアクセスを制御しています。
+
+systemctl --user でルート権限なしに自動起動を実現し、PostgreSQL に収集データを永続化。実際に稼働中の自前 VPS をモニタリングするツールとして使用しています。`,
+    tech: ['Go', 'Echo', 'PostgreSQL', 'systemd', 'SSH'],
+    productUrl: null,
+    githubUrl: null,
+    sections: [],
+  },
+  {
     slug: 'project-d',
     title: 'ノノグラム',
     thumbnail: `${base}images/works/project-d/project-d-1-1.png`,
