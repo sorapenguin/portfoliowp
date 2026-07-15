@@ -55,15 +55,17 @@ Python・AWS・Docker など実務直結の IT 知識を、ゲーム的な仕掛
     slug: 'project-routelab',
     title: 'RouteLab',
     thumbnail: `${base}images/works/project-routelab/project-routelab-1.png`,
-    description: 'CCNA / CCNP 向け CLI シミュレーション型ネットワーク問題集。実際のルーター操作に近いコマンド入力 UI で 50 以上のシナリオを練習できる。React + TypeScript + Zustand + TailwindCSS 製・VPS 本番稼働中。',
+    description: 'CCNA / CCNP 向け CLI シミュレーション型ネットワーク問題集。選択式・手入力・写経の 3 モードで 260 問以上を練習でき、コマンドエンジンをフロントで完結させる設計。React + TypeScript + Zustand + TailwindCSS 製・VPS 本番稼働中。',
     detail: `RouteLab — CLIシミュレーション型ネットワーク問題集（React × TypeScript）
 
-CCNA / CCNP 向けのネットワーク設定演習サービスです。実際のルーター・スイッチの CLI 操作に近いコマンド入力型 UI で、OSPF / EIGRP / BGP / VLAN / ACL / VPN などのプロトコル・設定カテゴリをシナリオ形式で練習できます。
+CCNA / CCNP 向けのネットワーク設定演習サービスです。260 問以上のシナリオ（CCNA ASSOC / CCNP ENARSI / トラブルシューティングの 3 カテゴリ）を、選択式・手入力・写経（audioSequence 案内）の 3 モードで練習できます。OSPF / EIGRP / BGP / VPN / ACL / STP / NAT / IPv6 など CCNA〜CCNP の主要プロトコルをすべてカバーしています。
 
-フロントエンドは React + TypeScript + Vite + Zustand + TailwindCSS で構成し、Zustand でシナリオ進行・コマンド履歴・正誤判定の状態を管理しています。CLI 風の入力エリア・コマンドフィードバック・進行状況表示を実装し、実際のターミナル操作に近い体験を提供しています。
+コアは CLI エミュレーターエンジンとして独自設計した 7 モジュール構成です。CommandParser.ts が入力文字列を IOS コマンド構造に分解し、CommandProcessor.ts がデバイス状態（ルーティングテーブル・インターフェース・プロトコル設定）を更新します。ModeTransition.ts が enable / configure terminal などのモード遷移を管理し、ScoringEngine.ts が部分点を計算。サーバー不要で全処理をフロントで完結させる設計により、show コマンドの出力も ShowOutputGenerator.ts で IOS 風フォーマットに動的生成します。
 
-自分の CCNA / CCNP 学習で感じた「コマンドの書き方・設定の流れを実際に手を動かして練習したい」というニーズをそのままサービス化し、VPS 上で Docker + Traefik 構成で公開しています。`,
-    tech: ['React', 'TypeScript', 'Vite', 'Zustand', 'TailwindCSS', 'Docker', 'Traefik', 'VPS'],
+コマンドの重複入力を自動検出してグレーアウトする blocked チェックと、全シナリオに定義した audioSequence（写経ヒントシーケンス）を実装しています。実ユーザーのバグ報告を Express サーバー（port 3999）+ Vite proxy で jsonl ファイルに保存する独自のデバッグレポーターを組み込み、収集したフィードバックを元に継続的にシナリオ品質を改善しています。tsx バリデーションスクリプトで全シナリオ × 全ステップを自動検証し、写経モードの null 件数ゼロを保証しています。
+
+フロントエンドは React + TypeScript + Vite + Zustand + TailwindCSS 構成。シナリオは JSON ファイル 1 つで独立管理し、デバイス状態・許可コマンド・採点条件・写経シーケンスを完全定義するため、JSON を追加するだけで新シナリオを拡張できます。VPS 上で Docker + Traefik 構成で公開しています。`,
+    tech: ['React', 'TypeScript', 'Vite', 'Zustand', 'TailwindCSS', 'Express', 'Docker', 'Traefik', 'VPS'],
     productUrl: 'https://routelab.sorapenguin.dev',
     githubUrl: null,
     sections: [
@@ -114,19 +116,19 @@ Docker コンテナを自前 VPS に配置し、Traefik + Let's Encrypt で HTTP
   },
   {
     slug: 'project-c',
-    title: '放置バトルゲーム',
+    title: 'StellarRise',
     thumbnail: `${base}images/works/project-c/project-c-1.png`,
     description: '武器を自動生成・合成して攻撃力を高め、ステージを進める放置型 RPG Android アプリ。Android 開発の出発点となった作品で、クラウドセーブ・オフライン報酬・プレステージなどリリース水準の機能を Kotlin × Ktor フルスタック構成で設計・実装しました。',
-    detail: `IdleGame（StellarRise）— 放置型RPGゲーム（Android × Ktor API）
+    detail: `StellarRise — 放置型RPGゲーム（Android × Ktor API）
 
-Android 開発を本格的に始めた最初のゲームアプリです。Kotlin × Ktor のフルスタック構成で開発した放置型クリッカーRPGで、武器を自動生成・合成して攻撃力を高め、ステージを進めていくゲームとして設計しました。広告・クラウドセーブ・オフライン報酬・プレステージ（周回システム）など、リリースを見据えたゲームの標準的な機能を実際に組み込み、設計水準を意識しながら実装しています。
+Android 開発を本格的に始めた最初のゲームアプリです。Kotlin × Ktor のフルスタック構成で開発した放置型クリッカーRPGで、武器を自動生成・合成して攻撃力を高め、ステージを進めていくゲームとして設計しました。クラウドセーブ・オフライン報酬・プレステージ（周回システム）・報酬広告フローなど、リリースを見据えたゲームの標準的な機能を実際に組み込み、設計水準を意識しながら実装しています。報酬広告フローは独自の AdManager クラスで制御しており、ポートフォリオ用ビルド（portfolio フレーバー）では外部広告 SDK に依存せず 3 秒のモック動作で報酬フローを確認できます。
 
 Android 側は Clean Architecture + MVVM + Repository パターンで設計し、ゲーム状態を一元管理しながら戦闘シミュレーション・武器自動生成・合成を制御しています。ローカル保存は継続的な機能追加に対応した Room + DataStore の2層構成とし、クラウドセーブはバックグラウンドで定期同期する設計を採用。サーバー側のタイムスタンプを優先してセーブデータの競合を解決し、オフライン・エラー状態を型安全に管理しています。バックエンドは Ktor + PostgreSQL の構成で、Docker によるイメージ軽量化と Traefik によるレート制限・ヘルスチェックも実装しています。
 
-メイン・武器管理・ショップ・強化・プレステージ・実績・設定など複数の画面で各要素を整理しています。武器は星レベルに応じて攻撃力が指数的に増加し（★99 で約 10²⁵）、削除時に素材を生成してレシピクラフトに使用できます。プレステージ（永久アップグレード）で攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率を強化でき、10 ワールド構成でワールドごとに武器ステートを管理しています。サポートキャラクターの育成でダンジョン進行をアシストする仕組みや、スペシャルボス撃破で輝石を時間蓄積するシステムも備え、機能追加に対応した拡張性の高いローカル保存設計を採用しています。
+メイン・武器管理・ショップ・強化・プレステージ・実績・設定など複数の画面で各要素を整理しています。武器は星レベルに応じて攻撃力が指数的に増加し（★99 で約 10²⁵）、削除時に素材を生成できます（レシピシステムは BuildConfig フラグで休眠中・内部データは互換維持済み）。プレステージ（永久アップグレード）で攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率を強化でき、10 ワールド構成でワールドごとに武器ステートを管理しています。サポートキャラクターの育成でダンジョン進行をアシストする仕組みや、スペシャルボス撃破で輝石を時間蓄積するシステムも備え、機能追加に対応した拡張性の高いローカル保存設計を採用しています。
 
 設計面で特に意識したのはオフライン報酬のチート耐性設計です。端末時計ではなくサーバー時刻を基準にオフライン経過時間を計算することで、時計操作による不正取得を防いでいます。JWT トークンは端末内で暗号化保存し、パスワードは BCrypt でハッシュ管理。クラウドセーブはパスワードのみでデータを紐づける設計にすることで、UX とセキュリティを両立しています。`,
-    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
+    tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/idlegame-v1.1.0',
     githubUrl: null,
     sections: [
@@ -155,6 +157,15 @@ Android 側は Clean Architecture + MVVM + Repository パターンで設計し�
           `${base}images/works/project-c/project-c-6-2.png`,
         ],
         caption: '設定画面では SE エフェクト・振動の ON/OFF を切り替えられ、アカウントセクションからログイン / クラウドセーブが可能です（ゲストモードでは端末のみ保存）。実績画面では「1000 体撃破ごとにジェム +5」「ステージ 100 の倍数ごとにジェム +10」など進行に応じた報酬を確認・受け取れます。',
+      },
+      {
+        images: [
+          `${base}images/works/project-c/project-c-7-1.png`,
+          `${base}images/works/project-c/project-c-7-2.png`,
+          `${base}images/works/project-c/project-c-7-3.png`,
+          `${base}images/works/project-c/project-c-7-4.png`,
+        ],
+        caption: 'サポートキャラ画面では N/R/SR/SSR レアリティ 24 体を輝石ガチャで収集でき、所持した全キャラの ATK% が常時加算されます（PixelArt アイコン全 24 体組み込み済み）。モンスター図鑑では撃破した通常モンスター・ボスが順にアンロックされ、総討伐数とともに進行を記録します。統計画面では最高到達ステージ・総討伐数・現在ワールド（W1 星明り界など 10 ワールド構成）・武器スロット使用状況を一覧確認できます。クラウドセーブ（アプリ名 StellarRise 表示）では、パスワードのみで既存データへのログインと新規作成が行えます。',
       },
     ],
   },
@@ -189,14 +200,14 @@ Java Execution Tracer の略。Java のコードを読み、実行結果・変�
     slug: 'project-e',
     title: 'AlchemyGame',
     thumbnail: `${base}images/works/project-e/project-e-1-1.png`,
-    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化・宇宙・文明と 5 段階でワールドが広がる設計を採用し、IAP・コンボシステム・デイリーミッションを MVVM + Clean Architecture + UseCase パターンで実装しています。',
+    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化→宇宙→文明と 5 段階でワールドが広がる設計を採用し、各ワールド独自の 325 枚以上のピクセルアートアイコン・21 種のアチーブメント・IAP を MVVM + Clean Architecture + UseCase パターンで実装しています。',
     detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
 
 Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、合成・ミッション・実績などのビジネスロジックを各 UseCase に分離しています。ゲーム状態は immutable な設計で一貫性を保証し、状態変化と UI イベントを疎結合に扱う仕組みを整えています。
 
 コアゲームループは 4 元素（火・水・土・風）の自動収集から始まり、80 種以上のレシピを段階的に発見・合成していく仕組みです。錬金炉は最大 3 スロットの並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。最終素材の合成でプレステージ（昇華）が発動し、錬金術→料理→生物進化→宇宙創造→文明史の 5 ワールドが段階的に解放される設計で、各ワールドの在庫・発見素材・プレステージ状態を独立して管理しています。
 
-継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（5 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、20 種以上のアチーブメント、8 ステップのチュートリアルを実装しています。
+継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（5 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、21 種以上のアチーブメント、8 ステップのチュートリアルを実装しています。
 
 オフライン進捗はサーバー時刻を基準に計算してデバイス時計の改ざんを防止し、長期放置時にはアシスタントギフトを付与する設計にしています。JWT トークンは端末内で暗号化保存し、Ktor バックエンドとのバックグラウンド同期でクラウドセーブを実現。スターターパック・広告除去・オフライン延長・ヒントブックなどの IAP と広告報酬（オフライン 2 倍・ゴールドボーナス）も実装しています。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'AdMob', 'IAP', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
@@ -247,7 +258,7 @@ Android アプリ「StellarRise」の採用担当者向け Web 体験版です�
     slug: 'project-j',
     title: 'StarForge',
     thumbnail: `${base}images/works/project-j/project-j-1-1.png`,
-    description: 'モンスターを合成・育成しながら 50 フロアのダンジョンを攻略し、休憩エリアではノノグラムパズルでボーナスを獲得できる 3 モード統合の Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索など多数のシステムを Kotlin で個人設計・実装中。',
+    description: 'モンスターを合成・育成しながら 50 フロアのダンジョンを攻略し、休憩エリアではノノグラムパズルでボーナスを獲得・塗り絵でモンスターを彩れる 4 モード統合の Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索など多数のシステムを Kotlin で個人設計・実装。',
     detail: `StarForge — 複合ジャンル Android ゲーム（Kotlin × Ktor）
 
 Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズルを統合した Android アプリです。3 つのゲームモードを 1 アプリに収め、独自 Canvas レンダリングエンジン・プロシージャルダンジョン生成・A* 経路探索を含む多数のシステムを MVVM + Clean Architecture + UseCase パターンで設計・実装しています。
