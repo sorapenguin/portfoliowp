@@ -182,7 +182,7 @@ Java Execution Tracer の略。Java のコードを読み、実行結果・変�
   {
     slug: 'project-e',
     title: 'AlchemyGame',
-    thumbnail: `${base}images/works/project-e/project-e-1-1.png`,
+    thumbnail: `${base}images/works/project-e/project-e-3-2.png`,
     description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化→宇宙→文明と 5 段階でワールドが広がる設計を採用し、各ワールド独自のピクセルアートアイコン（全5ワールド合計 325 枚以上）・22 種のアチーブメント・クラウドセーブ・引継ぎコードを MVVM + UseCase パターンで実装しています。',
     detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
 
