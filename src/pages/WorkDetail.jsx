@@ -5,9 +5,10 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 function WorkSection({ section, index }) {
+  const imagesClass = `work-section-images${section.layout === 'landscape' ? ' landscape' : ''}`
   return (
     <div className="work-section">
-      <div className="work-section-images">
+      <div className={imagesClass}>
         {section.images.map((src, i) => (
           <div className="work-section-img-wrap" key={i}>
             <img src={src} alt={`スクリーンショット ${index + 1}-${i + 1}`} />

@@ -839,6 +839,17 @@ h4.text-label {
     margin: 0;
 }
 
+/* 横長スクショ用（他プロジェクトに影響しない） */
+.work-section-images.landscape .work-section-img-wrap {
+    aspect-ratio: unset;
+}
+
+.work-section-images.landscape .work-section-img-wrap img {
+    height: auto;
+    object-fit: unset;
+    object-position: unset;
+}
+
 @media screen and (max-width: 768px) {
     .work-section-images {
         grid-template-columns: repeat(2, 1fr);
