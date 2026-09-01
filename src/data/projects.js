@@ -581,7 +581,7 @@ Kotlin Multiplatform（KorGE 6.0）製の 2.5D 探索ゲーム本編と、「不
 「論理パズルの自動生成は、解けるだけでなくヒントが最小限であるべき」という品質基準を立て、生成アルゴリズムを改善しました。貪欲法での候補絞り込み + ヒント最小化パス + リシャッフル再試行により、順序推理エンジンの冗長ヒント率を 78% から 0% まで削減。この手法を経路トレース・向き合わせ・属性推理の各エンジンにも横展開し、8 エンジン中 4 エンジンで冗長ヒント 0 を達成しています。品質は seed 0〜100 の自動回帰テストで恒久的に保証しており、テスト 135 件が全て通過しています。
 
 【アーキテクチャ】
-本編ゲーム（Android / JVM Desktop の KMP 二重ターゲット）とパズルエンジンを疎結合に保ち、パズルはブラウザで動く JS プレビュー実装としても独立動作します。先行プロジェクト StarSaga（モンスター収集 RPG・T2 まで実装完了）からカメラ設計・グリッド移動・セーブ設計を技術継承しています。
+本編ゲーム（Android / JVM Desktop の KMP 二重ターゲット）とパズルエンジンを疎結合に保ち、パズルはブラウザで動く JS プレビュー実装としても独立動作します。先行プロジェクト StarSaga（モンスター収集 RPG）からカメラ設計・グリッド移動・セーブ設計を技術継承しています。
 
 「作って終わり」ではなく「生成品質を数値で測って改善し、回帰テストで守る」という開発姿勢を示す作品です。`,
     tech: ['Kotlin', 'KMP', 'KorGE', 'kotlinx.serialization', 'kotlin.test', 'JavaScript'],
@@ -595,6 +595,40 @@ Kotlin Multiplatform（KorGE 6.0）製の 2.5D 探索ゲーム本編と、「不
           `${base}images/works/project-starterra/project-starterra-1.png`,
         ],
         caption: '8 エンジンのひとつ「経路トレース（ROUTE TRACE）」。ノード間のヒント（「B は 2 番目に訪れます」など）から訪問順を確定し、線を引いて経路を復元します。難易度切り替え・段階的ヒント（方針 → 中間ヒント → 大ヒント）・コイン経済を実装。探索パートは「不思議の街（STAR OUTPOST）」を舞台にした 2.5D マップで、街に点在するノードから 8 エンジンすべてにアクセスできます（実機/エミュレーターで実際にプレイして撮影）。',
+      },
+    ],
+  },
+  {
+    slug: 'project-starsaga',
+    title: 'StarSaga',
+    thumbnail: `${base}images/works/project-starsaga/project-starsaga-2.png`,
+    description: 'Kotlin Multiplatform（KorGE）製のモンスター収集 RPG。ひとつのコードから Android・デスクトップ（JVM）・ブラウザ（Kotlin/JS）の 3 ターゲットへ出力しています。「出撃 3 体の役割の組み合わせで星座が決まる」編成システムが特徴。ブラウザ版はインストール不要で、リンクから直接遊べます（公開準備中）。',
+    detail: `StarSaga — モンスター収集 RPG（Kotlin Multiplatform / KorGE）
+
+星から星へ渡り歩きながら仲間を集める 2D 収集 RPG です。第 1〜第 4 惑星までのゲームループが完成しており、新規開始からラスボス撃破・エンディングまで通してプレイできます。
+
+【編成を毎回の判断にする「星座」システム】
+「強い 3 体を選んで固定する」ことになりがちな編成に、判断を戻すための仕組みとして星座を設計しました。出撃 3 体の役割（攻撃・防御・回復・範囲・幸運）の組み合わせでパーティ全体の効果が決まり、組み合わせは 35 種類。図鑑に記録され、どの組を試すかがそのまま遊びになります。仕様を増やさずに選択の意味を増やす方向で作っており、プレイヤーが新しく覚えることは「3 体の組で効果が変わる」の一行だけです。
+
+【ひとつのコードで 3 ターゲット】
+ゲームロジック・マップ・セーブは共通コードに置き、プラットフォーム差（時刻・セーブ先・デバッグ判定）だけを expect/actual で分けています。セーブ先は Android が DataStore、デスクトップが JSON ファイル、ブラウザが localStorage です。ブラウザ版を出すにあたっては、初回ロードの大半を占めていた日本語フォント（9.4MB）を、ゲームが実際に描く文字だけのサブセット（261KB）に差し替えました。サブセット化のかけ忘れは自動テストが検出します（ソース中の全文字がフォントに含まれるかを検証）。
+
+【内容の正しさをテストで守る】
+マップの到達性（行けない場所に目標が置かれていないか）、セーブの互換性、AUTO 戦闘の安全装置、ブラウザ版で必要な画像の列挙漏れなどを自動テストで守っています。見た目を確認しないと分からない不具合は残りますが、「気付かないまま壊れる」種類の不具合はビルドで落ちる状態を保っています。`,
+    tech: ['Kotlin', 'KMP', 'KorGE', 'Kotlin/JS', 'kotlinx.serialization', 'DataStore', 'kotlin.test', 'Docker', 'nginx'],
+    // TODO: starsaga.sorapenguin.dev へデプロイしたら、そのURLをここに入れる
+    productUrl: null,
+    githubUrl: null,
+    inProgress: true,
+    sections: [
+      {
+        images: [
+          `${base}images/works/project-starsaga/project-starsaga-2.png`,
+          `${base}images/works/project-starsaga/project-starsaga-5.png`,
+          `${base}images/works/project-starsaga/project-starsaga-3.png`,
+          `${base}images/works/project-starsaga/project-starsaga-4.png`,
+        ],
+        caption: '町では回復所やショップに入れて住人と話せます。町と町をつなぐ道路には草むらがあり、歩いていると星の生きものに出会います。何度か会うと仲間になり、出撃 3 体の役割の組み合わせで星座が結ばれます（図鑑で 35 種類を収集）。画面はブラウザ版（Kotlin/JS ビルド）を実際に操作して撮影したものです。',
       },
     ],
   },
