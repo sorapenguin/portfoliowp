@@ -55,13 +55,18 @@ const studiedCerts = [
   'CCNP ENCOR',
 ]
 
+import LearningHistory from './LearningHistory'
+
 export default function Certifications() {
   return (
     <section id="certifications">
       <div className="container">
-        <h2 className="cert-title">
-          取得資格 <span className="sub-title">Certifications</span>
+        <h2 className="section-title">
+          資格・学習 <span className="sub-title">Certifications</span>
         </h2>
+        <p className="section-lead">
+          インフラ・クラウド・データベース・ネットワークを一通り。TOEIC 910 点。
+        </p>
 
         <div className="cert-grid">
           {certCategories.map((cat) => (
@@ -101,6 +106,8 @@ export default function Certifications() {
             ))}
           </div>
         </div>
+
+        <LearningHistory />
       </div>
     </section>
   )

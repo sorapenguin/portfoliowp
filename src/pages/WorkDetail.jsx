@@ -70,7 +70,9 @@ export default function WorkDetail() {
           </div>
         )}
         <div className="gallery-links" style={{ justifyContent: 'flex-start', width: 'auto', margin: '32px 0 48px' }}>
-          {project.productUrl ? (
+          {project.offline ? (
+            <span className="btn btn-product btn-disabled">現在停止中</span>
+          ) : project.productUrl ? (
             <a href={project.productUrl} target="_blank" rel="noopener noreferrer" className="btn btn-product">
               プロダクトを見る
             </a>

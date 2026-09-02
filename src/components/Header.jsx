@@ -22,11 +22,11 @@ export default function Header() {
         </Link>
         <nav className="header-right">
           <ul>
-            <li><a href="#about" onClick={(e) => scrollTo(e, 'about')}>自己紹介</a></li>
-            <li><a href="#skills" onClick={(e) => scrollTo(e, 'skills')}>スキル</a></li>
             <li><a href="#works" onClick={(e) => scrollTo(e, 'works')}>制作物</a></li>
-            <li><a href="#learning" onClick={(e) => scrollTo(e, 'learning')}>学習履歴</a></li>
-            <li><a href="#certifications" onClick={(e) => scrollTo(e, 'certifications')}>資格</a></li>
+            <li><a href="#skills" onClick={(e) => scrollTo(e, 'skills')}>技術スタック</a></li>
+            <li><a href="#about" onClick={(e) => scrollTo(e, 'about')}>自己紹介</a></li>
+            <li><a href="#certifications" onClick={(e) => scrollTo(e, 'certifications')}>資格・学習</a></li>
+            <li><a href="#contact" onClick={(e) => scrollTo(e, 'contact')}>お問い合わせ</a></li>
           </ul>
         </nav>
       </div>

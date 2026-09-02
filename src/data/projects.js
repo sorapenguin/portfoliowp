@@ -1,4 +1,3 @@
-import gallery01 from '../assets/images/gallery01.jpg'
 
 const base = import.meta.env.BASE_URL
 
@@ -7,7 +6,7 @@ export const projects = [
   {
     slug: 'project-a',
     title: 'TechQuiz',
-    thumbnail: `${base}images/works/project-a/project-a-2-1.png`,
+    thumbnail: `${base}images/works/project-a/project-a-thumb.png`,
     description: 'IT 資格の学習サービス。応用情報・CCNP・LPIC・Java・クラウド資格までを 1 か所で演習できます。Django 製・VPS で本番運用中。',
     detail: `TechQuiz — IT 資格の問題演習サービス（本番運用中）
 
@@ -43,7 +42,7 @@ export const projects = [
   {
     slug: 'project-routelab',
     title: 'RouteLab',
-    thumbnail: `${base}images/works/project-routelab/project-routelab-6.png`,
+    thumbnail: `${base}images/works/project-routelab/project-routelab-thumb.png`,
     description: 'Cisco 機器の CLI をブラウザで練習できる学習サービス。設定構築とトラブルシューティングを、選択式・手入力・写経・カードの 4 モードで演習できます。React + TypeScript 製・VPS で本番公開中。',
     detail: `RouteLab — Cisco CLI 演習サービス（本番公開中）
 
@@ -79,7 +78,7 @@ export const projects = [
   {
     slug: 'project-m',
     title: 'Webパズルサービス',
-    thumbnail: `${base}images/works/project-m/project-m-1.png`,
+    thumbnail: `${base}images/works/project-m/project-m-thumb.png`,
     description: 'ノノグラム・ヌリカベ・カックロ・ピクセルアートをブラウザで遊べるパズルサイト。問題はすべて自作の生成器で作っています。Ktor 製・VPS で本番運用中。',
     detail: `Web パズルサービス（本番運用中）
 
@@ -150,7 +149,7 @@ export const projects = [
   {
     slug: 'project-jet',
     title: 'JET',
-    thumbnail: `${base}images/works/project-jet/project-jet-1.png`,
+    thumbnail: `${base}images/works/project-jet/project-jet-thumb.png`,
     description: 'Java のコードを読んで「実行するとどうなるか」を答える問題集。知識問題ではなく、実行順序を追う練習に絞っています。React + TypeScript 製・VPS で本番運用中。',
     detail: `JET — Java 実行トレース問題集（本番運用中）
 
@@ -212,7 +211,7 @@ Java の学習で、知識よりも先にコードを追う速度で詰まった
     slug: 'project-l',
     title: 'StellarRise Web',
     thumbnail: `${base}images/works/project-l/project-l-1.png`,
-    description: 'Android 版 StellarRise をブラウザで触れるようにしたデモ。インストール不要で、リンクを開けばそのまま遊べます。TypeScript + Vite 製・VPS で公開中。',
+    description: 'Android 版 StellarRise をブラウザで触れるようにしたデモ。インストール不要で、リンクを開けばそのまま遊べます。TypeScript + Vite 製。現在は公開を停止しています。',
     detail: `StellarRise Web — ブラウザ版デモ（公開中）
 
 アプリを入れてもらうのは難しいので、リンクを開けばそのまま触れるものを用意しました。
@@ -223,6 +222,8 @@ Android 版のゲームループをブラウザ向けに実装したデモです
     tech: ['TypeScript', 'Vite', 'Docker', 'Traefik', 'Cloudflare', "Let's Encrypt", 'Ktor'],
     productUrl: 'https://stellarrise-web.sorapenguin.dev',
     githubUrl: null,
+    // 2026-09-03 時点で 404。復旧したら offline を外し workGroups の service へ戻す
+    offline: true,
     sections: [
       {
         images: [
@@ -438,7 +439,7 @@ ALB からプライベートサブネットの ECS Fargate、DB サブネット�
   {
     slug: 'project-infralab',
     title: 'InfraLab',
-    thumbnail: `${base}images/works/coming-soon.png`,
+    thumbnail: `${base}images/works/project-infralab/project-infralab-thumb.png`,
     description: 'Linux の障害対応を、四択ではなく「調べて・原因を選んで・直して・復旧を確認する」流れで練習する学習アプリ。C# / .NET 製・VPS で本番運用中。',
     detail: `InfraLab — 障害対応の演習サービス（本番運用中）
 
@@ -588,6 +589,82 @@ Kotlin Multiplatform（KorGE 6.0）製の 2.5D 探索ゲーム本編と、「不
         ],
         caption: '町では回復所やショップに入れて住人と話せます。町と町をつなぐ道路には草むらがあり、歩いていると星の生きものに出会います。何度か会うと仲間になり、出撃 3 体の役割の組み合わせで星座が結ばれます（図鑑で 35 種類を収集）。画面はブラウザ版（Kotlin/JS ビルド）を実際に操作して撮影したものです。',
       },
+    ],
+  },
+]
+
+// =========================
+// トップページ用のグルーピングと 1 行紹介
+// （詳細ページは従来どおり description / detail / sections を使う）
+// =========================
+
+export const taglines = {
+  // 本番稼働中の Web サービス
+  'project-a': 'IT 資格の問題演習サービス。1 万問超を分野横断で解ける',
+  'project-routelab': 'Cisco CLI をブラウザで叩いて学ぶ演習。538 シナリオ・4 モード',
+  'project-infralab': 'Linux 障害対応を「調査 → 原因特定 → 復旧確認」の流れで練習する',
+  'project-golab': 'HTTP が DNS・CDN・LB・WAF を通る経路を 1 ホップずつ追う',
+  'project-jet': 'Java コードの実行順序を追う読解問題集。606 問',
+  'project-m': '4 種類のパズルを自作の生成器で量産したパズルサイト',
+  'project-l': 'Android RPG のブラウザ体験版。現在は公開を停止中',
+
+  // Android / デスクトップアプリ
+  'project-c': '武器を合成して進める放置 RPG。Kotlin + Ktor のフルスタック',
+  'project-e': '4 元素から素材を発見していく放置系の錬金術ゲーム',
+  'project-j': '育成合成・ローグライク・パズルを 1 本にまとめた Android ゲーム',
+  'project-f': '掘る・仲間を増やす・派遣で回す採掘放置ゲーム。Unity / C#',
+  'project-d': 'Jetpack Compose 製のパズル。最初に完成まで持っていけた作品',
+
+  // 運用基盤・開発中
+  'project-i': 'VPS 1 台に本番サービスを同居させている個人インフラ',
+  'project-starterra': 'パズル生成エンジン 8 種を自作し、生成品質を定量的に改善中',
+  'project-starsaga': '1 つのコードから Android・デスクトップ・ブラウザへ出す収集 RPG',
+  'project-walllab': 'Cisco ASA ファイアウォール CLI のドリル。RouteLab の ASA 版',
+  'project-cdlab': 'Linux / Docker / Kubernetes 横断のタイピング式 CLI ドリル',
+  'project-mathlab': '大学受験レベルの数学・物理・化学を、数式を入力して解く問題集',
+  'project-h': 'Unity 製の無人島開拓ゲームを Kotlin Multiplatform で作り直した',
+  'project-g': 'VPS 構成を AWS のマネージドサービスで組み直した Terraform 設計案',
+  'project-b': 'Spring Boot から Ktor へ移植した学習用 EC。運用後に停止・アーカイブ',
+}
+
+export const workGroups = [
+  {
+    id: 'service',
+    label: '本番で動いているサービス',
+    note: 'いずれも VPS 上で公開中。リンクからそのまま触れます',
+    variant: 'featured',
+    slugs: [
+      'project-a',
+      'project-routelab',
+      'project-infralab',
+      'project-golab',
+      'project-jet',
+      'project-m',
+    ],
+  },
+  {
+    id: 'app',
+    label: 'アプリとして配布しているもの',
+    note: 'APK / リリースページから入手できます',
+    variant: 'compact',
+    slugs: ['project-c', 'project-e', 'project-j', 'project-f', 'project-d'],
+  },
+  {
+    id: 'wip',
+    label: '運用基盤・開発中のプロジェクト',
+    note: '公開準備中のもの、設計だけのもの、停止したものを含みます',
+    variant: 'list',
+    slugs: [
+      'project-i',
+      'project-l',
+      'project-starterra',
+      'project-starsaga',
+      'project-walllab',
+      'project-cdlab',
+      'project-mathlab',
+      'project-h',
+      'project-g',
+      'project-b',
     ],
   },
 ]
