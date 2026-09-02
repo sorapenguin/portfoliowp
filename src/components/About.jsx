@@ -44,7 +44,7 @@ export default function About() {
               <li><a href="https://routelab.sorapenguin.dev" target="_blank" rel="noopener noreferrer">RouteLab — CCNA/CCNP CLI シミュレーション問題集</a></li>
               <li><a href="https://runbook-lab.sorapenguin.dev" target="_blank" rel="noopener noreferrer">InfraLab — インフラ障害対応シナリオ演習（.NET / Blazor）</a></li>
               <li><a href="https://path-trace-lab.sorapenguin.dev" target="_blank" rel="noopener noreferrer">GoLab — HTTP 通信経路トレース学習（Go）</a></li>
-              <li><a href="https://jet.sorapenguin.dev" target="_blank" rel="noopener noreferrer">JET — Java コードトレース問題集（606 問）</a></li>
+              <li><a href="https://jet.sorapenguin.dev" target="_blank" rel="noopener noreferrer">JET — Java コードトレース問題集</a></li>
               <li><a href="https://puzzle.sorapenguin.dev" target="_blank" rel="noopener noreferrer">puzzle-web — ノノグラム・ヌリカベ・カックロ・ピクセルアート</a></li>
               <li><a href="https://stellarrise-web.sorapenguin.dev" target="_blank" rel="noopener noreferrer">StellarRise Web — Android RPG のブラウザ体験版</a></li>
             </ul>

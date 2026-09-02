@@ -8,18 +8,12 @@ export const projects = [
     slug: 'project-a',
     title: 'TechQuiz',
     thumbnail: `${base}images/works/project-a/project-a-2-1.png`,
-    description: 'IT 資格の学習サービス。応用情報・CCNP・LPIC・Java・クラウド資格までを 1 か所で演習でき、手を止めずに進められる出題モードを備えています。Django 製・VPS で本番運用中。',
+    description: 'IT 資格の学習サービス。応用情報・CCNP・LPIC・Java・クラウド資格までを 1 か所で演習できます。Django 製・VPS で本番運用中。',
     detail: `TechQuiz — IT 資格の問題演習サービス（本番運用中）
 
 自分が使いやすい問題集を作りたかったのが出発点です。
 
-複数分野の問題を横断して演習できます。出題は状況で絞り込め（未出題・間違えた問題・連続正解など）、選択せずに次へ進む自動再生と読み上げにも対応しています。ポートフォリオ閲覧用のデモと、実利用者向けのサービスを同じ基盤で並行運用しています。
-
-設計上の判断:
-
-・出題の絞り込みは正誤の履歴を軸にする。解き直す価値のある問題に戻れないと演習にならない
-・問題の生成はローカル LLM に下書きだけを任せ、レビューと検証を別工程に分けてから反映する
-・科目設定を差し替えれば同じパイプラインを使い回せる構造にし、分野を足すたびにコードを書かない
+複数分野の問題を横断して演習できます。未出題・間違えた問題・連続正解といった状況で出題を絞り込め、選択せずに次へ進む自動再生と読み上げにも対応しています。問題はローカル LLM の下書きを、別工程でレビュー・検証してから反映しています。ポートフォリオ閲覧用のデモと、実利用者向けのサービスを同じ基盤で運用しています。
 
 構成: Python / Django / Gunicorn / PostgreSQL / Redis。Docker + Traefik で VPS に配置し、Prometheus / Grafana で監視。GitHub Actions で CI。`,
     tech: ['Python', 'Django', 'Gunicorn', 'PostgreSQL', 'Redis', 'Docker', 'Traefik', 'VPS', 'GitHub Actions', 'Prometheus', 'Grafana', 'SendGrid'],
@@ -50,19 +44,12 @@ export const projects = [
     slug: 'project-routelab',
     title: 'RouteLab',
     thumbnail: `${base}images/works/project-routelab/project-routelab-6.png`,
-    description: 'Cisco 機器の CLI をブラウザで練習できる学習サービス。設定構築とトラブルシューティングの 2 系統を、選択式・手入力・写経・カードの 4 モードで演習できます。CCNA / CCNP 範囲。React + TypeScript 製・VPS で本番公開中。',
+    description: 'Cisco 機器の CLI をブラウザで練習できる学習サービス。設定構築とトラブルシューティングを、選択式・手入力・写経・カードの 4 モードで演習できます。React + TypeScript 製・VPS で本番公開中。',
     detail: `RouteLab — Cisco CLI 演習サービス（本番公開中）
 
 自分がコマンド学習で詰まったのが作ったきっかけです。
 
-ブラウザ上の疑似 CLI で機器を設定し、show コマンドで結果を確認できます。設定構築とトラブルシューティングの 2 系統があり、演習モードは選択式・手入力・写経・カードの 4 種を切り替えられます。
-
-設計上の判断:
-
-・採点はサーバー側で行い、達成条件ごとの部分点を返す
-・選択式の選択肢は最低 4 つそろえる（消去法で解けてしまうため）
-・シナリオの可解性は AI エージェントに解かせて検証し、実機と挙動が違う箇所は実機を正としてエンジンを直す
-・シミュレーターが再現していない領域は出題しない
+ブラウザ上の疑似 CLI で機器を設定し、show コマンドで結果を確認できます。設定構築とトラブルシューティングの 2 系統があり、演習モードは選択式・手入力・写経・カードの 4 種を切り替えられます。スマートフォンでも同じ演習ができます。
 
 構成: React / TypeScript / Vite / Zustand / TailwindCSS、Express（採点 API）。VPS 上に Docker + Traefik で配置し HTTPS 公開。`,
     tech: ['React', 'TypeScript', 'Vite', 'Zustand', 'TailwindCSS', 'Express', 'Node.js', 'Docker', 'Traefik', 'VPS'],
@@ -93,20 +80,14 @@ export const projects = [
     slug: 'project-m',
     title: 'Webパズルサービス',
     thumbnail: `${base}images/works/project-m/project-m-1.png`,
-    description: 'ノノグラム・ヌリカベ・カックロ・ピクセルアートをブラウザで遊べるパズルサイト。問題はすべて自作の生成器で作っており、解けることをアルゴリズム側で保証しています。Ktor 製・VPS で本番運用中。',
+    description: 'ノノグラム・ヌリカベ・カックロ・ピクセルアートをブラウザで遊べるパズルサイト。問題はすべて自作の生成器で作っています。Ktor 製・VPS で本番運用中。',
     detail: `Web パズルサービス（本番運用中）
 
 論理で解けて、論理で作れるパズルなら量産できると考えたのが出発点です。
 
-4 種類のパズルをブラウザで遊べます。問題は手作りではなく、種類ごとに生成器を書いて自動生成しています。
+4 種類のパズルをブラウザで遊べます。問題は手作りではなく、種類ごとに生成器を書いて自動生成しており、解けることは生成器の側で保証しています。
 
-設計上の判断:
-
-・生成器の側で「解けること」を保証する。ノノグラムは論理だけで一意に解ける問題のみ採用し、カックロは盤面の接続性を保証しながら生成する
-・問題は静的ファイルではなく DB に持ち、管理画面から公開・非公開を切り替える
-・フロントエンドはビルドツールを使わない。配信が軽く、後から手を入れるコストも低い
-
-構成: Kotlin / Ktor / PostgreSQL、生成器は Python。Vanilla HTML + CSS + JS。Docker + Traefik で VPS に配置。`,
+構成: Kotlin / Ktor / PostgreSQL、生成器は Python。フロントエンドはビルドツールなしの Vanilla HTML + CSS + JS。Docker + Traefik で VPS に配置。`,
     tech: ['Ktor', 'Kotlin', 'Vanilla JS', 'PostgreSQL', 'Python', 'Docker', 'Traefik', "Let's Encrypt"],
     productUrl: 'https://puzzle.sorapenguin.dev',
     githubUrl: null,
@@ -132,19 +113,12 @@ export const projects = [
     slug: 'project-c',
     title: 'StellarRise',
     thumbnail: `${base}images/works/project-c/project-c-1.png`,
-    description: '武器を合成して強化し、ステージを進める放置型 RPG。長く遊んできたジャンルなので、遊ぶ側として不満だった点を設計に落としています。Kotlin + Ktor のフルスタック構成。',
+    description: '武器を合成して強化し、ステージを進める放置型 RPG。長く遊んできたジャンルなので、遊ぶ側としての感覚を設計に入れています。Kotlin + Ktor のフルスタック構成。',
     detail: `StellarRise — 放置型 RPG（Android / Ktor API）
 
-自分が面白いと思うゲームを実装してみたかった、というのが出発点です。放置ゲームは長く遊んでいるジャンルで、遊ぶ側としての不満が分かっていました。
+自分が面白いと思うゲームを実装してみたかった、というのが出発点です。放置ゲームは長く遊んでいるジャンルでした。
 
-武器を自動生成・合成して攻撃力を上げ、ステージを進めます。プレステージ（周回）、サポートキャラの育成、クラウドセーブを備えています。
-
-設計上の判断:
-
-・画面遷移を減らす。放置ゲームは毎日触るので、1 回あたりの操作数がそのまま継続率になる
-・オフライン報酬は端末時計ではなくサーバー時刻を基準にする。時計を進めるだけで報酬が増えては成立しない
-・クラウドセーブはパスワードだけで引き継げるようにし、アカウント登録を挟まない
-・セーブは機能追加で壊れやすいので、読み込み時に旧データを補正してから使う
+武器を自動生成・合成して攻撃力を上げ、ステージを進めます。プレステージ（周回）、サポートキャラの育成、クラウドセーブを備えています。毎日触るゲームなので、画面遷移を減らして操作数が増えないようにしています。
 
 構成: Kotlin / MVVM / Clean Architecture / Room / DataStore / WorkManager / Retrofit。サーバーは Ktor / PostgreSQL / JWT、Docker で配置。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
@@ -180,15 +154,9 @@ export const projects = [
     description: 'Java のコードを読んで「実行するとどうなるか」を答える問題集。知識問題ではなく、実行順序を追う練習に絞っています。React + TypeScript 製・VPS で本番運用中。',
     detail: `JET — Java 実行トレース問題集（本番運用中）
 
-Java の学習で、知識よりも先にコードを追う速度で詰まったのが作ったきっかけです。そこだけを訓練する教材が欲しくて作りました。
+Java の学習で、知識よりも先にコードを追う速度で詰まったのが作ったきっかけです。
 
-出題は「このコードが動くとどうなるか」に限定しています。Silver / Gold の頻出テーマを、実行結果を答える形式に置き換えました。
-
-設計上の判断:
-
-・出題形式を実行トレースだけに絞る。知識問題は既存の問題集で足りている
-・全問題の期待値を javac の実行結果と機械照合してから登録する。手で追ったトレースは自分でも信用できない
-・問題の追加はゲート付きのパイプラインを通し、検証を通らないものは登録しない
+「このコードが動くとどうなるか」だけを問う問題集です。Silver / Gold の頻出テーマを、実行結果を答える形式に置き換えています。期待値は javac の実行結果と機械照合してから登録しています。
 
 構成: React / TypeScript / Vite。Docker + Traefik で VPS に配置。`,
     tech: ['React', 'TypeScript', 'Vite', 'Docker', 'Traefik', 'VPS'],
@@ -208,19 +176,12 @@ Java の学習で、知識よりも先にコードを追う速度で詰まった
     slug: 'project-e',
     title: 'AlchemyGame',
     thumbnail: `${base}images/works/project-e/project-e-3-2.png`,
-    description: '4 元素から素材を発見・合成していく放置系の錬金術ゲーム。プレステージごとに世界のテーマが変わる構成で、遊びながら不便だった箇所を機能として足しています。Kotlin 製。',
+    description: '4 元素から素材を発見・合成していく放置系の錬金術ゲーム。プレステージごとに世界のテーマが変わる構成です。Kotlin 製。',
     detail: `AlchemyGame — 放置系錬金ゲーム（Android / Ktor API）
 
 錬成と放置を組み合わせたら面白くなるか試したかった作品です。
 
-素材を合成して発見を広げ、最終素材の合成で世界が切り替わります。錬金術から料理・生物進化・宇宙・文明史へとテーマが変わり、それぞれの進行を独立して管理します。
-
-設計上の判断:
-
-・欲しい素材から必要な材料をさかのぼって一括合成できるようにした。段階が深くなるほど手作業が苦痛になるため
-・端末を変えるときのために期限付きの引継ぎコードを発行する。アカウント登録は求めない
-・オフライン進捗はサーバー時刻を基準に計算する
-・合成・ミッション・実績のロジックを UseCase に分け、状態は不変オブジェクトとして扱う
+素材を合成して発見を広げ、最終素材の合成で世界が切り替わります。錬金術から料理・生物進化・宇宙・文明史へとテーマが変わり、それぞれの進行を独立して管理します。欲しい素材から材料をさかのぼる一括合成と、期限付きの引継ぎコードを備えています。
 
 構成: Kotlin / MVVM / Clean Architecture / DataStore / WorkManager / Retrofit。サーバーは Ktor / PostgreSQL / JWT。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'EncryptedSharedPreferences', 'WorkManager', 'Retrofit', 'Navigation Component', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
@@ -251,17 +212,12 @@ Java の学習で、知識よりも先にコードを追う速度で詰まった
     slug: 'project-l',
     title: 'StellarRise Web',
     thumbnail: `${base}images/works/project-l/project-l-1.png`,
-    description: 'Android 版 StellarRise をブラウザで触れるようにしたデモ。APK をインストールしてもらうのは現実的でないため、リンクを開けば遊べる入口として用意しました。TypeScript + Vite 製・VPS で公開中。',
+    description: 'Android 版 StellarRise をブラウザで触れるようにしたデモ。インストール不要で、リンクを開けばそのまま遊べます。TypeScript + Vite 製・VPS で公開中。',
     detail: `StellarRise Web — ブラウザ版デモ（公開中）
 
 アプリを入れてもらうのは難しいので、リンクを開けばそのまま触れるものを用意しました。
 
 Android 版のゲームループをブラウザ向けに実装したデモです。インストールも登録も不要で、その場で遊べます。
-
-設計上の判断:
-
-・本体の移植ではなく、体験の中心だけを別実装にする。ブラウザ側で全機能を追うと保守先が二重になる
-・サーバーを持たず、静的配信で完結させる
 
 構成: TypeScript / Vite。Docker コンテナとして VPS に配置し、Traefik で HTTPS 公開。`,
     tech: ['TypeScript', 'Vite', 'Docker', 'Traefik', 'Cloudflare', "Let's Encrypt", 'Ktor'],
@@ -280,21 +236,14 @@ Android 版のゲームループをブラウザ向けに実装したデモです
     slug: 'project-j',
     title: 'StarForge',
     thumbnail: `${base}images/works/project-j/project-j-2-1.png`,
-    description: 'モンスター育成合成・ターン制ローグライク・ノノグラム・塗り絵を 1 本にまとめた Android ゲーム。掴みにくいジャンルだったので、進行が成立するかを自動シミュレーションで確かめながら作りました。Kotlin 製。',
+    description: 'モンスター育成合成・ターン制ローグライク・ノノグラム・塗り絵を 1 本にまとめた Android ゲーム。Kotlin 製。',
     detail: `StarForge — 複合ジャンル Android ゲーム
 
 パズルに育成とローグライクを足したら遊べるものになるか、試した作品です。
 
-ノノグラムで資源を集め、仲間を増やして育て、ダンジョンを潜る流れです。ダンジョンのマップは自動生成し、視界の描画・経路探索・自動探索を独自実装しています。
+ノノグラムで資源を集め、仲間を増やして育て、ダンジョンを潜ります。ダンジョンのマップは自動生成で、視界の描画・経路探索・自動探索を独自に実装しています。進行が最後まで成立するかは、乱数の種を変えたシミュレーションで確認しています。
 
-設計上の判断:
-
-・ローグライクは自分にとって仕様の掴みにくいジャンルなので、進行が最後まで成立するかを乱数の種を変えたシミュレーションで自動検証する
-・スタミナ回復はサーバー時刻を基準にする
-・日替わりショップは日付を種にした抽選にして、サーバーなしで全端末の内容をそろえる
-・ゲーム状態は不変オブジェクトで持ち、旧セーブは読み込み時に補正する
-
-構成: Kotlin / MVVM / Clean Architecture / DataStore / Retrofit / OkHttp、描画は Canvas を直接扱う実装。時刻とパズル配信は Ktor API。`,
+構成: Kotlin / MVVM / Clean Architecture / DataStore / Retrofit / OkHttp、描画は Canvas。時刻とパズル配信は Ktor API。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'DataStore', 'Gson', 'Retrofit', 'OkHttp', 'Navigation Component', 'Canvas', 'JUnit 4', 'Ktor'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/starforge-v1.1.0',
     githubUrl: null,
@@ -323,18 +272,12 @@ Android 版のゲームループをブラウザ向けに実装したデモです
     slug: 'project-f',
     title: 'IdleMine',
     thumbnail: `${base}images/works/project-f/project-f-1-2.png`,
-    description: '鉱石を掘り、仲間を増やし、探索派遣で効率を上げていく放置ゲーム。Unity / C# で 1 本仕上げることを目的に作りました。',
+    description: '鉱石を掘り、仲間を増やし、探索派遣で効率を上げていく放置ゲーム。Unity / C# 製。',
     detail: `IdleMine — 放置型鉱山採掘ゲーム（Android / Unity）
 
 Unity と C# で 1 本作り切ってみたかったのが出発点です。
 
-採掘は自動で進み、作戦を選ぶと採掘 AI の動き方が変わります。フロアを解放し、ガチャで仲間を増やし、探索派遣とガーデンバフで効率を上げていきます。
-
-設計上の判断:
-
-・遊びの軸が定まらないと感じた分、検証を厚くした。オフライン収益・採掘速度・進行の整合性を自動実行のシナリオで確かめている
-・ガチャは天井を保証し、運の悪さで進行が止まらないようにする
-・のんびり遊べることを優先し、敵との戦闘や転生のような詰まりやすい要素を入れない
+採掘は自動で進み、作戦を選ぶと採掘 AI の動き方が変わります。フロアを解放し、ガチャで仲間を増やし、探索派遣とガーデンバフで効率を上げます。敵との戦闘や転生は入れず、のんびり遊べる作りにしています。
 
 構成: Unity 6 LTS / C#。サーバー時刻は API から取得。`,
     tech: ['Unity 6', 'C#', 'IL2CPP', 'Android', 'Ktor', 'JWT'],
@@ -359,17 +302,12 @@ Unity と C# で 1 本作り切ってみたかったのが出発点です。
     slug: 'project-b',
     title: 'ECサイト',
     thumbnail: `${base}images/works/project-b/project-b-1-3.png`,
-    description: 'Spring Boot から Ktor へ移植したバックエンド学習用の EC サイト。業務システムの定番機能を一通り実装し、その後アクセス状況を見て停止・アーカイブしました。',
+    description: 'Spring Boot から Ktor へ移植したバックエンド学習用の EC サイト。運用ののち停止・アーカイブしました。',
     detail: `EC サイト — バックエンド移植の練習作（停止・アーカイブ済み）
 
 業務システムの定番構成を一度、端から端まで作ってみたかった作品です。
 
-商品・カート・注文・在庫・クーポン・売上ダッシュボード・二段階認証まで、EC の一般的な機能を一通り実装しました。その後 Spring Boot から Ktor へ移植し、URL 構造の変更とメモリ使用量の削減を行っています。
-
-設計上の判断:
-
-・移植は機能追加を止めて行い、同じ挙動を保ったまま基盤だけを入れ替える
-・約 1 年運用したのち、アクセス状況を見てサービスを停止しアーカイブした。動かし続ける判断より、止める判断のほうが難しかった
+商品・カート・注文・在庫・クーポン・売上ダッシュボード・二段階認証まで実装しました。その後 Spring Boot から Ktor へ移植し、しばらく運用したのち、アクセス状況を見て停止・アーカイブしました。
 
 構成: Kotlin / Ktor / FreeMarker / PostgreSQL / Docker。`,
     tech: ['PHP', 'Kotlin', 'Ktor', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Nginx', 'JWT', 'JavaScript', 'Chart.js'],
@@ -418,19 +356,12 @@ Unity と C# で 1 本作り切ってみたかったのが出発点です。
     slug: 'project-d',
     title: 'ノノグラム',
     thumbnail: `${base}images/works/project-d/project-d-1-1.png`,
-    description: 'Jetpack Compose 製のノノグラムパズル。最初に完成まで持っていけたゲームで、ここで作った生成の考え方が後の作品につながっています。',
+    description: 'Jetpack Compose 製のノノグラムパズル。最初に完成まで持っていけたゲームです。',
     detail: `ノノグラム — Android パズルゲーム
 
-最初に完成させられたゲームです。仕様が単純なものから始めたほうが、作り切れると考えました。
+最初に完成させられたゲームです。仕様が単純なものから始めました。
 
-問題は Python 側のソルバーで生成し、アプリはそれを解く側に専念しています。
-
-設計上の判断:
-
-・生成と出題を分ける。問題の品質は生成器の責任、遊び心地はアプリの責任という切り分け
-・画面構成は Clean Architecture に寄せ、後から別ゲームへ移せる形にした
-
-その後、この作品のパズル部分は StarForge へ統合しました。
+問題は Python 側のソルバーで生成し、アプリは解く側に専念しています。このパズル部分は、後に StarForge へ統合しました。
 
 構成: Kotlin / Jetpack Compose / Clean Architecture。バックエンドは Ktor。`,
     tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'MVVM', 'Clean Architecture', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'FreeMarker', 'PostgreSQL', 'Docker', 'Python'],
@@ -456,21 +387,14 @@ Unity と C# で 1 本作り切ってみたかったのが出発点です。
     slug: 'project-i',
     title: '本番サービス運用基盤',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'VPS 1 台で複数の本番サービスを同居運用している個人インフラ。運用に手をかけたくないので、手をかけずに回る形に寄せています。Docker / Traefik / Prometheus / Grafana 構成。',
+    description: 'VPS 1 台で複数の本番サービスを同居運用している個人インフラ。Docker / Traefik / Prometheus / Grafana 構成。',
     detail: `本番サービス運用基盤
 
-運用作業そのものは好きではないので、手をかけずに回る形にするのが方針です。監視も自動化も、そのための投資として入れています。
+運用作業そのものは好きではないので、手をかけずに回る形にするのが方針です。
 
-学習サービス群とゲームのバックエンドを 1 台の VPS に同居させ、共通の基盤として運用しています。個人開発は作って終わりになりがちですが、実際に人が使う状態で動かし続けているところまでを含めて 1 つの成果と考えています。
+学習サービス群とゲームのバックエンドを 1 台の VPS に同居させ、共通の基盤として運用しています。コンテナを作ってルーティング定義を足せば HTTPS まで通る形にしてあり、新しいものを短時間で公開に載せられます。監視と通知、定期バックアップ、復旧手順書まで用意しています。
 
-設計上の判断:
-
-・サービスの追加を定型化する。コンテナを作り、ルーティング定義を足せば HTTPS まで通る形にしてあり、新しいものを短時間で公開に載せられる
-・PostgreSQL はサービスごとに DB を分けつつコンテナは 1 つにまとめ、運用対象を増やさない
-・リソースと応答時間を可視化し、異常はチャットへ通知する。定期バックアップと復旧手順書まで含めて用意する
-・アクセス状況は自前の解析基盤で見ており、伸びないサービスは停止する判断もしている
-
-構成: Ubuntu / Docker / Docker Compose / Traefik / PostgreSQL / Prometheus / Grafana / Cloudflare。問題コンテンツ生成にはローカル LLM のパイプラインを併設。`,
+構成: Ubuntu / Docker / Docker Compose / Traefik / PostgreSQL / Prometheus / Grafana / Cloudflare。問題コンテンツ生成用にローカル LLM のパイプラインを併設。`,
     tech: ['Docker', 'Docker Compose', 'Traefik', 'PostgreSQL', 'Prometheus', 'Grafana', 'Cloudflare', 'Ubuntu', 'Python', 'Ollama', 'LLM', 'GitHub Actions'],
     productUrl: null,
     githubUrl: null,
@@ -480,19 +404,12 @@ Unity と C# で 1 本作り切ってみたかったのが出発点です。
     slug: 'project-g',
     title: 'AWS 構成案（Terraform）',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'VPS の本番構成を AWS のマネージドサービスで組み直した場合の Terraform 設計案。実環境へは適用していません（コスト事故を避けるための判断）。',
+    description: 'VPS の本番構成を AWS のマネージドサービスで組み直した場合の Terraform 設計案。実環境へは適用していません。',
     detail: `AWS 構成案（Terraform IaC）
 
 ⚠️ 実際の AWS 環境へのデプロイは行っていません。VPS 本番構成をもとに、AWS へ移すならどうなるかを設計し、Terraform コードに落とした構成案です。
 
-ALB からプライベートサブネットの ECS Fargate、DB サブネットの RDS へ、という多層構成です。
-
-設計上の判断:
-
-・実環境には適用しない。閉じ忘れがそのまま費用になるため、学習目的で開けっぱなしにするリスクを取らなかった
-・シークレットはコードに書かず、タスク起動時に注入する
-・実行ロールの権限は必要な読み取りだけに絞る
-・移行後のコストを概算し、VPS を継続する判断の根拠にした
+ALB からプライベートサブネットの ECS Fargate、DB サブネットの RDS へ、という多層構成です。閉じ忘れがそのまま費用になるため、実環境への適用は行わず、設計とコード、移行後のコスト概算までにとどめています。
 
 構成: Terraform / VPC / ALB / ECS Fargate / RDS / ECR / Secrets Manager / CloudWatch / IAM。`,
     tech: ['AWS', 'Terraform', 'VPC', 'ALB', 'ECS Fargate', 'RDS', 'ECR', 'Secrets Manager', 'CloudWatch', 'IAM'],
@@ -504,17 +421,12 @@ ALB からプライベートサブネットの ECS Fargate、DB サブネット�
     slug: 'project-h',
     title: 'IslandDev',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Unity で作った無人島開拓ゲームを、Kotlin Multiplatform（KorGE）で作り直した作品。凍結する前に実装と仕様書の食い違いを解消し、使っていない機能を削除しました。',
+    description: 'Unity で作った無人島開拓ゲームを、Kotlin Multiplatform（KorGE）で作り直した作品。',
     detail: `IslandDev — 無人島開拓ゲーム（Unity → KorGE 移植）
 
 同じゲームを別の技術で作り直すと設計がどう変わるかを見たくて始めました。
 
-砂浜から山頂までのゾーンを開拓し、資源を集め、道具と施設を作って進めます。自動採取・自動戦闘で、手を離しても進む設計です。
-
-設計上の判断:
-
-・ゲームロジックをエンジンに依存しない純粋な Kotlin に切り出し、描画側と分ける
-・凍結する前に、実装と仕様書の食い違いを解消し、使われていない機能を削除した。止めるときに片付けておかないと、再開できないものになる
+砂浜から山頂までのゾーンを開拓し、資源を集め、道具と施設を作って進めます。自動採取・自動戦闘で、手を離しても進みます。後継版は、実装と仕様書の食い違いを解消してから凍結しました。
 
 構成: Unity 6 / C#（初代）、Kotlin / KorGE / KMP（後継版）。`,
     tech: ['Unity 6', 'C#', 'Android', 'Kotlin', 'KorGE', 'KMP'],
@@ -527,19 +439,12 @@ ALB からプライベートサブネットの ECS Fargate、DB サブネット�
     slug: 'project-infralab',
     title: 'InfraLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Linux の障害対応を、四択ではなく「調べて・原因を選んで・直して・復旧を確認する」流れで練習する学習アプリ。採点と正答はサーバー側に置き、クライアントへは渡していません。C# / .NET・VPS で本番運用中。',
+    description: 'Linux の障害対応を、四択ではなく「調べて・原因を選んで・直して・復旧を確認する」流れで練習する学習アプリ。C# / .NET 製・VPS で本番運用中。',
     detail: `InfraLab — 障害対応の演習サービス（本番運用中）
 
 単純な四択問題集ではない体験ができないか、と考えたのが出発点です。あわせて C# で 1 本作りたい、という動機もありました。
 
-現象を確認し、コマンドで調べ、原因を選び、対処し、復旧を確認する、という順に判断を積み上げます。フェーズを飛ばした操作や、根拠が出ていない状態での原因選択はサーバー側で拒否します。
-
-設計上の判断:
-
-・正答と採点ルールはサーバー内部に置き、クライアントには選択肢のラベルしか送らない。答えが手元に落ちてくる作りでは演習にならない
-・進行状態にバージョンを持たせ、食い違う更新は受け付けない
-・リクエストごとに識別子を付け、同じ操作が二重に届いても結果を作り直さない
-・コンテンツは全件を機械検証にかけてから登録する
+現象を確認し、コマンドで調べ、原因を選び、対処し、復旧を確認する、という順に判断を積み上げます。正答と採点ルールはサーバー内部に置き、クライアントには選択肢のラベルだけを送ります。
 
 構成: C# / .NET / ASP.NET Core Minimal API / Blazor WebAssembly / EF Core / PostgreSQL。Docker + Traefik で VPS に配置。`,
     tech: ['C#', '.NET 10', 'ASP.NET Core', 'Blazor WebAssembly', 'EF Core 10', 'Npgsql', 'PostgreSQL', 'Docker', 'VPS'],
@@ -551,19 +456,12 @@ ALB からプライベートサブネットの ECS Fargate、DB サブネット�
     slug: 'project-golab',
     title: 'GoLab（PathTraceLab）',
     thumbnail: `${base}images/works/project-golab/project-golab-1.png`,
-    description: 'HTTP リクエストが DNS から CDN・ロードバランサー・WAF を経てアプリに届くまでを、経路単位でたどって学ぶサービス。外部ライブラリを使わないという制約を先に決めて書きました。Go 製・VPS で本番運用中。',
+    description: 'HTTP リクエストが DNS から CDN・ロードバランサー・WAF を経てアプリに届くまでを、経路単位でたどって学ぶサービス。Go 製・VPS で本番運用中。',
     detail: `GoLab（PathTraceLab）— 通信経路の学習サービス（本番運用中）
 
 Go で 1 本作ること、そして外部依存を持たないという制約を先に決めて始めた作品です。
 
-設定を選んで仮想的にリクエストを流すと、各段でどう扱われて結果がどうなるかが展開されます。ロードバランサーのヘルスチェックやタイムアウトの階層関係など、実務で判断に迷うところを題材にしています。
-
-設計上の判断:
-
-・標準ライブラリだけで書き、フレームワークを入れない。静的ファイルもバイナリに埋め込み、配布物を 1 個にする
-・シミュレーションは乱数を使わず決定論的に実装する。学習用途では毎回同じ結果になることが前提
-・題材が増えたところでエンジンを差し替え可能な構造にし、DNS 解決・VPC 到達性・ファイアウォール評価・IAM 認可を後から追加した
-・分類の語彙をコード側で強制し、カタログ構築時に外れたものを落とす
+設定を選んで仮想的にリクエストを流すと、各段で何が起きて結果がどうなったかが展開されます。ロードバランサーのヘルスチェックやタイムアウトの階層関係など、実務で判断に迷うところを題材にしています。標準ライブラリだけで書き、静的ファイルもバイナリに埋め込んで配布物を 1 個にしています。
 
 構成: Go 標準ライブラリのみ、embed.FS でシングルバイナリ。Docker + Traefik で VPS に配置。`,
     tech: ['Go', 'net/http', 'embed.FS', 'Docker', 'VPS'],
@@ -583,19 +481,12 @@ Go で 1 本作ること、そして外部依存を持たないという制約�
     slug: 'project-walllab',
     title: 'WallLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Cisco ASA ファイアウォールの CLI を練習するドリル。RouteLab の Cisco IOS 版に対する ASA 版で、ACL・NAT・インスペクション・サイト間 VPN まで扱います。React + TypeScript 製・公開準備中。',
+    description: 'Cisco ASA ファイアウォールの CLI を練習するドリル。RouteLab の Cisco IOS 版に対する ASA 版です。React + TypeScript 製・公開準備中。',
     detail: `WallLab — Cisco ASA CLI 演習サービス（開発中）
 
 RouteLab と同じ「実際にコマンドを打つ」形式を、ファイアウォールに広げた作品です。ASA は IOS と別方言で、実機も用意しにくい領域です。
 
 インターフェース設定、ACL と access-group、NAT、object-group、管理アクセス、インスペクション、サイト間 VPN までを扱います。演習モードは RouteLab と同じ 4 種です。
-
-設計上の判断:
-
-・採点条件に「その設定が無いこと」も書けるようにした。消し忘れを問う問題が作れる
-・選択式の選択肢は最低 4 つそろえる
-・シナリオはすべて AI エージェントに解かせて可解性を確認する。この過程で、実装・出題・テストが揃って同じ仕様の誤解をしていた箇所が見つかり、まとめて直した
-・テストが通っていることは、内容が正しいことの保証にならない。内容のレビューは別工程として扱う
 
 構成: React / TypeScript / Vite / TailwindCSS。サーバーを持たず、記録はブラウザ内に保存。`,
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS', 'Vitest'],
@@ -608,18 +499,12 @@ RouteLab と同じ「実際にコマンドを打つ」形式を、ファイア�
     slug: 'project-cdlab',
     title: 'CLIDrillLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Linux / Docker / Kubernetes を横断するタイピング式の CLI ドリル。症状の確認から復旧確認までを、コマンド列として続けて打ち切る形式です。React + TypeScript 製・公開準備中。',
+    description: 'Linux / Docker / Kubernetes を横断するタイピング式の CLI ドリル。React + TypeScript 製・公開準備中。',
     detail: `CLIDrillLab — Linux / コンテナの CLI ドリル（開発中）
 
 LPIC の上位試験を勉強していて、追加でやれる教材が少なかったのが作ったきっかけです。RouteLab の Cisco 版に対する Linux 版にあたります。
 
-1 問がコマンド 1 つで終わらないよう、実務と同じ「症状の確認 → 調査 → 対処 → 復旧確認」の順に数ステップを続けて打たせます。LPIC 系に加えて Docker と Kubernetes の典型的な詰まり方を扱います。
-
-設計上の判断:
-
-・判定は完全一致・順序固定に寄せる。曖昧な採点を持ち込むより、打つ手順を覚えることを優先した
-・ヒントに正解コマンドそのものを書かない。書くと写すだけになるため、機械的に検査して追加時に必ず通す
-・コマンド入力部は RouteLab から移植し、状態機械は持たせない
+「症状の確認 → 調査 → 対処 → 復旧確認」の順に、数ステップのコマンドを続けて打ちます。LPIC 系に加えて、Docker と Kubernetes の典型的な詰まり方を扱います。
 
 構成: React / TypeScript / Vite / TailwindCSS。`,
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
@@ -632,18 +517,12 @@ LPIC の上位試験を勉強していて、追加でやれる教材が少なか
     slug: 'project-mathlab',
     title: 'MathLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: '大学受験レベルの数学・物理・化学を、数式を直接入力して解く問題集。採点は文字列比較ではなく数式処理系による同値判定で、展開形と因数分解形のどちらでも正解になります。Python / Flask 製・公開準備中。',
+    description: '大学受験レベルの数学・物理・化学を、数式を直接入力して解く問題集。Python / Flask 製・公開準備中。',
     detail: `MathLab — 数式入力式の問題集（公開準備中）
 
-四択では数学が身につかないと考えたのが出発点です。
+数学は解法が複数あるので単一解にならない、と気づいたのが設計の出発点です。
 
-大学受験レベルの数学・物理・化学を、数式を直接入力して解きます。採点は SymPy による同値判定で、「平方完成せよ」のように形を問う設問だけは形も判定します。1 問は複数の段階に分割し、前段の結果を引き継ぎながら進みます。
-
-設計上の判断:
-
-・数式の評価はサンドボックス化し、別プロセスで実行して時間で打ち切る（式パーサーが eval を経由するため）
-・出題内容の検証は、保存済みの解答ではなく問題の式から独立に再計算して突き合わせる
-・画面に出す選択肢や判定基準はサーバー側で決める
+数式をそのまま打ち込んで解きます。採点は文字列比較ではなく SymPy による同値判定で、展開形と因数分解形のどちらでも正解になります。「平方完成せよ」のように形を問う設問だけは、形も判定します。1 問は複数の段階に分かれていて、前段の結果を引き継ぎます。
 
 構成: Python / Flask / SymPy、MathML 組版。フロントエンドはビルドステップなし。`,
     tech: ['Python', 'Flask', 'SymPy', 'MathML', 'JavaScript'],
@@ -686,19 +565,12 @@ Kotlin Multiplatform（KorGE 6.0）製の 2.5D 探索ゲーム本編と、「不
     slug: 'project-starsaga',
     title: 'StarSaga',
     thumbnail: `${base}images/works/project-starsaga/project-starsaga-2.png`,
-    description: 'ブラウザでもスマホでも遊べるモンスター収集 RPG。ひとつのコードから Android・デスクトップ・ブラウザの 3 つに出しています。出撃 3 体の役割の組み合わせで効果が決まる編成システムが中心です。Kotlin Multiplatform（KorGE）製。',
+    description: 'ブラウザでもスマホでも遊べるモンスター収集 RPG。ひとつのコードから Android・デスクトップ・ブラウザの 3 つに出しています。Kotlin Multiplatform（KorGE）製。',
     detail: `StarSaga — モンスター収集 RPG（Kotlin Multiplatform / KorGE）
 
 自分が面白いと思うゲームを実装してみたかった、というのが出発点です。
 
-星を渡り歩いて仲間を集め、出撃 3 体の役割の組み合わせで決まる「星座」を集めていきます。第 1 惑星から第 4 惑星までを通してプレイでき、エンディングまで到達します。
-
-設計上の判断:
-
-・強い 3 体を選んで固定して終わり、にならないよう、編成の組み合わせ自体に効果を持たせる。覚えることは 1 つだけ増やす
-・ゲームロジックは共通コードに置き、時刻・セーブ先・デバッグ判定だけをプラットフォームごとに分ける
-・ブラウザ版を出すにあたり、初回ロードの大半を占めていた日本語フォントを、実際に描く文字だけのサブセットに差し替えた。差し替え忘れは自動テストで検出する
-・配布はインストールが要らないブラウザ版を主にする
+星を渡り歩いて仲間を集め、出撃 3 体の役割の組み合わせで決まる「星座」を集めます。第 1 惑星から第 4 惑星まで通してプレイでき、エンディングまで到達します。ひとつのコードから Android・デスクトップ・ブラウザの 3 つに出しており、ブラウザ版はインストールなしで遊べます。
 
 構成: Kotlin / KorGE / Kotlin Multiplatform（Android / JVM / Kotlin/JS）。ブラウザ版は Docker + nginx で配信予定。`,
     tech: ['Kotlin', 'KMP', 'KorGE', 'Kotlin/JS', 'kotlinx.serialization', 'DataStore', 'kotlin.test', 'Docker', 'nginx'],
