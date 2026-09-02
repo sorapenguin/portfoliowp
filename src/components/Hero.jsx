@@ -1,8 +1,10 @@
-const stats = [
-  { value: '6', unit: 'サービス', label: '本番稼働中の Web サービス' },
-  { value: '21', unit: '件', label: '公開した制作物' },
-  { value: '21', unit: '個', label: '保有資格（AWS 11 冠 ほか）' },
-  { value: '1', unit: '台', label: 'すべてを載せている VPS' },
+import { Link } from 'react-router-dom'
+
+const facts = [
+  { label: '本番稼働中の Web サービス', value: '6' },
+  { label: '公開した制作物', value: '21' },
+  { label: '保有資格', value: '21' },
+  { label: '載せている VPS', value: '1 台' },
 ]
 
 export default function Hero() {
@@ -27,35 +29,32 @@ export default function Hero() {
           サービス 6 本を 1 台の VPS で公開しています。下のリンクからすべて実際に触れます。
         </p>
 
-        <div className="hero-stats">
-          {stats.map((s) => (
-            <div className="hero-stat" key={s.label}>
-              <span className="hero-stat-value">
-                {s.value}
-                <span className="hero-stat-unit">{s.unit}</span>
-              </span>
-              <span className="hero-stat-label">{s.label}</span>
+        <dl className="hero-facts">
+          {facts.map((f) => (
+            <div className="hero-fact" key={f.label}>
+              <dt>{f.label}</dt>
+              <dd>{f.value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
 
-        <div className="hero-actions">
-          <a
-            className="hero-btn hero-btn-primary"
-            href="#works"
+        <p className="hero-actions">
+          <Link
+            className="hero-btn"
+            to="/"
             onClick={(e) => scrollTo(e, 'works')}
           >
             制作物を見る
-          </a>
+          </Link>
           <a
-            className="hero-btn hero-btn-ghost"
+            className="hero-textlink"
             href="https://routelab.sorapenguin.dev"
             target="_blank"
             rel="noopener noreferrer"
           >
-            稼働中のサービスを触る ↗
+            稼働中のサービスを触ってみる ↗
           </a>
-        </div>
+        </p>
       </div>
     </section>
   )
