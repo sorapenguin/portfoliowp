@@ -8,22 +8,20 @@ export const projects = [
     slug: 'project-a',
     title: 'TechQuiz',
     thumbnail: `${base}images/works/project-a/project-a-2-1.png`,
-    description: 'Python / Django 製 IT 学習サービス。応用情報・CCNP・LPIC・Java Silver・Azure/AWS など 10 科目超・1 万問超の問題データをパイプライン管理し本番公開。ゲーミフィケーション・音声学習モード搭載。ポートフォリオ閲覧用デモ（quiz.sorapenguin.dev）のほか、実ユーザー向けに tech-lab.sorapenguin.dev として β 公開中。問題は Ollama + ChatGPT + Python のパイプラインで半自動生成。Docker / Traefik / CI/CD まで一貫して個人構築・運用。',
-    detail: `IT技術系クイズ学習プラットフォーム（Django / Python）
+    description: 'IT 資格の学習サービス。応用情報・CCNP・LPIC・Java・クラウド資格までを 1 か所で演習でき、手を止めずに進められる出題モードを備えています。Django 製・VPS で本番運用中。',
+    detail: `TechQuiz — IT 資格の問題演習サービス（本番運用中）
 
-問題クイズサイトではなく、コンテンツ運用基盤として設計した IT 資格学習サービスです。応用情報・CCNP ENARSI・LPIC・Java SE 17 Silver・Azure・AWS など 10 科目超・1 万問超の問題データを管理・本番公開しており、ポートフォリオ閲覧用デモ（quiz.sorapenguin.dev）のほか、実ユーザー向けに tech-lab.sorapenguin.dev として β 公開しています。RouteLab・JET など複数の学習サービスと同じ VPS・運用基盤上で動作しています。
+自分が使いやすい問題集を作りたかったのが出発点です。
 
-【AI問題生成パイプライン】
-Ollama（ローカル LLM）でドラフトを生成し、ChatGPT Thinking で技術的正確性をレビュー、Python スクリプトで重複チェック・schema 検証・反映の各工程を自動化するパイプラインを設計・運用しています。科目設定を切り替えるだけで同一コードを 46 科目に横展開できる設計で、1 万問超の問題データ規模を個人で維持しています。問題 JSON の schema（7 キー・choices 4択・answer 完全一致文字列・difficulty タグ）を厳密に管理。「AI に生成させてそのまま使う」のではなく生成・レビュー・validation・適用を分離したパイプライン設計が特徴です。
+複数分野の問題を横断して演習できます。出題は状況で絞り込め（未出題・間違えた問題・連続正解など）、選択せずに次へ進む自動再生と読み上げにも対応しています。ポートフォリオ閲覧用のデモと、実利用者向けのサービスを同じ基盤で並行運用しています。
 
-【インフラ・CI/CD】
-Docker Compose で各サービスをコンテナ分離し、GitHub Actions による CI/CD で push からマイグレーション・再起動まで自動化しています。Cloudflare → Traefik → Django → PostgreSQL の多層構成に、Prometheus + Grafana による監視・アラート通知と Redis キャッシュを組み合わせて運用しています。
+設計上の判断:
 
-【機能設計】
-XP・レベル・スタミナ・ジェムのゲーミフィケーション要素を実装しています。問題フィルタリングは「ステータス（未出題/ミス/ヒット/コンボ）・正答率・経過時間・難易度・サブカテゴリ」の 5 軸で絞り込め、設定秒数で自動進行する自動再生・👍/👎 フィードバック機能・音声読み上げ（Web Speech API / Android TextToSpeech 自動切替）を実装しています。音声学習モードは当初プラン限定でしたが、実際の使われ方をもとに全プランへ開放しました。フリー・月額・生涯プランのサブスクリプション設計とジェムによる問題解放、学習カレンダー（GitHub 風ヒートマップ）も備えます。
+・出題の絞り込みは正誤の履歴を軸にする。解き直す価値のある問題に戻れないと演習にならない
+・問題の生成はローカル LLM に下書きだけを任せ、レビューと検証を別工程に分けてから反映する
+・科目設定を差し替えれば同じパイプラインを使い回せる構造にし、分野を足すたびにコードを書かない
 
-【セキュリティ・運用設計】
-二重のレート制限（ログイン・登録・質問閲覧を IP ベースで制御）、reCAPTCHA v2 によるボット対策、構造化ログ、SendGrid を用いたメール配信フォールバック設計を実装しています。管理画面は URL 難読化で保護し、機能フラグで新規登録・ゲスト開始のオン/オフを制御可能です。運用面では日次の DB バックアップを多層で確保し、検索エンジンから科目単位で流入できるカテゴリ紹介ページの整備まで行っています。コードと問題データは非公開（採用担当者向けにデモアカウントでの全機能体験を提供）。`,
+構成: Python / Django / Gunicorn / PostgreSQL / Redis。Docker + Traefik で VPS に配置し、Prometheus / Grafana で監視。GitHub Actions で CI。`,
     tech: ['Python', 'Django', 'Gunicorn', 'PostgreSQL', 'Redis', 'Docker', 'Traefik', 'VPS', 'GitHub Actions', 'Prometheus', 'Grafana', 'SendGrid'],
     productUrl: 'https://quiz.sorapenguin.dev/',
     githubUrl: null,
@@ -52,30 +50,21 @@ XP・レベル・スタミナ・ジェムのゲーミフィケーション要素
     slug: 'project-routelab',
     title: 'RouteLab',
     thumbnail: `${base}images/works/project-routelab/project-routelab-6.png`,
-    description: 'Cisco IOS 風の疑似 CLI をブラウザで操作し、ネットワーク設定とトラブルシューティングを練習できる本番公開中の学習サービス。CCNA〜CCNP 対応、699 シナリオ。選択式・入力式・写経・音声暗記の 4 モード。シナリオを AI エージェントに実際に解かせる可解性検証まで実施。React + TypeScript + Vite + Zustand 製。',
-    detail: `RouteLab — Cisco IOS 風 CLI 演習サービス（本番公開中）
+    description: 'Cisco 機器の CLI をブラウザで練習できる学習サービス。設定構築とトラブルシューティングの 2 系統を、選択式・手入力・写経・カードの 4 モードで演習できます。CCNA / CCNP 範囲。React + TypeScript 製・VPS で本番公開中。',
+    detail: `RouteLab — Cisco CLI 演習サービス（本番公開中）
 
-ブラウザ上で Cisco IOS 風の CLI を操作し、ネットワーク設定とトラブルシューティングを練習できるサービスです。Packet Tracer や実機を用意しなくても、CCNA / CCNP レベルのコマンド操作と状態遷移を体験できます。本番運用中のサービスであり、問題・シナリオ資産と内部設定を含むためソースコードは非公開です。
+自分がコマンド学習で詰まったのが作ったきっかけです。
 
-【学習体験】
-シナリオごとにネットワーク構成と課題が提示されます。show コマンドで現在の状態を調査し、configuration モードへ移行してコマンドを入力、設定変更後に採点される流れで学習が進みます。ミスクリックは減点対象となるため、「正しいコマンドを正しい順序で」選ぶ判断力が自然に養われます。
+ブラウザ上の疑似 CLI で機器を設定し、show コマンドで結果を確認できます。設定構築とトラブルシューティングの 2 系統があり、演習モードは選択式・手入力・写経・カードの 4 種を切り替えられます。
 
-【4 つの演習モード】
-選択式（デフォルト）はコマンドボタンを選んで進める入門向け、入力式はコマンドを直接タイプする上級者向け、写経モードはヒントを見ながら 1 行ずつ入力するタイピング練習、音声暗記/カードはフラッシュカード形式で暗記する試験前確認用です。
+設計上の判断:
 
-【CLI エンジン設計】
-コマンドの入力文字列を正規化・分解して IOS コマンド構造に解析し、デバイス状態（ルーティングテーブル・インターフェース・プロトコル設定）をメモリ上で更新します。enable / configure terminal など 34 種の CLI モードを状態機械として管理し、show コマンドの出力を IOS 風フォーマットで動的生成します。採点はサーバーサイドでシナリオ JSON の条件と照合して実行します。
+・採点はサーバー側で行い、達成条件ごとの部分点を返す
+・選択式の選択肢は最低 4 つそろえる（消去法で解けてしまうため）
+・シナリオの可解性は AI エージェントに解かせて検証し、実機と挙動が違う箇所は実機を正としてエンジンを直す
+・シミュレーターが再現していない領域は出題しない
 
-【シナリオとコンテンツ管理】
-699 件のシナリオを JSON ファイルで管理（CCNA / CCNP ENARSI / CCNP ENCOR / トラブルシューティング 5 カテゴリ）。OSPF・EIGRP・BGP・DMVPN・VRF・ACL・PBR・QoS・STP・HSRP・VRRP・NAT・IPv6 など主要プロトコルを網羅しています。写経ステップと採点条件の整合性を全シナリオで自動検証（テスト 1,682 件）し、コンテンツの品質を保証しています。設定手順を組み立てるビルド系ラボ 70 本を追加したほか、選択式モードの選択肢表示順と採点合計の暗黙依存を洗い出す回帰テストも整備しました。
-
-【AI 可解性検証】
-AI エージェントにシナリオを実際に解かせ、「正しい知識があれば必ず解ける問題か」を検証する独自の品質保証プロセスを運用しています。検証で見つかった曖昧な問題文や実機 IOS 構文とのズレをシナリオに反映し、トラブルシューティング全 150 問と CCNA 112 問（検証当時の全数。以降の追加分は順次検証）の可解性を確認済みです。
-
-【ユーザーフィードバック】
-実ユーザーからのバグ報告を収集する機能を実装し、報告内容をもとに問題文の修正やシナリオの改善を行っています。
-
-React + TypeScript + Vite + Zustand + TailwindCSS 構成。VPS 上で Docker + Traefik で HTTPS 公開中。`,
+構成: React / TypeScript / Vite / Zustand / TailwindCSS、Express（採点 API）。VPS 上に Docker + Traefik で配置し HTTPS 公開。`,
     tech: ['React', 'TypeScript', 'Vite', 'Zustand', 'TailwindCSS', 'Express', 'Node.js', 'Docker', 'Traefik', 'VPS'],
     productUrl: 'https://routelab.sorapenguin.dev',
     githubUrl: null,
@@ -104,16 +93,20 @@ React + TypeScript + Vite + Zustand + TailwindCSS 構成。VPS 上で Docker + T
     slug: 'project-m',
     title: 'Webパズルサービス',
     thumbnail: `${base}images/works/project-m/project-m-1.png`,
-    description: 'ノノグラム・ヌリカベ・カックロ・ピクセルアートの 4 コンテンツをブラウザで遊べる Web パズルプラットフォーム。各パズルを PostgreSQL に DB 化して Ktor API で配信し、VPS 本番稼働中。カックロは接続性保証付きアルゴリズムで Python 自動生成、ピクセルアートは段階解放制を実装。',
-    detail: `Webパズルサービス — Ktor × Vanilla JS × PostgreSQL
+    description: 'ノノグラム・ヌリカベ・カックロ・ピクセルアートをブラウザで遊べるパズルサイト。問題はすべて自作の生成器で作っており、解けることをアルゴリズム側で保証しています。Ktor 製・VPS で本番運用中。',
+    detail: `Web パズルサービス（本番運用中）
 
-ノノグラム・ヌリカベ・カックロ・ピクセルアートの 4 コンテンツをブラウザで遊べるパズルプラットフォームです。各パズルを VPS 上の PostgreSQL に DB 化し、Ktor 製 API を通じて配信しています。
+論理で解けて、論理で作れるパズルなら量産できると考えたのが出発点です。
 
-ノノグラムは Python 制約伝播ソルバーで論理的一意解を保証しながら自動生成（300 問）。ヌリカベは独自アルゴリズムで生成した 300 問を投入。カックロは Connected Growth アルゴリズムで接続性・孤島ゼロを保証しながら Python 自動生成（330 問）。ピクセルアートは 8×8 / 16×16 のサイズ別に 83 問を収録し、段階解放制を実装しています。計 1,000 問超をすべて自作ソルバー・ジェネレーターによる自動生成で賄っています。
+4 種類のパズルをブラウザで遊べます。問題は手作りではなく、種類ごとに生成器を書いて自動生成しています。
 
-is_published カラムによる管理画面からの公開・非公開制御を実装し、Android アプリのバックエンドと Web API を同一 Ktor サーバー上で共存させる設計を採用しています。フロントエンドはビルドツールなしの Vanilla HTML+CSS+JS で動作し、軽量・高速な配信を実現しています。
+設計上の判断:
 
-Docker コンテナを自前 VPS に配置し、Traefik + Let's Encrypt で HTTPS 公開。puzzle.sorapenguin.dev として実稼働中です。`,
+・生成器の側で「解けること」を保証する。ノノグラムは論理だけで一意に解ける問題のみ採用し、カックロは盤面の接続性を保証しながら生成する
+・問題は静的ファイルではなく DB に持ち、管理画面から公開・非公開を切り替える
+・フロントエンドはビルドツールを使わない。配信が軽く、後から手を入れるコストも低い
+
+構成: Kotlin / Ktor / PostgreSQL、生成器は Python。Vanilla HTML + CSS + JS。Docker + Traefik で VPS に配置。`,
     tech: ['Ktor', 'Kotlin', 'Vanilla JS', 'PostgreSQL', 'Python', 'Docker', 'Traefik', "Let's Encrypt"],
     productUrl: 'https://puzzle.sorapenguin.dev',
     githubUrl: null,
@@ -139,18 +132,21 @@ Docker コンテナを自前 VPS に配置し、Traefik + Let's Encrypt で HTTP
     slug: 'project-c',
     title: 'StellarRise',
     thumbnail: `${base}images/works/project-c/project-c-1.png`,
-    description: '武器を自動生成・合成して攻撃力を高め、ステージを進める放置型 RPG Android アプリ。Android 開発の出発点となった作品で、クラウドセーブ・オフライン報酬・プレステージなどリリース水準の機能を Kotlin × Ktor フルスタック構成で設計・実装しました。',
-    detail: `StellarRise — 放置型RPGゲーム（Android × Ktor API）
+    description: '武器を合成して強化し、ステージを進める放置型 RPG。長く遊んできたジャンルなので、遊ぶ側として不満だった点を設計に落としています。Kotlin + Ktor のフルスタック構成。',
+    detail: `StellarRise — 放置型 RPG（Android / Ktor API）
 
-Android 開発を本格的に始めた最初のゲームアプリです。Kotlin × Ktor のフルスタック構成で開発した放置型クリッカーRPGで、武器を自動生成・合成して攻撃力を高め、ステージを進めていくゲームとして設計しました。クラウドセーブ・オフライン報酬・プレステージ（周回システム）・報酬広告フローなど、リリースを見据えたゲームの標準的な機能を実際に組み込み、設計水準を意識しながら実装しています。報酬広告フローは独自の AdManager クラスで制御しており、ポートフォリオ用ビルド（portfolio フレーバー）では外部広告 SDK に依存せず 3 秒のモック動作で報酬フローを確認できます。
+自分が面白いと思うゲームを実装してみたかった、というのが出発点です。放置ゲームは長く遊んでいるジャンルで、遊ぶ側としての不満が分かっていました。
 
-Android 側は Clean Architecture + MVVM + Repository パターンで設計し、ゲーム状態を一元管理しながら戦闘シミュレーション・武器自動生成・合成を制御しています。ローカル保存は継続的な機能追加に対応した Room + DataStore の2層構成とし、クラウドセーブはバックグラウンドで定期同期する設計を採用。サーバー側のタイムスタンプを優先してセーブデータの競合を解決し、オフライン・エラー状態を型安全に管理しています。バックエンドは Ktor + PostgreSQL の構成で、Docker によるイメージ軽量化と Traefik によるレート制限・ヘルスチェックも実装しています。
+武器を自動生成・合成して攻撃力を上げ、ステージを進めます。プレステージ（周回）、サポートキャラの育成、クラウドセーブを備えています。
 
-メイン・武器管理・ショップ・強化・プレステージ・実績・設定など複数の画面で各要素を整理しています。武器は星レベルに応じて攻撃力が指数的に増加し（毎レベル ×2.2・Long オーバーフローを安全にクランプする数値設計）、削除時に素材を生成できます（レシピシステムは BuildConfig フラグで休眠中・内部データは互換維持済み）。プレステージ（永久アップグレード）で攻撃力・コイン獲得・オフライン時間延長・ジェムドロ率を強化でき、10 ワールド構成でワールドごとに武器ステートを管理しています。サポートキャラクターの育成でステージ攻略をアシストする仕組みや、スペシャルボス撃破で輝石を時間蓄積するシステムも備え、機能追加に対応した拡張性の高いローカル保存設計を採用しています。
+設計上の判断:
 
-設計面で特に意識したのはオフライン報酬のチート耐性設計です。端末時計ではなくサーバー時刻を基準にオフライン経過時間を計算することで、時計操作による不正取得を防いでいます。JWT トークンは端末内で暗号化保存し、パスワードは BCrypt でハッシュ管理。クラウドセーブはパスワードのみでデータを紐づける設計にすることで、UX とセキュリティを両立しています。
+・画面遷移を減らす。放置ゲームは毎日触るので、1 回あたりの操作数がそのまま継続率になる
+・オフライン報酬は端末時計ではなくサーバー時刻を基準にする。時計を進めるだけで報酬が増えては成立しない
+・クラウドセーブはパスワードだけで引き継げるようにし、アカウント登録を挟まない
+・セーブは機能追加で壊れやすいので、読み込み時に旧データを補正してから使う
 
-ゲームロジックは JUnit 267 件で保護しています。リリースに向けて署名設定とバージョン管理を整え、Google Play のクローズドテスト提出まで進めました。`,
+構成: Kotlin / MVVM / Clean Architecture / Room / DataStore / WorkManager / Retrofit。サーバーは Ktor / PostgreSQL / JWT、Docker で配置。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'Navigation Component', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/idlegame-v1.2.0',
     githubUrl: null,
@@ -181,17 +177,20 @@ Android 側は Clean Architecture + MVVM + Repository パターンで設計し�
     slug: 'project-jet',
     title: 'JET',
     thumbnail: `${base}images/works/project-jet/project-jet-1.png`,
-    description: 'Java コードの実行トレース・読解練習に特化した 606 問（Silver 514 + Gold 92）の Web 問題集。「このコードが動くとどうなるか」を答える形式で、Java SE 17 頻出テーマを収録。全問題を javac で自動検証するゲート付き生成パイプラインを整備。React + TypeScript + Vite 製・VPS 本番稼働中。',
-    detail: `JET — Java コード読解・実行トレース問題集（React × TypeScript）
+    description: 'Java のコードを読んで「実行するとどうなるか」を答える問題集。知識問題ではなく、実行順序を追う練習に絞っています。React + TypeScript 製・VPS で本番運用中。',
+    detail: `JET — Java 実行トレース問題集（本番運用中）
 
-Java Execution Tracer の略。Java のコードを読み、実行結果・変数の値・出力を答えるコードトレース形式の問題集です。知識問題ではなく「このコードが実際に動くとどうなるか」を問う形式で、Java の実行順序・スコープ・型変換・オーバーロード・継承・ラムダ・Stream などの理解を深めることを目的にしています。
+Java の学習で、知識よりも先にコードを追う速度で詰まったのが作ったきっかけです。そこだけを訓練する教材が欲しくて作りました。
 
-606 問（Silver 514 問 + Gold 92 問）を収録し、Java SE 17 の頻出テーマ（継承・ポリモーフィズム・例外・ラムダ・Stream・型変換など）をレベル別に学習できます。重複問題の機械検出・削除まで含めてコンテンツを継続整備しています。
+出題は「このコードが動くとどうなるか」に限定しています。Silver / Gold の頻出テーマを、実行結果を答える形式に置き換えました。
 
-【コンテンツ品質パイプライン】
-Gold 問題群はゲート付き自動生成パイプラインで作成し、全問題を javac による実行結果検証にかけて品質を担保しています。手書きの実行トレース JSON がコンパイル・実行結果と一致するかを機械検証する仕組みで、大量の問題を破綻なく維持しています。
+設計上の判断:
 
-フロントエンドは React + TypeScript + Vite で構成し、問題フィルタリング・回答確認・進捗管理 UI を実装しています。弱視の方にも配慮したライトテーマを採用。VPS 上で Docker + Traefik 構成で公開しています。`,
+・出題形式を実行トレースだけに絞る。知識問題は既存の問題集で足りている
+・全問題の期待値を javac の実行結果と機械照合してから登録する。手で追ったトレースは自分でも信用できない
+・問題の追加はゲート付きのパイプラインを通し、検証を通らないものは登録しない
+
+構成: React / TypeScript / Vite。Docker + Traefik で VPS に配置。`,
     tech: ['React', 'TypeScript', 'Vite', 'Docker', 'Traefik', 'VPS'],
     productUrl: 'https://jet.sorapenguin.dev',
     githubUrl: null,
@@ -209,18 +208,21 @@ Gold 問題群はゲート付き自動生成パイプラインで作成し、全
     slug: 'project-e',
     title: 'AlchemyGame',
     thumbnail: `${base}images/works/project-e/project-e-3-2.png`,
-    description: '4 元素から 80 種以上の素材を発見・合成していく放置系錬金術ゲームです。プレステージごとに錬金術→料理→生物進化→宇宙→文明と 5 段階でワールドが広がる設計を採用し、各ワールド独自のピクセルアートアイコン（全5ワールド合計 325 枚以上）・24 種のアチーブメント・クラウドセーブ・引継ぎコードを MVVM + UseCase パターンで実装しています。',
-    detail: `AlchemyGame — 放置系錬金術ゲーム（Android × Ktor API）
+    description: '4 元素から素材を発見・合成していく放置系の錬金術ゲーム。プレステージごとに世界のテーマが変わる構成で、遊びながら不便だった箇所を機能として足しています。Kotlin 製。',
+    detail: `AlchemyGame — 放置系錬金ゲーム（Android / Ktor API）
 
-Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + UseCase パターンで設計し、合成・ミッション・実績などのビジネスロジックを各 UseCase に分離しています。ゲーム状態は immutable な設計で一貫性を保証し、状態変化と UI イベントを疎結合に扱う仕組みを整えています。
+錬成と放置を組み合わせたら面白くなるか試したかった作品です。
 
-コアゲームループは 4 元素（火・水・土・風）の自動収集から始まり、80 種以上のレシピを段階的に発見・合成していく仕組みです。錬金炉は装備強化で最大 3 スロット（プレステージ強化込みで最大 5 スロット）の並列生産に対応し、装備レベルに応じてオートプロデュースの枠が広がります。最終素材の合成でプレステージ（昇華）が発動し、錬金術→料理→生物進化→宇宙創造→文明史の 5 ワールドが段階的に解放される設計で、各ワールドの在庫・発見素材・プレステージ状態を独立して管理しています。
+素材を合成して発見を広げ、最終素材の合成で世界が切り替わります。錬金術から料理・生物進化・宇宙・文明史へとテーマが変わり、それぞれの進行を独立して管理します。
 
-継続プレイ設計として、クラフトや発見でランクが上がるアルケミストランク（XP ベース・10 段階）、収集速度・スロット数・ストレージ上限の永続強化を得るプレステージ、毎日リセットされる 5 種ランダムデイリーミッション、最大 100 日分のログインカレンダー報酬、24 種のアチーブメント、7 ステップのチュートリアルを実装しています。
+設計上の判断:
 
-オフライン進捗はサーバー時刻を基準に計算してデバイス時計の改ざんを防止し、長期放置時にはアシスタントギフトを付与する設計にしています。JWT トークンは端末内で暗号化保存し、Ktor バックエンドとのバックグラウンド同期でクラウドセーブを実現。クラウドセーブはバックグラウンドで定期同期し、起動時にローカルと API のタイムスタンプを比較して新しい方を採用する競合解決設計です。
+・欲しい素材から必要な材料をさかのぼって一括合成できるようにした。段階が深くなるほど手作業が苦痛になるため
+・端末を変えるときのために期限付きの引継ぎコードを発行する。アカウント登録は求めない
+・オフライン進捗はサーバー時刻を基準に計算する
+・合成・ミッション・実績のロジックを UseCase に分け、状態は不変オブジェクトとして扱う
 
-リリース前に「遊びとして成立しているか」の観点で全体を見直し、序盤の手触り・進行の詰まり・報酬の出方を修正しました。ゲームロジックは JUnit 217 件で保護しており、バランス調整や機能追加で既存の進行が壊れないようにしています。`,
+構成: Kotlin / MVVM / Clean Architecture / DataStore / WorkManager / Retrofit。サーバーは Ktor / PostgreSQL / JWT。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'UseCase', 'StateFlow', 'Coroutines', 'DataStore', 'EncryptedSharedPreferences', 'WorkManager', 'Retrofit', 'Navigation Component', 'Ktor', 'PostgreSQL', 'JWT', 'Docker'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/alchemygame-v1.0.0',
     githubUrl: null,
@@ -249,14 +251,19 @@ Kotlin 製の放置系錬金術ゲームです。MVVM + Clean Architecture + Use
     slug: 'project-l',
     title: 'StellarRise Web',
     thumbnail: `${base}images/works/project-l/project-l-1.png`,
-    description: 'StellarRise（Android 放置 RPG）の採用担当者向け Web デモ版。TypeScript + Vite で実装し、インストール不要でブラウザから即プレイ可能。Docker コンテナを自前 VPS（Traefik + HTTPS）に配置し、実稼働公開中。',
-    detail: `StellarRise Web デモ — TypeScript × Vite × Docker
+    description: 'Android 版 StellarRise をブラウザで触れるようにしたデモ。APK をインストールしてもらうのは現実的でないため、リンクを開けば遊べる入口として用意しました。TypeScript + Vite 製・VPS で公開中。',
+    detail: `StellarRise Web — ブラウザ版デモ（公開中）
 
-Android アプリ「StellarRise」の採用担当者向け Web 体験版です。APK のインストールなしにブラウザで即プレイできるよう、TypeScript + Vite でフロントエンドを実装しました。
+アプリを入れてもらうのは難しいので、リンクを開けばそのまま触れるものを用意しました。
 
-ゲスト自動起動・デモ向け初期値設定を追加し、登録不要でゲームの核心部分をすぐに体験できるよう整備しています。Android 版と同じ Ktor バックエンドと通信し、CORS 設定によってWebからのアクセスを許可しています。
+Android 版のゲームループをブラウザ向けに実装したデモです。インストールも登録も不要で、その場で遊べます。
 
-インフラ面では Docker コンテナを自前 VPS（Ubuntu）に配置し、Traefik をリバースプロキシとして HTTPS で公開。Cloudflare DNS の A レコードでサブドメインを設定し、Let's Encrypt による自動証明書更新を実現しています。フロントエンド（TypeScript）・API（Ktor）・インフラ（VPS / Traefik / DNS）を一人で構築し、ポートフォリオとして実稼働中です。`,
+設計上の判断:
+
+・本体の移植ではなく、体験の中心だけを別実装にする。ブラウザ側で全機能を追うと保守先が二重になる
+・サーバーを持たず、静的配信で完結させる
+
+構成: TypeScript / Vite。Docker コンテナとして VPS に配置し、Traefik で HTTPS 公開。`,
     tech: ['TypeScript', 'Vite', 'Docker', 'Traefik', 'Cloudflare', "Let's Encrypt", 'Ktor'],
     productUrl: 'https://stellarrise-web.sorapenguin.dev',
     githubUrl: null,
@@ -273,18 +280,21 @@ Android アプリ「StellarRise」の採用担当者向け Web 体験版です�
     slug: 'project-j',
     title: 'StarForge',
     thumbnail: `${base}images/works/project-j/project-j-2-1.png`,
-    description: 'Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズル × 塗り絵を統合した Android ゲームです。独自 Canvas エンジン・プロシージャルダンジョン生成・A* 経路探索・サーバー時刻ベースのスタミナ管理を MVVM + Clean Architecture で実装し、F1〜F50 突破を 100 シードの進行シミュレーターで自動検証しています。',
-    detail: `StarForge — 複合ジャンル Android ゲーム（Kotlin × DataStore × Retrofit）
+    description: 'モンスター育成合成・ターン制ローグライク・ノノグラム・塗り絵を 1 本にまとめた Android ゲーム。掴みにくいジャンルだったので、進行が成立するかを自動シミュレーションで確かめながら作りました。Kotlin 製。',
+    detail: `StarForge — 複合ジャンル Android ゲーム
 
-Kotlin 製のモンスター育成合成 × ターン制ローグライク × ノノグラムパズル × 塗り絵を統合した Android アプリです。4 つのゲームモードを 1 アプリに収め、独自 Canvas レンダリングエンジン・プロシージャルダンジョン生成・A* 経路探索を含む多数のシステムを MVVM + Clean Architecture パターンで設計・実装しています。
+パズルに育成とローグライクを足したら遊べるものになるか、試した作品です。
 
-基本ループはノノグラムで★とかけらを集め → ショップで仲間を増やし → 合成/育成/装備強化でチームを強化 → ダンジョン 50 フロアを攻略という流れです。ダンジョンは BSP プロシージャル生成でフロアごとに異なるマップが生成され、視界・フォグオブウォーを独自 Canvas で描画します。ターン制移動・攻撃・スキル使用は手動か AUTO で操作でき、AUTO 探索は「視界内の敵を優先 → ドロップ回収 → 未探索エリアへ」の 3 段優先度で A* 経路探索を実行し、HP 低下・ボス出現時に自動停止します。ボスは F10〜F50 に 5 体配置され、死亡時はかけら・EXP・ゴールドを持ち帰り素材をロストする緊張感ある設計です。F50 クリアでエンディング演出と報酬が表示され、クリア後も探索とコレクションを継続できます。
+ノノグラムで資源を集め、仲間を増やして育て、ダンジョンを潜る流れです。ダンジョンのマップは自動生成し、視界の描画・経路探索・自動探索を独自実装しています。
 
-モンスターは T1〜T7 × 5 タイプの計 35 体を定義し、同ティア合成（確定昇格）と異ティア合成（ランダム昇格）で発見要素を持たせています。最大 3 体のサポートパーティを編成し、タイプ（ATK/DEFN/AREA/HEAL/LUCK）に応じた効果がダンジョン探索を補助します。ノノグラムは 5×5・10×10・15×15 の 3 サイズをサーバー API または builtin フォールバックから取得し、フィル/マークモード切替・Undo・ヒントチケット・途中保存を実装しています。塗り絵では 35 体のモンスターを 8 色パレットで彩ることができ、途中保存・再開・完成保存をすべて実装しています。
+設計上の判断:
 
-技術面では GameState を immutable な data class で定義しすべての変化を copy() で生成する設計を採用し、ロード時に normalized() で旧セーブの自動修復を行って後方互換性を担保しています。スタミナ回復はサーバー時刻（GET /starforge/time）を基準に計算し、端末時計操作による不正回復を防止しています。日替わりショップは日付をシードとした決定論的抽選でサーバー不要のクライアント完結を実現。永続化は DataStore + Gson による JSON 直列化 1 層構成で、Retrofit + OkHttp で時刻同期とノノグラム API 配信を行っています。
+・ローグライクは自分にとって仕様の掴みにくいジャンルなので、進行が最後まで成立するかを乱数の種を変えたシミュレーションで自動検証する
+・スタミナ回復はサーバー時刻を基準にする
+・日替わりショップは日付を種にした抽選にして、サーバーなしで全端末の内容をそろえる
+・ゲーム状態は不変オブジェクトで持ち、旧セーブは読み込み時に補正する
 
-バランス調整は独自の進行シミュレーターで Standard/Active 各 100 シード × F1〜F50 突破を自動検証し、進行不能 0 件・エンディングまで到達可能なバランスを確認しています。実機ではホーム・ダンジョン・AUTO 探索・合成・装備・ノノグラム・ショップ・設定を手動確認済みです。仕様設計・バランス判断・実機確認を自分が担当し、Kotlin 実装を Claude Code / Codex、UI レビューを ChatGPT に分担するワークフローで開発しています。リリース準備として署名設定とプライバシーポリシーの公開まで済ませ、ストア素材の準備段階です。`,
+構成: Kotlin / MVVM / Clean Architecture / DataStore / Retrofit / OkHttp、描画は Canvas を直接扱う実装。時刻とパズル配信は Ktor API。`,
     tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'StateFlow', 'Coroutines', 'DataStore', 'Gson', 'Retrofit', 'OkHttp', 'Navigation Component', 'Canvas', 'JUnit 4', 'Ktor'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/starforge-v1.1.0',
     githubUrl: null,
@@ -313,25 +323,20 @@ Kotlin 製のモンスター育成合成 × ターン制ローグライク × �
     slug: 'project-f',
     title: 'IdleMine',
     thumbnail: `${base}images/works/project-f/project-f-1-2.png`,
-    description: '鉱石を集め、ガチャで仲間を増やし、採掘チームと探索派遣で効率を高めていく放置系 Android ゲームです。Unity 6 LTS / C# で AI 作戦付き採掘システム・天井保証ガチャ・ガーデンバフ・オフライン報酬を S100 まで実装し、Android 実機でコアゲームプレイの動作確認済み。QA シナリオランナー 34 件でオフライン収益・採掘速度・ランナウェイの整合性を自動検証しています。リリース前監査で見つかった本番 API URL の固定化などの不具合は修正済みです。',
-    detail: `IdleMine — 放置型鉱山採掘ゲーム（Android × Unity）
+    description: '鉱石を掘り、仲間を増やし、探索派遣で効率を上げていく放置ゲーム。Unity / C# で 1 本仕上げることを目的に作りました。',
+    detail: `IdleMine — 放置型鉱山採掘ゲーム（Android / Unity）
 
-Unity 6 LTS / C# 製の 2D 横スクロール放置鉱山採掘ゲームです。のんびり系ゲームデザイン（敵は徘徊するだけ・フロアクリア制・転生なし）を軸に、ガチャ・探索派遣・ガーデンバフなど多彩なシステムを個人で設計・実装し、Android 実機でコアゲームプレイを動作確認済み（サーバー連携込みの実機確認は整備中）。S21〜S100 の実装フェーズを経て主要機能をすべて完成させています。
+Unity と C# で 1 本作り切ってみたかったのが出発点です。
 
-【採掘コアシステム】
-20×12 の採掘グリッドで Stone・Iron・Gold・Crystal・Gem の 5 鉱石が自動スポーンし、採掘 AI が作戦設定（Nearest / Valuable / Safe / Deep）に従って自動採掘します。フロアクリア（B1F:300 → B5F:20）でマップが解放され、B5F クリア後に Prestige（採掘速度 ×1.05〜×51 強化）が解放されます。SafeZone 機能で 15 分ごとに採掘効率 +20% ゾーンが再生成される仕組みも備えています。
+採掘は自動で進み、作戦を選ぶと採掘 AI の動き方が変わります。フロアを解放し、ガチャで仲間を増やし、探索派遣とガーデンバフで効率を上げていきます。
 
-【ガチャ・キャラクターシステム】
-SR / SSR 抽選・演出・ポートレート表示を実装し、10 / 50 / 100 連の天井保証（pityCount 管理）を備えています。キャラクターはレアリティ（S / A / B / C）と役割（Miner: 採掘速度強化 / Merchant: 売却価格強化）を持ち、Mining Team 4 スロットに配置して採掘効率を高めます。
+設計上の判断:
 
-【探索派遣・ガーデンバフ】
-ガーデンでは採掘速度・ゴールド獲得・スタミナ系バフを管理し（GardenItemDef 5 種・GardenBuff）、探索派遣（ExplorePanel）でオフライン中の報酬収集を行えます。Garden サイズは Prestige 回数に応じて 3〜7 まで拡大します。
+・遊びの軸が定まらないと感じた分、検証を厚くした。オフライン収益・採掘速度・進行の整合性を自動実行のシナリオで確かめている
+・ガチャは天井を保証し、運の悪さで進行が止まらないようにする
+・のんびり遊べることを優先し、敵との戦闘や転生のような詰まりやすい要素を入れない
 
-【QA・整合性検証】
-QA Scenario Runner（34 シナリオ）でオフライン収益計算・採掘速度バフ合成・ランナウェイ境界値を自動検証し、OfflineEarningsCalculator を単一計算源として実装することでセーブ・UI・QA の整合性を保証しています。Working Save 方式を採用し、QA 実行後にセーブデータを完全に元に戻します。
-
-【UI/UX】
-5 タブ（Home / Mine / Base / Gacha / Settings）構成で、クリーム基調の明色 UI テーマ（UITheme.BgDeep=#F3E6CE）を採用しています。Home タブでは NEXT GOAL バー（6 条件ロジック）と Mining Team を確認でき、Base タブ内 Market では鉱石を 1 個・10 個・全量単位で売却、Upgrade モーダルでは Mining Speed / Carry / Stamina / Weapon Attack を強化できます。`,
+構成: Unity 6 LTS / C#。サーバー時刻は API から取得。`,
     tech: ['Unity 6', 'C#', 'IL2CPP', 'Android', 'Ktor', 'JWT'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/idlemine-v0.1.0',
     githubUrl: null,
@@ -354,16 +359,19 @@ QA Scenario Runner（34 シナリオ）でオフライン収益計算・採掘�
     slug: 'project-b',
     title: 'ECサイト',
     thumbnail: `${base}images/works/project-b/project-b-1-3.png`,
-    description: 'Spring Boot → Ktor へのバックエンド移植学習プロジェクト。URL ゼロ変更・JVM メモリ 500MB→150MB 削減を達成。約 1 年の本番運用を経て、アクセス実態に基づき 2026 年 8 月にサービス統廃合（停止・アーカイブ）を判断。',
-    detail: `ECサイト型Webアプリケーション（Spring Boot → Ktor 移植）
+    description: 'Spring Boot から Ktor へ移植したバックエンド学習用の EC サイト。業務システムの定番機能を一通り実装し、その後アクセス状況を見て停止・アーカイブしました。',
+    detail: `EC サイト — バックエンド移植の練習作（停止・アーカイブ済み）
 
-※ 本サービスは約 1 年の VPS 本番運用ののち、アクセス実態（90 日間アクセスなし）に基づき 2026 年 8 月に停止・アーカイブしました。移植の技術実績に加え、「使われていないサービスを計測に基づいて畳み、リソースを最適化する」運用ライフサイクル判断まで含めて経験しています。以下は稼働当時の構成です。
+業務システムの定番構成を一度、端から端まで作ってみたかった作品です。
 
-PHPフロントエンドを稼働させたまま、バックエンドをSpring Boot（Java）からKtor（Kotlin）へ移植したプロジェクトです。PHPが叩くAPIエンドポイントをURLゼロ変更で移行することでフロントへの影響を排除し、JVMメモリを約500MB（Spring Boot）→約150MB（Ktor）に削減してVPS 4GB制限内への収容を実現しました。フロントは描画のみを担うPHPシェルとし、ビジネスロジックはすべてKtor REST APIに集約することでフロントとバックエンドの責務を明確に分離しています。
+商品・カート・注文・在庫・クーポン・売上ダッシュボード・二段階認証まで、EC の一般的な機能を一通り実装しました。その後 Spring Boot から Ktor へ移植し、URL 構造の変更とメモリ使用量の削減を行っています。
 
-インフラはDocker Composeで4サービス（Nginx / PHP-FPM / Ktor / PostgreSQL）をコンテナ分離。Nginxをリバースプロキシとして配置し、/api/* へのリクエストをKtorへ転送することでPHPとAPIを同一オリジン構成にまとめています。認証はJWT + BCryptを採用し、一般ユーザーとADMINロールをJWTクレームで管理。移行前後の相互認証互換性を BCrypt による互換処理で維持しています。管理者ログインはワンタイムコードによる2段階認証を実装しています。
+設計上の判断:
 
-ユーザー向け機能として、キーワード・カテゴリ・価格帯・在庫状態での複合絞り込み検索とページネーションを備えた商品一覧、お気に入り登録、クーポンコードの割引適用、カートの数量変更・削除・購入フロー、注文履歴閲覧を実装しています。管理者側はChart.jsを用いた月別売上グラフ・人気商品ドーナツチャートのダッシュボード、商品CRUD（カテゴリ管理・公開フラグ切り替え含む）、注文ステータス管理、クーポン発行・一覧の4機能を備えています。`,
+・移植は機能追加を止めて行い、同じ挙動を保ったまま基盤だけを入れ替える
+・約 1 年運用したのち、アクセス状況を見てサービスを停止しアーカイブした。動かし続ける判断より、止める判断のほうが難しかった
+
+構成: Kotlin / Ktor / FreeMarker / PostgreSQL / Docker。`,
     tech: ['PHP', 'Kotlin', 'Ktor', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Nginx', 'JWT', 'JavaScript', 'Chart.js'],
     productUrl: null,
     githubUrl: null,
@@ -410,16 +418,21 @@ PHPフロントエンドを稼働させたまま、バックエンドをSpring B
     slug: 'project-d',
     title: 'ノノグラム',
     thumbnail: `${base}images/works/project-d/project-d-1-1.png`,
-    description: 'Jetpack Compose + Clean Architecture 構成の Android ノノグラムパズルゲーム。Python ソルバーによる自動生成パイプライン（100 問）と Ktor バックエンドを組み合わせた設計で、後に StarForge へ発展統合しています。',
-    detail: `ノノグラムパズル Android アプリ
+    description: 'Jetpack Compose 製のノノグラムパズル。最初に完成まで持っていけたゲームで、ここで作った生成の考え方が後の作品につながっています。',
+    detail: `ノノグラム — Android パズルゲーム
 
-数字ヒントを手がかりにマス目を塗りつぶすロジックパズル「ノノグラム」をスマートフォン向けに実装したアプリです。このプロジェクトで培ったパズル生成・Compose 設計の経験は、後に StarForge へ統合されています。
+最初に完成させられたゲームです。仕様が単純なものから始めたほうが、作り切れると考えました。
 
-パズルのクオリティを担保するため、ゲームロジックを Python で先行開発し、論理的に一意解が導けるパズルだけを選別してバックエンドに投入する自動生成パイプラインを構築しました。「推測なしで解ける」という制約を設計の起点に置いたことが特徴です。
+問題は Python 側のソルバーで生成し、アプリはそれを解く側に専念しています。
 
-アプリアーキテクチャは MVVM + Clean Architecture + Repository パターンを採用し、Hilt で依存性を一元管理しています。UI は Jetpack Compose (Material3) で構築し、状態管理には StateFlow を使用。ローカルデータは Room（パズル進捗を 500ms debounce 後に JSON 保存）と DataStore Preferences（スタミナ・ヒント数・スキップチケット）で管理し、Cache-first 設計（Room キャッシュ → 不足時に API フェッチ）で通信コストを最小化しています。
+設計上の判断:
 
-パズル生成は Python で独立したパイプラインとして構築しました。solver.py（制約伝播ソルバー・バックトラックなし）が論理的一意解を検証し、generator.py が密度・連結性・対称性の美的フィルタを適用して採用パズルを選別。計 300 問（5×5 / 10×10 / 15×15 各 100 問）を自動生成し、Web 版（puzzle-web）と共有の DB に投入済みです。`,
+・生成と出題を分ける。問題の品質は生成器の責任、遊び心地はアプリの責任という切り分け
+・画面構成は Clean Architecture に寄せ、後から別ゲームへ移せる形にした
+
+その後、この作品のパズル部分は StarForge へ統合しました。
+
+構成: Kotlin / Jetpack Compose / Clean Architecture。バックエンドは Ktor。`,
     tech: ['Kotlin', 'Jetpack Compose', 'Hilt', 'MVVM', 'Clean Architecture', 'Room', 'DataStore', 'WorkManager', 'Retrofit', 'AdMob', 'Ktor', 'FreeMarker', 'PostgreSQL', 'Docker', 'Python'],
     productUrl: 'https://github.com/sorapenguin/games-android/releases/tag/nonogram-v1.0.0',
     githubUrl: null,
@@ -443,16 +456,21 @@ PHPフロントエンドを稼働させたまま、バックエンドをSpring B
     slug: 'project-i',
     title: '本番サービス運用基盤',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'VPS 1台で 10 以上のサービスを Docker / Traefik で同居運用する個人インフラ。Prometheus / Grafana 監視・Discord アラート・CI/CD・セルフホスト Umami アクセス解析まで整備。ローカル LLM（Ollama / qwen2.5）で 46 科目・1 万問超の問題コンテンツを半自動生成し TechQuiz へ投入するパイプラインも運用中。',
-    detail: `本番サービス運用基盤 — VPS インフラ × LLM コンテンツ生成
+    description: 'VPS 1 台で複数の本番サービスを同居運用している個人インフラ。運用に手をかけたくないので、手をかけずに回る形に寄せています。Docker / Traefik / Prometheus / Grafana 構成。',
+    detail: `本番サービス運用基盤
 
-VPS（Ubuntu）1台上で Traefik + Docker Compose を用いて 10 以上のサービスを同居運用しているインフラ構成です。TechQuiz / RouteLab / InfraLab / GoLab / JET / puzzle-web / StellarRise Web などのサービスを支える共通基盤として設計・運用しています。サービスの追加は同じ型（Docker イメージ → Traefik のルーター/サービス定義 → HTTPS 自動発行）で行えるようにしてあり、新しく作ったものを短時間で公開に載せられます。アクセス解析はセルフホストの Umami で 7 サービスを計測し、アクセス実態に基づくサービス統廃合（EC サイトの停止・アーカイブなど）まで含めた運用判断を行っています。
+運用作業そのものは好きではないので、手をかけずに回る形にするのが方針です。監視も自動化も、そのための投資として入れています。
 
-ネットワーク構成は Cloudflare（DNS・CDN・DDoS 防御）→ Traefik（SSL 終端・ルーティング）→ 各コンテナ（Docker Bridge 内部通信）→ shared-PostgreSQL の多層構造です。TLS 証明書は Let's Encrypt 自動更新で管理し、PostgreSQL はサービスごとに DB を分けつつコンテナを1つで共有することで運用コストを抑えています。
+学習サービス群とゲームのバックエンドを 1 台の VPS に同居させ、共通の基盤として運用しています。個人開発は作って終わりになりがちですが、実際に人が使う状態で動かし続けているところまでを含めて 1 つの成果と考えています。
 
-セキュリティ面では、SSH ポート変更・公開鍵認証のみ、Traefik による HTTPS 強制、Cloudflare WAF、管理画面系エンドポイントへのアクセス制限を実装しています。Prometheus + Grafana でコンテナリソース・レスポンスタイムを可視化し、Discord Webhook で異常検知時の即時通知を実装。PostgreSQL 自動バックアップスクリプトの定期実行と Runbook（障害対応手順）の整備まで含む、本番運用を意識した構成です。
+設計上の判断:
 
-LLM コンテンツ生成パイプラインとして、Python + ローカル LLM（Ollama / qwen2.5:14b）を使って資格試験問題のドラフトを半自動生成しています。科目設定（JSON）を切り替えるだけで同一コードを流用できる設計で、CCNP・LPIC・応用情報から Azure / AWS / GCP 資格まで 46 科目に対応。生成→検証→修復→GPT レビュー→統合の各工程を独立スクリプトに分離し、累計 1 万問超の問題データを TechQuiz へ投入しています。「AI に生成させてそのまま使う」のではなく、生成・レビュー・品質確認・反映を分けたパイプラインを設計・運用しているのが特徴です。`,
+・サービスの追加を定型化する。コンテナを作り、ルーティング定義を足せば HTTPS まで通る形にしてあり、新しいものを短時間で公開に載せられる
+・PostgreSQL はサービスごとに DB を分けつつコンテナは 1 つにまとめ、運用対象を増やさない
+・リソースと応答時間を可視化し、異常はチャットへ通知する。定期バックアップと復旧手順書まで含めて用意する
+・アクセス状況は自前の解析基盤で見ており、伸びないサービスは停止する判断もしている
+
+構成: Ubuntu / Docker / Docker Compose / Traefik / PostgreSQL / Prometheus / Grafana / Cloudflare。問題コンテンツ生成にはローカル LLM のパイプラインを併設。`,
     tech: ['Docker', 'Docker Compose', 'Traefik', 'PostgreSQL', 'Prometheus', 'Grafana', 'Cloudflare', 'Ubuntu', 'Python', 'Ollama', 'LLM', 'GitHub Actions'],
     productUrl: null,
     githubUrl: null,
@@ -462,14 +480,21 @@ LLM コンテンツ生成パイプラインとして、Python + ローカル LLM
     slug: 'project-g',
     title: 'AWS 構成案（Terraform）',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: '⚠️ 実環境デプロイなし・設計案のみ。VPS本番4サービスをAWSマネージドサービスで再構成した場合のTerraform IaC設計案。VPC・ALB・ECS Fargate・RDS・Secrets Manager を活用した本番想定アーキテクチャ。',
-    detail: `AWS インフラ構成案（Terraform IaC）
+    description: 'VPS の本番構成を AWS のマネージドサービスで組み直した場合の Terraform 設計案。実環境へは適用していません（コスト事故を避けるための判断）。',
+    detail: `AWS 構成案（Terraform IaC）
 
-⚠️ これは AWS 環境への実際のデプロイではなく、VPS 本番構成をベースに AWS への移行を設計・Terraform コードとして落とし込んだ構成案です。terraform fmt による構文確認は済んでいますが、実際の AWS 環境への適用は行っていません。
+⚠️ 実際の AWS 環境へのデプロイは行っていません。VPS 本番構成をもとに、AWS へ移すならどうなるかを設計し、Terraform コードに落とした構成案です。
 
-VPS（Ubuntu）上で稼働中のサービスを AWS マネージドサービスで再構成した場合の設計案です。アーキテクチャは Internet → ALB（パブリックサブネット×2 / 2AZ）→ ECS Fargate（プライベートサブネット）→ RDS PostgreSQL 16（DB サブネット）の多層構造です。ALB のパスベースルーティングで複数サービスを単一エンドポイントに集約しています。
+ALB からプライベートサブネットの ECS Fargate、DB サブネットの RDS へ、という多層構成です。
 
-設計上のポイントは3点です。①Secrets Manager によるシークレット分離：ECS タスク起動時に自動注入することでコードにシークレットを書かない設計。②IAM 最小権限設計：ECS タスク実行ロールに必要最小限のシークレット読み取り権限のみを付与。③コスト比較：NAT Gateway（~$35/月）が最大のコスト要因であり月額概算 ~$80〜 となるため、VPS（~$13/月）を本番継続採用する判断の根拠を設計段階で把握しています。`,
+設計上の判断:
+
+・実環境には適用しない。閉じ忘れがそのまま費用になるため、学習目的で開けっぱなしにするリスクを取らなかった
+・シークレットはコードに書かず、タスク起動時に注入する
+・実行ロールの権限は必要な読み取りだけに絞る
+・移行後のコストを概算し、VPS を継続する判断の根拠にした
+
+構成: Terraform / VPC / ALB / ECS Fargate / RDS / ECR / Secrets Manager / CloudWatch / IAM。`,
     tech: ['AWS', 'Terraform', 'VPC', 'ALB', 'ECS Fargate', 'RDS', 'ECR', 'Secrets Manager', 'CloudWatch', 'IAM'],
     productUrl: null,
     githubUrl: null,
@@ -479,18 +504,19 @@ VPS（Ubuntu）上で稼働中のサービスを AWS マネージドサービス
     slug: 'project-h',
     title: 'IslandDev',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Unity 6 / C# 製の 2D 無人島開拓 × 放置ゲーム（Android）。30 日クリア設計・スタミナなしのコンセプトで、100×16 グリッドマップ上の探索・クラフト・施設建設・ボス戦を実装中。',
-    detail: `IslandDev — 無人島開拓 × 放置ゲーム（Android × Unity）
+    description: 'Unity で作った無人島開拓ゲームを、Kotlin Multiplatform（KorGE）で作り直した作品。凍結する前に実装と仕様書の食い違いを解消し、使っていない機能を削除しました。',
+    detail: `IslandDev — 無人島開拓ゲーム（Unity → KorGE 移植）
 
-Unity 6 / C# 製の 2D 無人島開拓 × 放置ゲームです。30 日クリア設計・スタミナなし・ソシャゲ疲れ層向けのデザインコンセプトで開発中です。100×16 統合グリッドマップ上での探索・クラフト・施設建設・ボス戦をゲームループの中核に据えています。
+同じゲームを別の技術で作り直すと設計がどう変わるかを見たくて始めました。
 
-マップは砂浜・森・岩礁・奥地・山頂の 5 ゾーン・100×16 統合グリッドで構成されています。未解放エリアは霧で覆われ、開拓が進むにつれて視界が広がります。自動採取・自動戦闘でプレイヤーの手を離しても資源が集まる放置設計を採用しています。
+砂浜から山頂までのゾーンを開拓し、資源を集め、道具と施設を作って進めます。自動採取・自動戦闘で、手を離しても進む設計です。
 
-集めた資源（木材・石・果実・繊維・貝殻・粘土・竹・鉱石の 8 種）を使って武器 6 種をクラフトし、施設 8 種を建設して採取効率や探索能力を高めます。敵 10 種と門番ボス 5 体を倒すと新エリアが解放されます。
+設計上の判断:
 
-Unity Editor のカスタムツールを自作しており、ボタン操作一つでシーン全体を再構築・参照を自動接続できるため、開発効率を大幅に向上させています。
+・ゲームロジックをエンジンに依存しない純粋な Kotlin に切り出し、描画側と分ける
+・凍結する前に、実装と仕様書の食い違いを解消し、使われていない機能を削除した。止めるときに片付けておかないと、再開できないものになる
 
-現在は Unity 版で確立したゲームデザインを Kotlin Multiplatform（KorGE）で再実装した後継版（IslandDevKot）へ開発を移行しています。エンジンに依存しない純 Kotlin のゲームロジック + 23 テストクラスの自動テストという構成で、「同じゲームを別技術で作り直して設計を磨く」取り組みです。後継版は現在いったん凍結しており、凍結前に実装と仕様書の食い違いを解消し、使われていない機能を削除する整理を行いました。`,
+構成: Unity 6 / C#（初代）、Kotlin / KorGE / KMP（後継版）。`,
     tech: ['Unity 6', 'C#', 'Android', 'Kotlin', 'KorGE', 'KMP'],
     productUrl: null,
     githubUrl: null,
@@ -501,44 +527,21 @@ Unity Editor のカスタムツールを自作しており、ボタン操作一�
     slug: 'project-infralab',
     title: 'InfraLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Linuxインフラ障害を題材に、調査・診断・対処・復旧確認の状態遷移を体験する学習Webアプリ。1,100 件超のコンテンツを全件自動検証付きで運用し、runbook-lab.sorapenguin.dev として本番稼働中。正答・採点ルールをクライアントへ送らない公開境界設計と、StateVersion / IdempotencyKey による競合制御が技術的な特徴。C# / .NET 10 / Blazor WebAssembly / PostgreSQL 構成。',
-    detail: `InfraLab — インフラ障害対応学習サービス（.NET 10 / Blazor WebAssembly・本番稼働中）
+    description: 'Linux の障害対応を、四択ではなく「調べて・原因を選んで・直して・復旧を確認する」流れで練習する学習アプリ。採点と正答はサーバー側に置き、クライアントへは渡していません。C# / .NET・VPS で本番運用中。',
+    detail: `InfraLab — 障害対応の演習サービス（本番運用中）
 
-【概要】
-四択問題で「答えを知っている」だけでは身につかない、障害対応の思考プロセスを練習するシナリオ型Webアプリです。Action/Commandで調査しEvidenceを収集し、原因（Diagnose）→対処（Remediate）→復旧確認（Verify）の順に判断を積み重ねます。状態遷移はサーバー側のScenarioEngineが管理し、フェーズ外の操作や必須Evidence未開示でのDiagnose試行はサーバー側で拒否します。
+単純な四択問題集ではない体験ができないか、と考えたのが出発点です。あわせて C# で 1 本作りたい、という動機もありました。
 
-RouteLabがCisco IOS風CLIでネットワーク設定を練習するのに対し、InfraLabはLinuxサーバー障害を状態遷移型シナリオで体験するサービスです。runbook-lab.sorapenguin.dev として本番公開しています。
+現象を確認し、コマンドで調べ、原因を選び、対処し、復旧を確認する、という順に判断を積み上げます。フェーズを飛ばした操作や、根拠が出ていない状態での原因選択はサーバー側で拒否します。
 
-【学習フロー】
-現象確認（Observe）→ Action/Commandで調査（Investigate）→ 原因選択（Diagnose）→ 対処選択（Remediate）→ 復旧確認チェックリスト（Verify）→ 採点・解説（Review）
+設計上の判断:
 
-シナリオ例:
-- systemdサービスが203/EXECで起動しない（スクリプトの実行権限不足）
-- DNS resolver設定の問い合わせ先が利用できない
-- ブロック容量には空きがあるのにinodeが枯渇してファイル作成できない
+・正答と採点ルールはサーバー内部に置き、クライアントには選択肢のラベルしか送らない。答えが手元に落ちてくる作りでは演習にならない
+・進行状態にバージョンを持たせ、食い違う更新は受け付けない
+・リクエストごとに識別子を付け、同じ操作が二重に届いても結果を作り直さない
+・コンテンツは全件を機械検証にかけてから登録する
 
-【コンテンツ規模と品質管理】
-Linux（LPIC 系）を中心に Docker・Kubernetes・AWS / Azure / GCP のクラウド資格まで、37 科目・1,100 件超のコンテンツを収録しています。全件を ContentValidator による自動検証（重複 0・スキーマエラー 0）にかけ、AI 生成 → レビュー → 検証 → 反映を分離したパイプラインで大量コンテンツの品質を個人で維持しています。
-
-【技術的な特徴】
-C# / .NET 10 / ASP.NET Core Minimal API / Blazor WebAssembly / EF Core 10 / Npgsql / PostgreSQL の構成で実装しています。
-
-設計上のポイントは3点です。
-
-① 正答・採点ルールの非公開化:
-ScenarioPrivate（正答ID・採点ルール・模範解答パス・解説）はサーバー内部に保持します。クライアントには「選択肢のラベル」だけを送り、どれが正答かはAPIレスポンスに含まれません。OpenAPIドキュメントに内部クラス名が出現しないことをテストで検証しています。
-
-② StateVersionによる競合検出:
-各AttemptはStateVersionを持ち、更新のたびに1増加します。クライアントはリクエストに現在のStateVersionを含め、サーバー側で不一致を検出した場合は409を返します。EF CoreのconcurrencyTokenとしてUPDATE文のWHERE句に自動付加され、楽観的ロックとして機能します。
-
-③ IdempotencyKeyによる重複要求対策:
-クライアントがリクエストごとにUUID v4を生成して送信します。サーバーは行ロック（SELECT FOR UPDATE）取得前後の2段階でキーを検索し、同一キーが存在する場合は保存済みの結果をそのまま返します（replay）。PostgreSQLのトランザクションとユニーク制約の組み合わせで、同時実行時の重複挿入も防いでいます。
-
-【テスト】
-PostgreSQL統合テストを含む5テストプロジェクト構成。fault injectionによるトランザクション途中失敗・冪等性・同時実行・完了後拒否のシナリオをカバーしています。
-
-【現在地】
-ScenarioEngine / EfAttemptStore / 公開DTO境界 / APIエンドポイント / BlazorクライアントUIまで実装を完了し、VPS 上で本番稼働中です。RouteLab で経験したクライアント側採点の設計課題を、サーバー側採点・公開境界・競合制御で解決した「設計の進化」を説明できる作品として位置づけています。`,
+構成: C# / .NET / ASP.NET Core Minimal API / Blazor WebAssembly / EF Core / PostgreSQL。Docker + Traefik で VPS に配置。`,
     tech: ['C#', '.NET 10', 'ASP.NET Core', 'Blazor WebAssembly', 'EF Core 10', 'Npgsql', 'PostgreSQL', 'Docker', 'VPS'],
     productUrl: 'https://runbook-lab.sorapenguin.dev',
     githubUrl: null,
@@ -548,19 +551,21 @@ ScenarioEngine / EfAttemptStore / 公開DTO境界 / APIエンドポイント / B
     slug: 'project-golab',
     title: 'GoLab（PathTraceLab）',
     thumbnail: `${base}images/works/project-golab/project-golab-1.png`,
-    description: 'HTTP リクエストが DNS → CDN → LB → WAF → アプリへ届くまでの通信経路をステップごとにトレースして学ぶ学習 Web サービス。Go 標準ライブラリのみ（外部依存ゼロ）+ embed.FS のシングルバイナリ構成で、テスト 479 件。path-trace-lab.sorapenguin.dev として本番稼働中。',
-    detail: `GoLab（PathTraceLab）— HTTP 経路トレース学習サービス（Go・本番稼働中）
+    description: 'HTTP リクエストが DNS から CDN・ロードバランサー・WAF を経てアプリに届くまでを、経路単位でたどって学ぶサービス。外部ライブラリを使わないという制約を先に決めて書きました。Go 製・VPS で本番運用中。',
+    detail: `GoLab（PathTraceLab）— 通信経路の学習サービス（本番運用中）
 
-HTTP リクエストがクライアントからサーバーに届くまでの通信経路（DNS 解決 → CDN → ロードバランサー → WAF → アプリケーション）を、ステップごとにトレースしながら学ぶ Web サービスです。AWS ALB のヘルスチェックやタイムアウトの階層関係など、実務で判断に迷うポイントをラボ 41 件のシナリオに落とし込んでいます。
+Go で 1 本作ること、そして外部依存を持たないという制約を先に決めて始めた作品です。
 
-RouteLab（Cisco CLI 演習・TypeScript/React）、InfraLab（Linux 障害対応・C#/.NET）に続く 3 つ目の学習サービスで、「ネットワーク機器の CLI」「サーバー障害対応」「HTTP/クラウドの通信経路」と題材を棲み分けています。3 サービスを TypeScript / C# / Go という異なる言語・アーキテクチャで実装し、題材に応じた技術選定を行っているのが特徴です。
+設定を選んで仮想的にリクエストを流すと、各段でどう扱われて結果がどうなるかが展開されます。ロードバランサーのヘルスチェックやタイムアウトの階層関係など、実務で判断に迷うところを題材にしています。
 
-【技術的な特徴】
-Go 1.22 の標準ライブラリのみで実装し、フレームワーク・外部依存はゼロです。静的ファイルは embed.FS でバイナリに埋め込み、デプロイは「シングルバイナリ 1 個」で完結します。通信経路のシミュレーションは決定論的に実装し、go test 479 件（全件パス）+ go vet で品質を担保しています。
+設計上の判断:
 
-当初は HTTP 経路（http_path）1 種類だったシミュレーションエンジンを Registry 化し、DNS 解決・VPC 到達性・ファイアウォール評価・IAM 認可の 4 エンジンを追加しました。ラボは Domain / Subcategory の語彙をコード側（internal/lab/taxonomy.go）で強制し、AWS 認定試験（SAA-C03 / SOA-C03）の出題範囲とのマッピングをカタログと相互検証しています。
+・標準ライブラリだけで書き、フレームワークを入れない。静的ファイルもバイナリに埋め込み、配布物を 1 個にする
+・シミュレーションは乱数を使わず決定論的に実装する。学習用途では毎回同じ結果になることが前提
+・題材が増えたところでエンジンを差し替え可能な構造にし、DNS 解決・VPC 到達性・ファイアウォール評価・IAM 認可を後から追加した
+・分類の語彙をコード側で強制し、カタログ構築時に外れたものを落とす
 
-VPS 上で Docker コンテナとして HTTPS 公開中です。`,
+構成: Go 標準ライブラリのみ、embed.FS でシングルバイナリ。Docker + Traefik で VPS に配置。`,
     tech: ['Go', 'net/http', 'embed.FS', 'Docker', 'VPS'],
     productUrl: 'https://path-trace-lab.sorapenguin.dev',
     githubUrl: null,
@@ -570,7 +575,7 @@ VPS 上で Docker コンテナとして HTTPS 公開中です。`,
           `${base}images/works/project-golab/project-golab-1.png`,
           `${base}images/works/project-golab/project-golab-2.png`,
         ],
-        caption: 'トップページには Guided Labs 一覧が表示され、41 件のラボから学習テーマ（Host Routing / Redirect / Timeout / Malformed Response など）を選べます。ラボ詳細画面は 3 ペイン構成で、左に Stage ごとの学習目標・観察ポイント・よくある誤解、中央に構成図（Client → ALB → Application）と設定選択、右に仮想テスト結果を表示します。設定を選んで仮想テストを実行すると、リクエストの流れ（8 ステップ）と各サービスの状態が展開表示され、「なぜその結果になったか」を経路単位で確認できます。',
+        caption: 'トップページには Guided Labs の一覧が表示され、学習テーマ（Host Routing / Redirect / Timeout / Malformed Response など）を選べます。ラボ詳細画面は 3 ペイン構成で、左に Stage ごとの学習目標・観察ポイント・よくある誤解、中央に構成図（Client → ALB → Application）と設定選択、右に仮想テスト結果を表示します。設定を選んで仮想テストを実行すると、リクエストの流れ（8 ステップ）と各サービスの状態が展開表示され、「なぜその結果になったか」を経路単位で確認できます。',
       },
     ],
   },
@@ -578,21 +583,21 @@ VPS 上で Docker コンテナとして HTTPS 公開中です。`,
     slug: 'project-walllab',
     title: 'WallLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Cisco ASA ファイアウォールの CLI を、実際にタイプして練習するドリル。ACL・NAT・object-group・MPF インスペクション・IKEv2 サイト間 VPN まで 180 シナリオを収録し、CLI エンジン（パーサー・状態遷移・採点）を ASA 方言向けに新規実装しています。全 180 本を AI エージェントに実際に解かせて可解性を確認済み。テスト 2,084 件。公開準備中。',
+    description: 'Cisco ASA ファイアウォールの CLI を練習するドリル。RouteLab の Cisco IOS 版に対する ASA 版で、ACL・NAT・インスペクション・サイト間 VPN まで扱います。React + TypeScript 製・公開準備中。',
     detail: `WallLab — Cisco ASA CLI 演習サービス（開発中）
 
-RouteLab（Cisco IOS 風 CLI 演習）と同じ「実際にコマンドをタイプする」学習モダリティを、ファイアウォール（Cisco ASA）に持ち込んだドリルです。ASA は IOS とコマンド体系が別方言で、実機も高価なため、手を動かして覚える機会が作りにくい領域です。CCNP Security 方面の学習を想定しています。
+RouteLab と同じ「実際にコマンドを打つ」形式を、ファイアウォールに広げた作品です。ASA は IOS と別方言で、実機も用意しにくい領域です。
 
-【CLI エンジンを ASA 向けに新規実装】
-RouteLab の設計パターン（モードごとの正規表現リストで入力を解析 → 状態遷移 → 宣言的な条件で採点）を踏襲しつつ、中身は ASA の状態モデルとして書き直しています。インターフェースの nameif / security-level、標準・拡張 ACL と access-group、object network による Auto NAT（スタティック PAT・PAT プール）、object-group、スタティックルート、SSH / ASDM の管理アクセス、logging、time-range 付き ACL、policy-map によるインスペクション（MPF）、IKEv2 / IPsec のサイト間 VPN、Twice NAT による NAT 除外、マルチコンテキストの定義まで実装しています。採点は「その設定が無いこと」も条件に書けるようにしており、消し忘れを問う問題も作れます。
+インターフェース設定、ACL と access-group、NAT、object-group、管理アクセス、インスペクション、サイト間 VPN までを扱います。演習モードは RouteLab と同じ 4 種です。
 
-【4 つの入力モード】
-同じシナリオを違う負荷で解けるよう、選択式（コマンドとパラメーターをボタンで選ぶ）・自由入力（実機同様にタイプ）・写経（模範解答を読み上げながら 1 行ずつ）・カード（読み上げなしのフラッシュカード）を切り替えられます。選択式は「消去法で当たってしまう」ことを避けるため、選択肢を最低 4 個そろえる制約を設けています。
+設計上の判断:
 
-【AI エージェントによる可解性チェック】
-「知識があれば必ず解ける問題になっているか」を確かめるため、収録している 180 シナリオすべてを AI エージェントに実際に解かせ、詰まった箇所を問題文とエンジンの双方に反映しました。この過程で、実装・出題・テストが揃って同じ誤解（ASA 8.3 以降の ACL は変換前アドレスで書く、という仕様の取り違え）をしていたことが判明し、まとめて修正しています。テストが全部緑でも内容の正しさは保証されない、という前提で内容レビューを別工程に置いています。
+・採点条件に「その設定が無いこと」も書けるようにした。消し忘れを問う問題が作れる
+・選択式の選択肢は最低 4 つそろえる
+・シナリオはすべて AI エージェントに解かせて可解性を確認する。この過程で、実装・出題・テストが揃って同じ仕様の誤解をしていた箇所が見つかり、まとめて直した
+・テストが通っていることは、内容が正しいことの保証にならない。内容のレビューは別工程として扱う
 
-React + TypeScript + Vite 構成。サーバーもログインも持たず、ベストスコアはブラウザに保存します。テスト 2,084 件が全件パスしています。`,
+構成: React / TypeScript / Vite / TailwindCSS。サーバーを持たず、記録はブラウザ内に保存。`,
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS', 'Vitest'],
     productUrl: null,
     githubUrl: null,
@@ -603,14 +608,20 @@ React + TypeScript + Vite 構成。サーバーもログインも持たず、ベ
     slug: 'project-cdlab',
     title: 'CLIDrillLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: 'Linux / Docker / Kubernetes を横断する、タイピング式の CLI ドリル。「症状 → 調査 → 対処 → 確認」の流れを 3〜6 ステップのコマンド列として打ち切る形式で、LPIC-1/2/3・Docker・Kubernetes の 5 分野 43 シナリオを収録。React + TypeScript 製・公開準備中。',
+    description: 'Linux / Docker / Kubernetes を横断するタイピング式の CLI ドリル。症状の確認から復旧確認までを、コマンド列として続けて打ち切る形式です。React + TypeScript 製・公開準備中。',
     detail: `CLIDrillLab — Linux / コンテナの CLI ドリル（開発中）
 
-RouteLab で手応えのあった「実際にコマンドをタイプする」体験を、ネットワーク機器から Linux・コンテナ側へ広げた軽量ドリルです。1 シナリオが 1 コマンドで終わらないよう、実務の障害対応と同じ「症状の確認 → 調査 → 対処 → 復旧確認」の順で 3〜6 ステップを続けて打たせます。
+LPIC の上位試験を勉強していて、追加でやれる教材が少なかったのが作ったきっかけです。RouteLab の Cisco 版に対する Linux 版にあたります。
 
-収録は 5 分野 43 シナリオです。LPIC-1（ユーザー管理・パーミッション・プロセス・systemd）、LPIC-2（LVM・mdadm の縮退復旧・NFS・BIND・Apache vhost）、LPIC-3（Samba/AD DC・OpenSSL・SELinux・nftables・KVM/LXC）、Docker（ビルドと起動の切り分け・ボリューム永続化・イメージ最適化・終了コード調査）、Kubernetes（Service の selector 不一致・CrashLoopBackOff・ImagePullBackOff・PVC Pending・OOMKilled・Ingress 502）。
+1 問がコマンド 1 つで終わらないよう、実務と同じ「症状の確認 → 調査 → 対処 → 復旧確認」の順に数ステップを続けて打たせます。LPIC 系に加えて Docker と Kubernetes の典型的な詰まり方を扱います。
 
-判定は完全一致・順序固定という単純な仕様に寄せています。ヒントに正解コマンドそのものを書いてしまうと「読んで写すだけ」になるため、それを機械的に検査するスクリプトを用意し、シナリオ追加時に必ず通しています。コマンド入力部（プロンプト・履歴・Tab 補完）は RouteLab からの移植で、状態機械は持たない軽量な構成です。`,
+設計上の判断:
+
+・判定は完全一致・順序固定に寄せる。曖昧な採点を持ち込むより、打つ手順を覚えることを優先した
+・ヒントに正解コマンドそのものを書かない。書くと写すだけになるため、機械的に検査して追加時に必ず通す
+・コマンド入力部は RouteLab から移植し、状態機械は持たせない
+
+構成: React / TypeScript / Vite / TailwindCSS。`,
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
     productUrl: null,
     githubUrl: null,
@@ -621,19 +632,20 @@ RouteLab で手応えのあった「実際にコマンドをタイプする」�
     slug: 'project-mathlab',
     title: 'MathLab',
     thumbnail: `${base}images/works/coming-soon.png`,
-    description: '大学受験レベルの数学・物理・化学を「式を自分で書いて解く」オンライン問題集。四択ではなく数式を入力し、SymPy で数学的に等しいかを判定します（x^2-4x+3 と (x-1)(x-3) はどちらも正解）。195 問・680 チェックポイント。Python / Flask 製・公開準備中。',
-    detail: `MathLab — 数式を入力して解くオンライン問題集（Python / Flask / SymPy）
+    description: '大学受験レベルの数学・物理・化学を、数式を直接入力して解く問題集。採点は文字列比較ではなく数式処理系による同値判定で、展開形と因数分解形のどちらでも正解になります。Python / Flask 製・公開準備中。',
+    detail: `MathLab — 数式入力式の問題集（公開準備中）
 
-四択ではなく、「3x^2-3」 のような数式をそのまま打ち込んで解く問題集です。答え合わせは文字列比較ではなく SymPy による数学的な同値判定で行うため、展開形でも因数分解形でも正解になります。ただし「平方完成してください」のように形そのものを問う段階では、形も併せて確認します。
+四択では数学が身につかないと考えたのが出発点です。
 
-【1 問を 1 つの答えで終わらせない】
-最初は「問題を出す → 最終解答を 1 回入力 → 正誤」という作りでしたが、それでは紙の問題集と変わらず、どこで詰まったのかも分かりません。現在は 1 問が複数の段階に分かれ、前段の結果を引き継ぎながら進みます（定積分なら、原始関数 → 上端の代入値 → 下端の代入値 → 差の計算）。195 問・680 チェックポイントで構成しています。
+大学受験レベルの数学・物理・化学を、数式を直接入力して解きます。採点は SymPy による同値判定で、「平方完成せよ」のように形を問う設問だけは形も判定します。1 問は複数の段階に分割し、前段の結果を引き継ぎながら進みます。
 
-【数式入力欄は、そのままだとサーバーの実行口になる】
-SymPy の parse_expr は内部で eval を通るため、解答欄に 「__import__("os").getcwd()」 と打つと実際に動いてしまう状態でした。SQL を使っていないので SQL インジェクションとは無縁でしたが、より直接的な RCE がそこにありました。組み込み関数を引けない名前空間での評価・「__」 を含む入力の拒否・使用可能な関数名の列挙・構文木の重さの事前判定という 4 段構えで塞ぎ、それでも重さが読めない式（9^9^9^9 など）に備えて採点計算を別プロセスに出し、3 秒で打ち切ってワーカーごと作り直しています。入力欄を消しても攻撃者は API へ直接 POST するので、守りはサーバー側にしか置けない、という整理です。
+設計上の判断:
 
-【自分で解けない問題を、どう検証するか】
-二次試験レベルの問題は作者自身が即答できないため、テストが全部緑でも中身が間違っている可能性は消えません。そこで検証スクリプトを別に用意し、保存済みの答えを読み直すのではなく問題の式だけを出発点に別経路で計算し直して突き合わせています（定積分の値、形を指定した段階の目標値、解説内の数値表記の揺れ、図にしか出てこない数値など）。最初に出た 47 件のうち 45 件は検査側の誤りでしたが、見たうえで当たらないと判断したものは理由を書いて残しています。「間違っていないこと」は機械で保証し、「良い教材か」は人が見る、という線引きをしています。`,
+・数式の評価はサンドボックス化し、別プロセスで実行して時間で打ち切る（式パーサーが eval を経由するため）
+・出題内容の検証は、保存済みの解答ではなく問題の式から独立に再計算して突き合わせる
+・画面に出す選択肢や判定基準はサーバー側で決める
+
+構成: Python / Flask / SymPy、MathML 組版。フロントエンドはビルドステップなし。`,
     tech: ['Python', 'Flask', 'SymPy', 'MathML', 'JavaScript'],
     productUrl: null,
     githubUrl: null,
@@ -674,19 +686,21 @@ Kotlin Multiplatform（KorGE 6.0）製の 2.5D 探索ゲーム本編と、「不
     slug: 'project-starsaga',
     title: 'StarSaga',
     thumbnail: `${base}images/works/project-starsaga/project-starsaga-2.png`,
-    description: 'Kotlin Multiplatform（KorGE）製のモンスター収集 RPG。ひとつのコードから Android・デスクトップ（JVM）・ブラウザ（Kotlin/JS）の 3 ターゲットへ出力しています。「出撃 3 体の役割の組み合わせで星座が決まる」編成システムが特徴。ブラウザ版はインストール不要で、リンクから直接遊べます（公開準備中）。',
+    description: 'ブラウザでもスマホでも遊べるモンスター収集 RPG。ひとつのコードから Android・デスクトップ・ブラウザの 3 つに出しています。出撃 3 体の役割の組み合わせで効果が決まる編成システムが中心です。Kotlin Multiplatform（KorGE）製。',
     detail: `StarSaga — モンスター収集 RPG（Kotlin Multiplatform / KorGE）
 
-星から星へ渡り歩きながら仲間を集める 2D 収集 RPG です。第 1〜第 4 惑星までのゲームループが完成しており、新規開始からラスボス撃破・エンディングまで通してプレイできます。
+自分が面白いと思うゲームを実装してみたかった、というのが出発点です。
 
-【編成を毎回の判断にする「星座」システム】
-「強い 3 体を選んで固定する」ことになりがちな編成に、判断を戻すための仕組みとして星座を設計しました。出撃 3 体の役割（攻撃・防御・回復・範囲・幸運）の組み合わせでパーティ全体の効果が決まり、組み合わせは 35 種類。図鑑に記録され、どの組を試すかがそのまま遊びになります。仕様を増やさずに選択の意味を増やす方向で作っており、プレイヤーが新しく覚えることは「3 体の組で効果が変わる」の一行だけです。
+星を渡り歩いて仲間を集め、出撃 3 体の役割の組み合わせで決まる「星座」を集めていきます。第 1 惑星から第 4 惑星までを通してプレイでき、エンディングまで到達します。
 
-【ひとつのコードで 3 ターゲット】
-ゲームロジック・マップ・セーブは共通コードに置き、プラットフォーム差（時刻・セーブ先・デバッグ判定）だけを expect/actual で分けています。セーブ先は Android が DataStore、デスクトップが JSON ファイル、ブラウザが localStorage です。ブラウザ版を出すにあたっては、初回ロードの大半を占めていた日本語フォント（9.4MB）を、ゲームが実際に描く文字だけのサブセット（261KB）に差し替えました。サブセット化のかけ忘れは自動テストが検出します（ソース中の全文字がフォントに含まれるかを検証）。
+設計上の判断:
 
-【内容の正しさをテストで守る】
-マップの到達性（行けない場所に目標が置かれていないか）、セーブの互換性、AUTO 戦闘の安全装置、ブラウザ版で必要な画像の列挙漏れなどを自動テストで守っています。見た目を確認しないと分からない不具合は残りますが、「気付かないまま壊れる」種類の不具合はビルドで落ちる状態を保っています。`,
+・強い 3 体を選んで固定して終わり、にならないよう、編成の組み合わせ自体に効果を持たせる。覚えることは 1 つだけ増やす
+・ゲームロジックは共通コードに置き、時刻・セーブ先・デバッグ判定だけをプラットフォームごとに分ける
+・ブラウザ版を出すにあたり、初回ロードの大半を占めていた日本語フォントを、実際に描く文字だけのサブセットに差し替えた。差し替え忘れは自動テストで検出する
+・配布はインストールが要らないブラウザ版を主にする
+
+構成: Kotlin / KorGE / Kotlin Multiplatform（Android / JVM / Kotlin/JS）。ブラウザ版は Docker + nginx で配信予定。`,
     tech: ['Kotlin', 'KMP', 'KorGE', 'Kotlin/JS', 'kotlinx.serialization', 'DataStore', 'kotlin.test', 'Docker', 'nginx'],
     // TODO: starsaga.sorapenguin.dev へデプロイしたら、そのURLをここに入れる
     productUrl: null,
