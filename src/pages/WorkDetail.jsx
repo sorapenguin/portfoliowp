@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { projects } from '../data/projects'
+import updated from '../data/updated.json'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
@@ -48,6 +49,16 @@ export default function WorkDetail() {
       <div className="work-detail">
         <Link to="/" state={{ scrollTo: 'works' }} className="back-link">← 制作物一覧に戻る</Link>
         <h2>{project.title}</h2>
+        {updated[project.slug] && (
+          <p className="work-updated">
+            最終更新:{' '}
+            {new Date(updated[project.slug]).toLocaleDateString('ja-JP', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+            })}
+          </p>
+        )}
         <div className="tech-tags">
           {project.tech.map((t) => (
             <span className="tech-tag" key={t}>{t}</span>
