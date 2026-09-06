@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" font-family="'Noto Sans JP','Yu Gothic UI','Hiragino Kaku Gothic ProN','Meiryo',sans-serif">
+<rect width="1200" height="750" fill="#F7F9FC"/>
+<rect x="0" y="0" width="1200" height="10" fill="#8AB3DC"/>
+<text x="90" y="300" font-size="58" font-weight="700" fill="#1F2933">AI 活用とインフラ基盤</text>
+<text x="90" y="372" font-size="27" fill="#5B6875">作って、公開して、運用し続けるための土台</text>
+<line x1="90" y1="420" x2="560" y2="420" stroke="#C7D4E2" stroke-width="3"/>
+<text x="90" y="480" font-size="24" fill="#3F6FA8">実装は任せる</text>
+<text x="90" y="522" font-size="24" fill="#B26A00">何を作るかは決める</text>
+<text x="90" y="564" font-size="24" fill="#1F7A54">違うと言えるところまで見る</text>
+</svg>
